@@ -23,7 +23,7 @@ class Baza {
         self::$veza->close();
     }
 
-    function provedi($upit)
+    function dohvati($upit)
     {
         $veza = self::spojiNaBazu();
         $rezultat = null;
@@ -38,6 +38,24 @@ class Baza {
             echo "Pogreška kod upita: ".$veza->error;
             self::ugasiVezu();
             return $rezultat;
+        }
+    }
+
+    function provedi($upit) 
+    {
+        $veza = self::spojiNaBazu();
+        $rezultat = null;
+        
+        if($rezultat = $veza->query($upit))
+        {
+            self::ugasiVezu();
+            return true;
+        }
+        else
+        {
+            echo "Pogreška kod upita: ".$veza->error;
+            self::ugasiVezu();
+            return false;
         }
     }
 }
