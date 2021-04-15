@@ -28,13 +28,9 @@ class Sesija {
     static function provjeriSesiju() {
         session_name(self::SESSION_NAME);
 
-        /*
-         * RADI NA PHP >= 5.4
         if (session_status() != PHP_SESSION_ACTIVE) {
             session_start();
         }
-         * 
-         */
         
         if(session_id() == ""){
             session_start();
@@ -50,7 +46,8 @@ class Sesija {
 
     static function dohvatiSesiju() 
     {
-        session_name(self::SESSION_NAME);
+        if (session_status() != PHP_SESSION_ACTIVE)
+            session_name(self::SESSION_NAME);
         
         if(session_id() == ""){
             session_start();

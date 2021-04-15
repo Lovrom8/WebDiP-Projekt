@@ -2,10 +2,10 @@
 require_once 'baza.php';
 
 abstract class Korisnici {
-    const Neregistiran = 0;
-    const Prometnik = 1;
-    const Moderator = 2;
-    const Administrator = 3;
+    const Neregistiran = 1;
+    const Prometnik = 2;
+    const Moderator = 3;
+    const Administrator = 4;
 }
 
 class Korisnik {

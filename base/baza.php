@@ -1,5 +1,4 @@
 <?php
-include_once 'base/baza.php';
 include_once 'config.php';
 
 class Baza {

@@ -1,6 +1,6 @@
 <?php
 require_once 'base/sesija.php';
-
+require_once 'base/korisnici.php';
 ?>
 
 <!DOCTYPE html>
@@ -8,19 +8,33 @@ require_once 'base/sesija.php';
     <head>
         <link rel="stylesheet" href="css/lposaric.css">
         <title>Promet</title>
+        <link rel="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     </head>
     <body>
     <header class="header">
             <h1><a href="#sadrzaj">Promet</a></h1>
             <nav>
-            <?php if (!Sesija::provjeriSesiju()) { ?>
-                    <a href="prijava.php">Prijava</a>
-                    <a href="registracija.php">Registracija</a>
-                <?php } else {  ?>
-                    <a href="odjava.php" id="odjava">Odjava</a>
-                <?php } ?> 
-                <a href="dokumentacija.html">Dokumentacija</a>
-                <a href="autor.html">O autoru</a>
+            <a href="dokumentacija.html">Dokumentacija</a>
+            <a href="autor.html">O autoru</a>
+            <?php if (!Sesija::provjeriSesiju()) { 
+                   echo "<a href=\"prijava.php\">Prijava</a>
+                         <a href=\"registracija.php\">Registracija</a> ";
+                  } 
+                  else {  
+                    if(Sesija::tipKorisnika() >= Korisnici::Moderator) {
+                        if(Sesija::tipKorisnika() == Korisnici::Administrator) {
+                            echo "<a href=\"kategorije.php\">Kategorije</a>
+                                  <a href=\"postavke.php\">Postavke</a> ";
+                        }  
+
+                        echo "<a href=\"dionicaDodaj.php\">Nova dionica</a> ";
+                    } 
+                    
+                    echo "<a href=\"odjava.php\">Odjava</a> ";
+                } 
+            ?> 
             </nav>
         </header>
         <main id="sadrzaj">
@@ -54,5 +68,6 @@ require_once 'base/sesija.php';
                 </a>
             </figure>
         </footer>
+        <script src="js/ajax_dionice.js"></script>
     </body>
 </html>
