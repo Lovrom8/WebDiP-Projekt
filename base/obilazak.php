@@ -13,13 +13,14 @@ class Obilazak {
     static function dohvatiSve($idKorisnika)
     {
         $baza = new Baza();
-        $upit = "SELECT * FROM Obilazak";
+        $upit = "SELECT Oznaka, Datum FROM Obilazak O JOIN Dionica D ON D.ID_dionica = O.ID_dionica WHERE O.ID_korisnik = '$idKorisnika'";
 
         $obilasci = array();
         $rezultat = $baza->dohvati($upit);
         while($red=$rezultat->fetch_assoc()){
             $obilasci[] = $red;
         }
+
         return $obilasci;
     }
 }
