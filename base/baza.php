@@ -20,7 +20,7 @@ class Baza {
 
     private static function ugasiVezu()
     {
-        self::$veza->close();
+        //$veza->close();
     }
 
     function dohvati($upit)
