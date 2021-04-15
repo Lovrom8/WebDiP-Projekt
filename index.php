@@ -1,3 +1,8 @@
+<?php
+require_once 'base/sesija.php';
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,8 +13,12 @@
     <header class="header">
             <h1><a href="#sadrzaj">Promet</a></h1>
             <nav>
-                <a href="obrasci/prijava.html">Prijava</a>
-                <a href="obrasci/registracija.html">Registracija</a>
+            <?php if (!Sesija::provjeriSesiju()) { ?>
+                    <a href="prijava.php">Prijava</a>
+                    <a href="registracija.php">Registracija</a>
+                <?php } else {  ?>
+                    <a href="odjava.php" id="odjava">Odjava</a>
+                <?php } ?> 
                 <a href="dokumentacija.html">Dokumentacija</a>
                 <a href="autor.html">O autoru</a>
             </nav>
@@ -35,13 +44,13 @@
             </table>
         </main>
         <footer>
-            <p><a href="../autor.html">Autor: Lovro Posarić &copy; 2021</a></p>
+            <p><a href="autor.html">Autor: Lovro Posarić &copy; 2021</a></p>
             <figure>
                 <a target="_blank" href="http://validator.w3.org/check?uri=http://barka.foi.hr/WebDiP/2020/zadaca_01/lposaric/obrasci/prijava.html">
-                    <img class="footer__img" alt="HTML Valid" src="../multimedija/HTML5.png">
+                    <img class="footer__img" alt="HTML Valid" src="multimedija/HTML5.png">
                 </a>
                 <a target="_blank" href="https://jigsaw.w3.org/css-validator/validator?uri=http://barka.foi.hr/WebDiP/2020/zadaca_01/lposaric/obrasci/prijava.html">
-                    <img class="footer__img" alt="CSS Valid" src="../multimedija/CSS3.png">
+                    <img class="footer__img" alt="CSS Valid" src="multimedija/CSS3.png">
                 </a>
             </figure>
         </footer>
