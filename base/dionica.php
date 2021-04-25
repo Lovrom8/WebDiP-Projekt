@@ -15,9 +15,10 @@ class Dionica {
         $dionice = array();
         $upit = "";
 
-        $upit = "SELECT D.*, O.Naziv AS Odredište, P.Naziv AS Polazište FROM Dionica D
+        $upit = "SELECT D.*, O.Naziv AS Odredište, P.Naziv AS Polazište, K.Naziv_kategorije FROM Dionica D
                  JOIN Grad O ON O.ID_grada = D.ID_grada_odredište
-                 JOIN Grad P ON P.ID_grada = D.ID_grada_polazište";
+                 JOIN Grad P ON P.ID_grada = D.ID_grada_polazište
+                 JOIN Kategorija K ON K.ID_kategorija = D.ID_kategorija";
 
         $rezultat = $baza->dohvati($upit);
         while($red=$rezultat->fetch_assoc()){

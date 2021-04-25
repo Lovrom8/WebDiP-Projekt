@@ -4,7 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Lovro Posarić">
-        <link rel="stylesheet" type="text/css" href="../css/lposaric.css">
+        <link rel="stylesheet" href="../../css/lposaric.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
         <title>{block name=title}{/block}Promet</title>
         {block name=css}{/block}
@@ -15,6 +18,11 @@
             <nav>
             <a href="dokumentacija.html">Dokumentacija</a>
             <a href="autor.html">O autoru</a>
+            <a href="registracija.php">Registracija</a>
+            <a href="odjava.php">Odjava</a>
+            <a href="prijava.php">Prijava</a>
+            <a href="dokumenti.php">Dokumenti</a>
+            <a href="problemi.php">Dokumenti</a>
             <!--<?php if (!Sesija::provjeriSesiju()) { 
                    echo "<a href=\"prijava.php\">Prijava</a>
                          <a href=\"registracija.php\">Registracija</a> ";
@@ -48,7 +56,9 @@
                 </a>
             </figure>
         </footer>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
         {block name=javascript}
         {/block}
