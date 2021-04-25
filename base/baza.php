@@ -4,8 +4,7 @@ include_once 'config.php';
 class Baza {
     private $veza = null;
 
-    private static function spojiNaBazu()
-    {
+    private static function spojiNaBazu() {
         $baza = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
         if($baza->connect_errno) 
@@ -15,6 +14,10 @@ class Baza {
 
         $baza->set_charset("utf8");
         return $baza;
+    }
+
+    function dohvatiVezu() {
+        return self::spojiNaBazu();
     }
 
     private static function ugasiVezu()

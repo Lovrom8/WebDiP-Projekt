@@ -38,10 +38,6 @@ class Dionica {
 
         return $baza->provedi($upit);
     }
-
-    static function dohvatiZatvoreneRSS() {
-        
-    }
 }
 
 ?>
