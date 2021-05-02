@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(() => {
     $.ajax({
         type: "POST",
         data: {
@@ -6,13 +6,27 @@ $(document).ready(function(){
         },
         url: "base/dohvati.php",
         dataType: "json",
-        success: function(data) {
-            $.each(data, function() {
+        success: (data) => {
+            $.each(data, (i, el) => {
                 $("#kategorija").append(
-                   $("<option></option>").val(this.ID_kategorija).html(this.Naziv_kategorije)
+                   $("<option></option>").val(el.ID_kategorija).html(el.Naziv_kategorije)
                 )
             });
-        }, error: function(er) {
+
+            $('#kategorije').DataTable ({
+                "data" : data,
+                "columns" : [
+                    {  "data" : "Naziv_kategorije" },
+                    {   
+                       "data": null,
+                       "render": function ( data, type, row, meta ) {
+                           return '<a href=moderatoriKategorije.php?id='+data.ID_kategorija+'>Uredi moderatore</a>'; 
+                        }
+                    }
+                ]
+            } );     
+
+        }, error: (er) => {
             console.log(er);
         }
     });   
