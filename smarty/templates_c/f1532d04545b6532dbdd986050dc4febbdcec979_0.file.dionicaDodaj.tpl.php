@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-05-03 00:03:02
+/* Smarty version 3.1.39, created on 2021-05-03 00:30:19
   from 'C:\Users\38598\Documents\FOI\WebDIP\WebDiP\ProjektActual\WebDiP-Projekt\smarty\templates\dionicaDodaj.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_608f2196bf28e3_72175216',
+  'unifunc' => 'content_608f27fbf35089_24996052',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f1532d04545b6532dbdd986050dc4febbdcec979' => 
     array (
       0 => 'C:\\Users\\38598\\Documents\\FOI\\WebDIP\\WebDiP\\ProjektActual\\WebDiP-Projekt\\smarty\\templates\\dionicaDodaj.tpl',
-      1 => 1619992979,
+      1 => 1619993601,
       2 => 'file',
     ),
   ),
@@ -20,35 +20,35 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_608f2196bf28e3_72175216 (Smarty_Internal_Template $_smarty_tpl) {
+function content_608f27fbf35089_24996052 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_182701774608f2196be40b8_58938780', 'naslov');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1086651221608f27fbf26402_62260637', 'naslov');
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1179939479608f2196be8141_85446332', 'css');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1369815595608f27fbf2a7b0_72196213', 'css');
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1854201391608f2196beb808_12287306', 'sadrzaj');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1765215728608f27fbf2eed7_51590339', 'sadrzaj');
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1715035462608f2196befc32_89178037', 'javascript');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_871186751608f27fbf327a3_60738887', 'javascript');
 $_smarty_tpl->inheritance->endChild($_smarty_tpl, "base.tpl");
 }
 /* {block 'naslov'} */
-class Block_182701774608f2196be40b8_58938780 extends Smarty_Internal_Block
+class Block_1086651221608f27fbf26402_62260637 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'naslov' => 
   array (
-    0 => 'Block_182701774608f2196be40b8_58938780',
+    0 => 'Block_1086651221608f27fbf26402_62260637',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -58,12 +58,12 @@ Nova dionica<?php
 }
 /* {/block 'naslov'} */
 /* {block 'css'} */
-class Block_1179939479608f2196be8141_85446332 extends Smarty_Internal_Block
+class Block_1369815595608f27fbf2a7b0_72196213 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'css' => 
   array (
-    0 => 'Block_1179939479608f2196be8141_85446332',
+    0 => 'Block_1369815595608f27fbf2a7b0_72196213',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -75,12 +75,12 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 }
 /* {/block 'css'} */
 /* {block 'sadrzaj'} */
-class Block_1854201391608f2196beb808_12287306 extends Smarty_Internal_Block
+class Block_1765215728608f27fbf2eed7_51590339 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'sadrzaj' => 
   array (
-    0 => 'Block_1854201391608f2196beb808_12287306',
+    0 => 'Block_1765215728608f27fbf2eed7_51590339',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -95,6 +95,8 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
                     <input type="text" id="odrediste" name="odrediste" required> <br>
                     <label for="polaziste">Polazište:</label><br>
                     <input type="text" id="polaziste" name="polaziste" required> <br>
+                    <label for="broj_km">Broj kilometara:</label><br>
+                    <input type="number" id="broj_km" name="broj_km" required> <br>
                     <input type="submit" value="Dodaj dionicu" name="Submit" />
         </form>
 <?php
@@ -102,12 +104,12 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 }
 /* {/block 'sadrzaj'} */
 /* {block 'javascript'} */
-class Block_1715035462608f2196befc32_89178037 extends Smarty_Internal_Block
+class Block_871186751608f27fbf327a3_60738887 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'javascript' => 
   array (
-    0 => 'Block_1715035462608f2196befc32_89178037',
+    0 => 'Block_871186751608f27fbf327a3_60738887',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {

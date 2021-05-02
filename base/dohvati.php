@@ -1,15 +1,21 @@
 <?php
 
+include_once './sesija.php';
 include_once './dionica.php';
 include_once './dokument.php';
 include_once './problem.php';
 include_once './obilazak.php';
 include_once './kategorija.php';
+include_once './dnevnik.php';
+include_once './grad.php';
 
 session_start();
 
 if (isset($_POST['dokumenti'])) {
-    echo json_encode(Dokument::dohvatiDokumente(false));
+    if(Sesija::tipKorisnika() > Korisnici::Prometnik) 
+        echo json_encode(Dokument::dohvatiDokumente(true));
+    else
+        echo json_encode(Dokument::dohvatiDokumente(false));
 }
 
 if (isset($_POST['dionice'])) {
@@ -50,6 +56,14 @@ if (isset($_POST['statistika_koristenja'])) {
 
 if (isset($_POST['kategorije'])) {
     echo json_encode(Kategorija::dohvatiSve());
+}
+
+if (isset($_POST['moderatori_kategorije'])) {
+    echo json_encode(Kategorija::dohvatiSModeratorima($_POST['moderatori_kategorije']));
+}
+
+if (isset($_POST['gradovi'])) {
+    echo json_encode(Grad::dohvatiSve());
 }
 
 ?>

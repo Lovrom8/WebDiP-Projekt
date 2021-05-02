@@ -1,13 +1,35 @@
 <?php
 include_once 'baza.php';
+include_once 'grad.php';
 
 class Dionica {
-    static function dodaj($oznaka, $idPocetak, $idOdrediste, $idKategorija, $brojKilometara, $otvorena) 
+    static function dodaj($oznaka, $polaziste, $odrediste, $idKategorija, $brojKilometara, $otvorena) 
     {
-        $baza = new Baza();
-        $upit = "INSERT INTO Dionica (Oznaka, Broj_kilometara, Otvorena, ID_grada_polazište, ID_grada_odredište, ID_kategorija) VALUES ('$oznaka', '$brojKilometara', '$otvorena', '$idPocetak', '$idOdrediste', '$idKategorija')";
+        echo $idKategorija;
 
-        return $baza->provedi($upit);
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+        $idPolaziste = -1;
+        $idOdrediste = -1;
+
+        $baza = new Baza();
+        $veza = $baza->dohvatiVezu();
+
+        $idPolaziste = Grad::dohvatiId($polaziste);
+        $idOdrediste = Grad::dohvatiId($odrediste);
+
+        if($idPolaziste == -1 || $idOdrediste == -1)
+            return false;
+
+        $upit = $veza->prepare("INSERT INTO Dionica (Oznaka, Broj_kilometara, Otvorena, ID_grada_polazište, ID_grada_odredište, ID_kategorija) VALUES (?, ?, ?, ?, ?, ?)");
+        $upit->bind_param("ssssss", $oznaka, $brojKilometara, $otvorena, $idPolaziste, $idOdrediste, $idKategorija);
+        $upit->execute();
+            
+        $uspjesno = $upit->affected_rows == 1;
+
+        $upit->close();
+
+        return $uspjesno;
     }
 
     static function dohvatiSve() {

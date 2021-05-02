@@ -13,6 +13,8 @@
                     <input type="text" id="odrediste" name="odrediste" required> <br>
                     <label for="polaziste">Polazište:</label><br>
                     <input type="text" id="polaziste" name="polaziste" required> <br>
+                    <label for="broj_km">Broj kilometara:</label><br>
+                    <input type="number" id="broj_km" name="broj_km" required> <br>
                     <input type="submit" value="Dodaj dionicu" name="Submit" />
         </form>
 {/block}
