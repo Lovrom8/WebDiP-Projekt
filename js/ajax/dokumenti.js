@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(() => {
     $.ajax({
         type: "POST",
         data: {
@@ -6,16 +6,33 @@ $(document).ready(function(){
         },
         url: "base/dohvati.php",
         dataType: "json",
-        async: false,
-        success: function(data) {
-
+        success: (data) => {
             $('#dokumenti').DataTable ({
                 "data" : data,
                 "columns" : [
                     {"data" : "Naslov"},
                     {"data" : "Status"},
-                    {"data" : "Poveznica"}
-                ]
+                    {"data" : "Poveznica"},
+                    {
+                        "data": null,
+                        "render": function ( data, type, row, meta ) {
+                          return '<a href=dokumenti.php?idDokumenta='+data.ID_dokument+'&status=1>Potvrdi</a>'; 
+                        }
+                    },
+                    {
+                        "data": null,
+                        "render": function ( data, type, row, meta ) {
+                          return '<a href=dokumenti.php?idDokumenta='+data.ID_dokument+'&status=2>Odbij</a>'; 
+                        }
+                    },
+                ],
+                "createdRow" : ( row, rowData, dataIndex ) => {
+                    if ( rowData.Status === '1' ) {        
+                        $(row).addClass('zeleniRed');
+                    } else if ( rowData.Status === '2') {
+                        $(row).addClass('crveniRed');
+                    }
+                }
             } );        
         }
     });   

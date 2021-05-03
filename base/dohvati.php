@@ -13,9 +13,9 @@ session_start();
 
 if (isset($_POST['dokumenti'])) {
     if(Sesija::tipKorisnika() > Korisnici::Prometnik) 
-        echo json_encode(Dokument::dohvatiDokumente(true));
-    else
         echo json_encode(Dokument::dohvatiDokumente(false));
+    else
+        echo json_encode(Dokument::dohvatiDokumente(true));
 }
 
 if (isset($_POST['dionice'])) {
