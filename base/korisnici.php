@@ -32,6 +32,7 @@ abstract class Akcije {
     const AzuriranjeDionice = 13;
     const Registracija = 14;
     const Aktivacija = 15;
+    const Posjeta = 16;
 }
 
 class Korisnik {
