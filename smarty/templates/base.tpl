@@ -16,31 +16,30 @@
      <header class="header">
             <h1><a href="#sadrzaj">Promet</a></h1>
             <nav>
+            <a href="index.php">Početna</a>
             <a href="dokumentacija.html">Dokumentacija</a>
             <a href="autor.html">O autoru</a>
-            <a href="registracija.php">Registracija</a>
-            <a href="odjava.php">Odjava</a>
-            <a href="prijava.php">Prijava</a>
-            <a href="dokumenti.php">Dokumenti</a>
-            <a href="problemi.php">Dokumenti</a>
-            <!--<?php if (!Sesija::provjeriSesiju()) { 
-                   echo "<a href=\"prijava.php\">Prijava</a>
-                         <a href=\"registracija.php\">Registracija</a> ";
-                  } 
-                  else {  
-                    if(Sesija::tipKorisnika() >= Korisnici::Moderator) {
-                        if(Sesija::tipKorisnika() == Korisnici::Administrator) {
-                            echo "<a href=\"kategorije.php\">Kategorije</a>
-                                  <a href=\"postavke.php\">Postavke</a> ";
-                        }  
 
-                        echo "<a href=\"dionicaDodaj.php\">Nova dionica</a> ";
-                    } 
-                    
-                    echo "<a href=\"odjava.php\">Odjava</a> ";
-                } 
-            ?> -->
-            </nav>
+            {if isset($smarty.session.ID) }
+                {if ( $smarty.session.tip > 1)}
+                    <a href="dokumenti.php">Dokumenti</a>
+                    <a href="problemi.php">Problemi</a>            
+                {/if}
+
+                {if ( $smarty.session.tip > 2)}
+                    <a href="dionicaDodaj.php">Nova dionica</a>
+                {/if}
+
+                {if ( $smarty.session.tip eq 4)}
+                    <a href="kategorije.php">Kategorije</a>
+                    <a href="postavke.php">Postavke</a>
+                {/if}
+                
+                <a href="odjava.php">Odjava</a>
+            {else}
+                <a href="prijava.php">Prijava</a>
+                <a href="registracija.php">Registracija</a>
+            {/if}   
       </header>
       <main id="sadrzaj">
         {block name=sadrzaj}{/block}
@@ -48,10 +47,10 @@
       <footer>
             <p><a href="autor.html">Autor: Lovro Posarić &copy; 2021</a></p>
             <figure>
-                <a target="_blank" href="http://validator.w3.org/check?uri=http://barka.foi.hr/WebDiP/2020/zadaca_01/lposaric/obrasci/prijava.html">
+                <a target="_blank" href="http://validator.w3.org/check?uri={$smarty.server.HTTP_HOST}{$smarty.server.REQUEST_URI}">
                     <img class="footer__img" alt="HTML Valid" src="multimedija/HTML5.png">
                 </a>
-                <a target="_blank" href="https://jigsaw.w3.org/css-validator/validator?uri=http://barka.foi.hr/WebDiP/2020/zadaca_01/lposaric/obrasci/prijava.html">
+                <a target="_blank" href="https://jigsaw.w3.org/css-validator/validator?uri={$smarty.server.HTTP_HOST}{$smarty.server.REQUEST_URI}">
                     <img class="footer__img" alt="CSS Valid" src="multimedija/CSS3.png">
                 </a>
             </figure>
