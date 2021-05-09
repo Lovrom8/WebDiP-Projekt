@@ -17,6 +17,7 @@
                 <th>Završna dionica</th>
                 <th>Kategorija</th>
                 <th id="dok" style="display:none;">Dokument</th>
+                <th id="obil">Obilazak</th>
             </tr>
         </thead>
     </table>

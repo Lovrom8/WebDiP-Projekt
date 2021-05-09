@@ -17,9 +17,11 @@ if(Sesija::provjeriSesiju()){
     die();
 }
 
-$myJSON = json_encode(Obilazak::dohvatiSve(4));
-
-echo $myJSON;
+/*if($_SERVER["HTTPS"] != "on")
+{
+    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+    exit();
+}*/
 
 if($_SERVER["REQUEST_METHOD"] == "POST") 
 {
@@ -47,8 +49,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         
         if($greske == "") {
             Dnevnik::dodajZapis(Akcije::Prijava, "", Sesija::dohvatiSesiju());
-            //header("Location: index.php");
-            //die();
+            header("Location: index.php");
+            die();
         }
         else
             echo $greske;

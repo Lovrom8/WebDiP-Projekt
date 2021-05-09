@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-04-26 01:53:02
+/* Smarty version 3.1.39, created on 2021-05-03 20:34:42
   from 'C:\Users\38598\Documents\FOI\WebDIP\WebDiP\ProjektActual\WebDiP-Projekt\smarty\templates\index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_608600de292d51_88973165',
+  'unifunc' => 'content_60904242e60363_75031794',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '220843175e27970310771e3aa1158f15aca39fc3' => 
     array (
       0 => 'C:\\Users\\38598\\Documents\\FOI\\WebDIP\\WebDiP\\ProjektActual\\WebDiP-Projekt\\smarty\\templates\\index.tpl',
-      1 => 1619394776,
+      1 => 1620057767,
       2 => 'file',
     ),
   ),
@@ -20,27 +20,27 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_608600de292d51_88973165 (Smarty_Internal_Template $_smarty_tpl) {
+function content_60904242e60363_75031794 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_916840024608600de288522_74850297', 'sadrzaj');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_9449348660904242e52b36_17974360', 'sadrzaj');
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_597140058608600de28a9d5_38828010', 'javascript');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_153312685160904242e55e29_47125864', 'javascript');
 $_smarty_tpl->inheritance->endChild($_smarty_tpl, "base.tpl");
 }
 /* {block 'sadrzaj'} */
-class Block_916840024608600de288522_74850297 extends Smarty_Internal_Block
+class Block_9449348660904242e52b36_17974360 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'sadrzaj' => 
   array (
-    0 => 'Block_916840024608600de288522_74850297',
+    0 => 'Block_9449348660904242e52b36_17974360',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -63,6 +63,7 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
                 <th>Završna dionica</th>
                 <th>Kategorija</th>
                 <th id="dok" style="display:none;">Dokument</th>
+                <th id="obil">Obilazak</th>
             </tr>
         </thead>
     </table>
@@ -71,12 +72,12 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 }
 /* {/block 'sadrzaj'} */
 /* {block 'javascript'} */
-class Block_597140058608600de28a9d5_38828010 extends Smarty_Internal_Block
+class Block_153312685160904242e55e29_47125864 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'javascript' => 
   array (
-    0 => 'Block_597140058608600de28a9d5_38828010',
+    0 => 'Block_153312685160904242e55e29_47125864',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {

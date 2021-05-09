@@ -33,6 +33,7 @@ abstract class Akcije {
     const Registracija = 14;
     const Aktivacija = 15;
     const Posjeta = 16;
+    const EvidentiranjeObilaska = 17;
 }
 
 class Korisnik {
@@ -78,8 +79,6 @@ class Korisnik {
     }
 
     static function DodajKorisnika($korisnickoIme, $lozinka, $email, $ime, $prezime, $token) {
-        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();
    
@@ -105,17 +104,31 @@ class Korisnik {
 
     static function ProvjeriEmail($email) {
         $baza = new Baza();
-        $upit = "SELECT email FROM Korisnik WHERE email='".$email."';";
-        $rezultat = $baza->dohvati($upit);
-    
+        $veza = $baza->dohvatiVezu();
+
+        $upit = $veza->prepare("SELECT email FROM Korisnik WHERE email=?");
+        $upit->bind_param("s", $email); 
+        $upit->execute();
+        
+        $rezultat = $upit->get_result();
+        
+        $upit->close();
+
         return $rezultat->num_rows == 0;
     }
 
     static function ProvjeriUsername($username) {
         $baza = new Baza();
-        $upit = "SELECT Korisnicko_ime FROM Korisnik WHERE Korisnicko_ime='".$username."';";
-        $rezultat = $baza->dohvati($upit);
-    
+        $veza = $baza->dohvatiVezu();
+
+        $upit = $veza->prepare("SELECT Korisnicko_ime FROM Korisnik WHERE Korisnicko_ime=?");
+        $upit->bind_param("s", $username); 
+        $upit->execute();
+        
+        $rezultat = $upit->get_result();
+        
+        $upit->close();
+
         return $rezultat->num_rows == 0;
     }
 
@@ -124,8 +137,9 @@ class Korisnik {
 
         $actual_link = "http://$_SERVER[HTTP_HOST]/"."aktivacija.php?token=" . $token;
         $subject = "Aktivacijski mail";
-        $content = "Kliknite ovdje da biste aktivirali svoj račun. <a href='" . $actual_link . "'>" . $actual_link . "</a>";
+        $content = "Kliknite ovdje da biste aktivirali svoj račun: $actual_link";
         $mailHeaders = "From: Admin\r\n";
+
         if(mail($email, $subject, $content, $mailHeaders)) {
             $rezultat = "Aktivacijski mail poslan je na Vaš email.";	
         }else{
@@ -136,7 +150,22 @@ class Korisnik {
     }
 
     static function AktivirajRacun($token) {
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
+        $baza = new Baza();
+        $veza = $baza->dohvatiVezu();
+
+        $upit = $veza->prepare("UPDATE Korisnik SET Status = 1 WHERE token = ?");
+        $upit->bind_param("s", $token);
+        $upit->execute();
+                
+        //Dnevnik::dodajZapis(Akcije::Aktivacija, "", $veza->insert_id);
+
+        $uspjesno = $upit->affected_rows == 1;
+
+        $upit->close();
+
+        return $uspjesno;
     }
 }
 

@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(() => {
     $.ajax({
         type: "POST",
         data: {
@@ -6,8 +6,7 @@ $(document).ready(function(){
         },
         url: "base/dohvati.php",
         dataType: "json",
-        async: false,
-        success: function(data) {
+        success: (data) => {
             console.log(data);
             $('#obilasci').DataTable ({
                 "data" : data,
@@ -16,7 +15,7 @@ $(document).ready(function(){
                     {"data" : "Datum"}
                 ]
             } );        
-        }, error: function(er) {
+        }, error: (er) => {
             console.log(er);
         }
     });   

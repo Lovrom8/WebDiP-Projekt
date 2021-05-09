@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(() =>{
     const sve = $("#ajaxDionice").attr('sve');
 
     if(sve === "1")
@@ -11,8 +11,7 @@ $(document).ready(function(){
         },
         url: "base/dohvati.php",
         dataType: "json",
-        async: false,
-        success: function(data) {
+        success: (data) => {
             $('#dionice').DataTable ({
                 "data" : data,
                 "columnDefs": [
@@ -26,9 +25,15 @@ $(document).ready(function(){
                     {"data" : "Naziv_kategorije"},
                     {
                         "data": null,
-                        "render": function ( data, type, row, meta ) {
-                          return '<a href=dokumentDodaj.php?id='+data.ID_dionica+'>Dodaj dokument</a>'; 
+                        "render": ( data, type, row, meta ) => {
+                          return '<a href=dokumentDodaj.php?id='+data.ID_dionica+'&oznaka='+data.Oznaka+'>Dodaj dokument</a>'; 
                         }
+                    },
+                    {
+                        "data": null,
+                        "render": ( data, type, row, meta ) => {
+                          return '<a href=obilasci.php?id='+data.ID_dionica+'>Evidentiraj obilazak</a>'; 
+                        } 
                     }
                 ], 
                 order: [[3, 'asc']],
