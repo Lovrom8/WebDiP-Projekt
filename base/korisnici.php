@@ -28,12 +28,14 @@ abstract class Akcije {
     const AzuriranjeKategorije = 9;
     const StvaranjeKopije = 10;
     const UcitavanjeKopije = 11;
-    const DodavnajeDionice = 12;
+    const DodavanjeDionice = 12;
     const AzuriranjeDionice = 13;
     const Registracija = 14;
     const Aktivacija = 15;
     const Posjeta = 16;
     const EvidentiranjeObilaska = 17;
+    const DodavanjeProblema = 18;
+    const AzuriranjeProblema = 19;
 }
 
 class Korisnik {
