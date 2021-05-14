@@ -9,7 +9,7 @@ include_once './kategorija.php';
 include_once './dnevnik.php';
 include_once './grad.php';
 
-session_start();
+//session_start();
 
 if (isset($_POST['dokumenti'])) {
     if(Sesija::tipKorisnika() > Korisnici::Prometnik) 
@@ -27,7 +27,7 @@ if (isset($_POST['problemi'])) {
 }
 
 if (isset($_POST['obilasci'])) {
-   echo json_encode(Obilazak::dohvatiSve($_SESSION['ID']));
+   echo json_encode(Obilazak::dohvatiSve(Sesija::dohvatiSesiju()));
 }
 
 if (isset($_POST['korisnik'])) {

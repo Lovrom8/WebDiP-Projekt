@@ -23,13 +23,20 @@ class Obilazak {
     static function dohvatiSve($idKorisnika)
     {
         $baza = new Baza();
-        $upit = "SELECT Oznaka, Datum FROM Obilazak O JOIN Dionica D ON D.ID_dionica = O.ID_dionica WHERE O.ID_korisnik = '$idKorisnika'";
+        $veza = $baza->dohvatiVezu();
+
+        $upit = $veza->prepare( "SELECT Oznaka, Datum, Broj_kilometara FROM Obilazak O JOIN Dionica D ON D.ID_dionica = O.ID_dionica WHERE O.ID_korisnik = ?");
+        $upit->bind_param("i", $idKorisnika); 
+        $upit->execute();
+        
+        $rezultat = $upit->get_result();
 
         $obilasci = array();
-        $rezultat = $baza->dohvati($upit);
         while($red=$rezultat->fetch_assoc()){
             $obilasci[] = $red;
         }
+
+        $upit->close();
 
         return $obilasci;
     }
