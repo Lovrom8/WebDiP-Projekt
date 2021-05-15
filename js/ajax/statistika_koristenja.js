@@ -1,31 +1,24 @@
 var odDatum, doDatum;
 
-$.fn.dataTable.ext.search.push(
-    ( settings, data, dataIndex ) => {
+function provjeriDatum(datum) {
         var min = odDatum.val();
         var max = doDatum.val();
-        var date = new Date ( data[2] ); 
-
-        var datumOk = false;
+        var date = new Date ( datum ); 
 
         if (( min === null && max === null ) ||
             ( min === null && date <= max ) ||
             ( min <= date   && max === null ) ||
             ( min <= date   && date <= max ))
         {
-            datumOk = true;
+            return true;
         }
 
-        var korisnikOk = false;
-
-        var korisnik = data[1]; 
-        var korisnikPretraga = $('#korisnik').val(); 
-        var korisnikOk = korisnik === korisnikPretraga || korisnikPretraga === "";
-
-        return datumOk && korisnikOk;
-    }
-);
+         return false ;
+}
  
+function zadovoljavaFitler(redak) {
+    return provjeriDatum(redak.Datum_vrijeme) && redak.Korisnicko_ime.includes($('#korisnik').val());
+}
 
 $(document).ready(() => {
     var table;
@@ -45,24 +38,20 @@ $(document).ready(() => {
         url: "base/dohvati.php",
         dataType: "json",
         success: (data) => {
-            table = $('#statistika').DataTable ({
-                "data" : data,
-                "columns" : [
-                    {"data" : "Opis"},
-                    {"data" : "Korisnicko_ime"},
-                    {"data" : "Datum_vrijeme"}
-                ]
-            } );        
+            const stupci = { 'Opis' : 0, 'Korisnicko_ime' : 0, 'Datum_vrijeme' : 0 };
+            const tablica = new Tablica('statistika', data, stupci, 3);
+
+            $('#od, #do').on('change', () => {
+                tablica.postaviPodatke(data.filter(podatak => zadovoljavaFitler(podatak)));
+            } );
+        
+            $('#korisnik').on('keyup', () => {
+                tablica.postaviPodatke(data.filter(podatak => zadovoljavaFitler(podatak)));
+            } );
         }, error: (er) => {
             console.log(er);
         }
     });   
 
-    $('#od, #do').on('change', () => {
-        table.draw();
-    } );
-
-    $('#korisnik').on('keyup', () => {
-        table.draw();
-    } );
+ 
 });

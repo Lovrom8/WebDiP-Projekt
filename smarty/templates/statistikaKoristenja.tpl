@@ -25,6 +25,7 @@
     </table>
 {/block}
 {block name=javascript}
+    <script src="../js/tablica.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdn.datatables.net/datetime/1.0.3/js/dataTables.dateTime.min.js"></script>
     <script src="js/ajax/statistika_koristenja.js"></script>

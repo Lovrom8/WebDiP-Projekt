@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-05-11 17:15:17
+/* Smarty version 3.1.39, created on 2021-05-15 09:46:16
   from 'C:\Users\38598\Documents\FOI\WebDIP\WebDiP\ProjektActual\WebDiP-Projekt\smarty\templates\base.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_609a9f8595d036_88019172',
+  'unifunc' => 'content_609f7c48b351f7_27932823',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '988adbf7219317a95bb9a65e912701220934046d' => 
     array (
       0 => 'C:\\Users\\38598\\Documents\\FOI\\WebDIP\\WebDiP\\ProjektActual\\WebDiP-Projekt\\smarty\\templates\\base.tpl',
-      1 => 1620721133,
+      1 => 1621064774,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_609a9f8595d036_88019172 (Smarty_Internal_Template $_smarty_tpl) {
+function content_609f7c48b351f7_27932823 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, false);
 ?>
@@ -36,11 +36,11 @@ $_smarty_tpl->inheritance->init($_smarty_tpl, false);
         <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
         <title><?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_486514858609a9f8594cd27_52220424', 'title');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1988067135609f7c48b27cd3_76476111', 'title');
 ?>
 Promet</title>
         <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_2101112864609a9f8594eff9_70978626', 'css');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_132956178609f7c48b29650_35906707', 'css');
 ?>
 
     </head>
@@ -49,8 +49,6 @@ $_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_2101112864609a9f85
             <h1><a href="#sadrzaj">Promet</a></h1>
             <nav>
             <a href="index.php">Početna</a>
-            <a href="dokumentacija.html">Dokumentacija</a>
-            <a href="autor.html">O autoru</a>
 
             <?php if ((isset($_SESSION['ID']))) {?>
                 <?php if (($_SESSION['tip'] > 1)) {?>
@@ -67,16 +65,18 @@ $_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_2101112864609a9f85
                     <a href="postavke.php">Postavke</a>
                 <?php }?>
                 
-                <a href="odjava.php">Odjava</a>
+                <strong><a href="odjava.php">Odjava</a></strong>
             <?php } else { ?>
                 <a href="prijava.php">Prijava</a>
                 <a href="registracija.php">Registracija</a>
             <?php }?>   
+            <a href="dokumentacija.html">Dokumentacija</a>
+            <a href="autor.html">O autoru</a>
             </nav>
       </header>
       <main id="sadrzaj">
         <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1255561135609a9f85957f23_72038226', 'sadrzaj');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_677698363609f7c48b308b4_47646811', 'sadrzaj');
 ?>
 
       </main>
@@ -105,18 +105,18 @@ echo $_SERVER['REQUEST_URI'];?>
  src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"><?php echo '</script'; ?>
 >
         <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_102447512609a9f8595c5a5_13595233', 'javascript');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_918020769609f7c48b346f2_04252257', 'javascript');
 ?>
 
     </body>
 </html><?php }
 /* {block 'title'} */
-class Block_486514858609a9f8594cd27_52220424 extends Smarty_Internal_Block
+class Block_1988067135609f7c48b27cd3_76476111 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'title' => 
   array (
-    0 => 'Block_486514858609a9f8594cd27_52220424',
+    0 => 'Block_1988067135609f7c48b27cd3_76476111',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -124,12 +124,12 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 }
 /* {/block 'title'} */
 /* {block 'css'} */
-class Block_2101112864609a9f8594eff9_70978626 extends Smarty_Internal_Block
+class Block_132956178609f7c48b29650_35906707 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'css' => 
   array (
-    0 => 'Block_2101112864609a9f8594eff9_70978626',
+    0 => 'Block_132956178609f7c48b29650_35906707',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -137,12 +137,12 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 }
 /* {/block 'css'} */
 /* {block 'sadrzaj'} */
-class Block_1255561135609a9f85957f23_72038226 extends Smarty_Internal_Block
+class Block_677698363609f7c48b308b4_47646811 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'sadrzaj' => 
   array (
-    0 => 'Block_1255561135609a9f85957f23_72038226',
+    0 => 'Block_677698363609f7c48b308b4_47646811',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -150,12 +150,12 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 }
 /* {/block 'sadrzaj'} */
 /* {block 'javascript'} */
-class Block_102447512609a9f8595c5a5_13595233 extends Smarty_Internal_Block
+class Block_918020769609f7c48b346f2_04252257 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'javascript' => 
   array (
-    0 => 'Block_102447512609a9f8595c5a5_13595233',
+    0 => 'Block_918020769609f7c48b346f2_04252257',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
