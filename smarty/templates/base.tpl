@@ -17,8 +17,6 @@
             <h1><a href="#sadrzaj">Promet</a></h1>
             <nav>
             <a href="index.php">Početna</a>
-            <a href="dokumentacija.html">Dokumentacija</a>
-            <a href="autor.html">O autoru</a>
 
             {if isset($smarty.session.ID) }
                 {if ( $smarty.session.tip > 1)}
@@ -35,11 +33,14 @@
                     <a href="postavke.php">Postavke</a>
                 {/if}
                 
-                <a href="odjava.php">Odjava</a>
+                <strong><a href="odjava.php">Odjava</a></strong>
             {else}
                 <a href="prijava.php">Prijava</a>
                 <a href="registracija.php">Registracija</a>
             {/if}   
+            <a href="dokumentacija.html">Dokumentacija</a>
+            <a href="autor.html">O autoru</a>
+            </nav>
       </header>
       <main id="sadrzaj">
         {block name=sadrzaj}{/block}

@@ -1,6 +1,12 @@
 <?php
 require_once 'baza.php';
 
+abstract class StatusDokumeta {
+    const Nepotvrden = 0;
+    const Potvrden = 1;
+    const Odbijen = 2;
+}
+
 class Dokument {
     static function dodajNovi($naslov, $status, $idVrste, $idDionice, $poveznica)
     {
@@ -12,10 +18,23 @@ class Dokument {
 
     static function promjeniStatus($idDokument, $status)
     {
-        $baza = new Baza();
-        $upit = "UPDATE Dokument SET Status = '$status' WHERE ID_dokument = '$idDokument'";
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-        return $baza->provedi($upit);
+        $baza = new Baza();
+        $veza = $baza->dohvatiVezu();
+
+        $upit = $veza->prepare("UPDATE Dokument SET Status = ? WHERE ID_dokument = ?");
+        $upit->bind_param("ss", $status, $idDokument);
+        $upit->execute();
+                
+        if($status == StatusDokumeta::Potvrden)
+            Dnevnik::dodajZapis(Akcije::PotvrdaDokumenta, "", Sesija::dohvatiSesiju());
+
+        $uspjesno = $upit->affected_rows == 1;
+
+        $upit->close();
+
+        return $uspjesno;
     }
     
     static function dohvatiDokumente($samoPotvrdene)
@@ -47,6 +66,10 @@ class Dokument {
             $vrste[] = $red;
         }
         return $vrste;
+    }
+
+    static function provjeriFizickiDokument($link) {
+        return file_exists($link);
     }
 }
 

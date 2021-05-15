@@ -18,6 +18,10 @@ if (isset($_POST['dokumenti'])) {
         echo json_encode(Dokument::dohvatiDokumente(true));
 }
 
+if (isset($_POST['vrste_dokumenata'])) {
+    echo json_encode(Dokument::dohvatiVrsteDokumenata());
+}
+
 if (isset($_POST['dionice'])) {
     echo json_encode(Dionica::dohvatiSve());
 }

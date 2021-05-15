@@ -1,16 +1,27 @@
 class Tablica {
-    constructor(_ime, _podaci, _stupci, _paginacija) {
+    constructor(_ime, _podaci, _stupci, _paginacija, _formatiranje = {}) {
         this.podaci = _podaci;
         this.raspon = this.podaci.length;
         this.ime = _ime;
         this.stupci = _stupci;
-        this.paginacija = _paginacija;
+        this.paginacija = this.dohvatiPaginaciju(_paginacija);
         this.od = 0;
         this.do = this.paginacija;
+        this.formatiranje = _formatiranje;
 
         this.prikaziTablicu();
         this.dodajGumbe();
         this.provjeriGumbe();
+    }
+
+    dohvatiPaginaciju(paginacija) {
+        if(paginacija == 0) {
+            $.getJSON("../../base/postavke.json", (json) => {
+                return parseInt(json.brojElPoStranici);
+            });
+        } else {
+            return paginacija; 
+        }        
     }
 
     dodajGumbe() {
@@ -76,6 +87,15 @@ class Tablica {
                 redak.appendChild(celija);
             });
 
+
+            Object.entries(this.formatiranje).forEach(([stupac, uvjeti]) => { // Dodaj posebna formatiranja
+                const uvjet = el[stupac];
+                
+                if(uvjet in uvjeti) {
+                    redak.className = uvjeti[uvjet];
+                }
+            });
+
             tblBody.append(redak);
         });
 
@@ -91,6 +111,14 @@ class Tablica {
     postaviPodatke(podaci) {
         this.podaci = podaci;
         this.raspon = podaci.length;
+        this.prikaziTablicu();
+        this.provjeriGumbe();
+    }
+
+    postaviPaginaciju(paginacija) {
+        this.paginacija = paginacija;
+        this.od = 0;
+        this.do = paginacija;
         this.prikaziTablicu();
         this.provjeriGumbe();
     }
