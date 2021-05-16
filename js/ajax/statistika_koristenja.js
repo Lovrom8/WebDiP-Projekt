@@ -39,7 +39,7 @@ $(document).ready(() => {
         dataType: "json",
         success: (data) => {
             const stupci = { 'Opis' : 0, 'Korisnicko_ime' : 0, 'Datum_vrijeme' : 0 };
-            const tablica = new Tablica('statistika', data, stupci, 3);
+            const tablica = new Tablica('statistika', data, stupci, 0);
 
             $('#od, #do').on('change', () => {
                 tablica.postaviPodatke(data.filter(podatak => zadovoljavaFitler(podatak)));

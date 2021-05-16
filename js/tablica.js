@@ -1,5 +1,5 @@
 class Tablica {
-    constructor(_ime, _podaci, _stupci, _paginacija, _formatiranje = {}) {
+    constructor(_ime, _podaci, _stupci, _paginacija, _formatiranje = {}, _vidljivostCelija = {}) {
         this.podaci = _podaci;
         this.raspon = this.podaci.length;
         this.ime = _ime;
@@ -8,6 +8,7 @@ class Tablica {
         this.od = 0;
         this.do = this.paginacija;
         this.formatiranje = _formatiranje;
+        this.vidljivostCelija = _vidljivostCelija;
 
         this.prikaziTablicu();
         this.dodajGumbe();
@@ -81,6 +82,16 @@ class Tablica {
 
                     sadrzaj = document.createElement('td');
                     sadrzaj.innerHTML = vrijednost;
+                }
+
+                if(stupac in this.vidljivostCelija) {
+                    var formatStupca = this.vidljivostCelija[stupac];
+
+                    Object.entries(formatStupca).forEach(([stupacUvjet, vrijednostUvjeta]) => {
+                        if(el[stupacUvjet] == vrijednostUvjeta) {
+                            celija.style.visibility = "hidden";
+                        }
+                    });
                 }
 
                 celija.appendChild(sadrzaj);

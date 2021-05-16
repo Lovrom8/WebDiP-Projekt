@@ -8,7 +8,7 @@ $(document).ready(() => {
         dataType: "json",
         success: (data) => {
             const stupci = { "Oznaka" : 0, "Datum" : 0, "Broj_kilometara" : 0};
-            const tablica = new Tablica('obilasci', data, stupci, 3); 
+            new Tablica('obilasci', data, stupci, 0); 
 
             let ukupno = 0;
             data.forEach((el) => {
