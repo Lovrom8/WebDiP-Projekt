@@ -13,4 +13,10 @@ $(document).ready(() => {
             console.log(er);
         }
     });   
+
+    $('#generirajPDF').click(() => {
+        var doc  = new jsPDF();
+        doc.autoTable({ html: '#problemi' })
+        doc.save('statistikaProblema.pdf');
+    });
 });

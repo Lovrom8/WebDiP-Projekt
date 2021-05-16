@@ -106,7 +106,7 @@ class Dionica {
         $veza = $baza->dohvatiVezu();
     
         $upit = $veza->prepare("UPDATE Dionica SET Otvorena = ? WHERE ID_dionica = ?");
-        $upit->bind_param("ii", $otvoreno == 1, $idDionica);
+        $upit->bind_param("ii", $otvoreno, $idDionica);
         $upit->execute();
                 
         $uspjesno = $upit->affected_rows == 1;

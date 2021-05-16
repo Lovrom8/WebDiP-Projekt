@@ -55,10 +55,10 @@ class Korisnik {
             $greske .= "Ne postoji korisnik s tim korisničkim imenom i lozinkom.</br>";
             //Dnevnik::zapisi("Kriva prijava", "Read");
         }else{
-            if($red["Status"] == 0){
+            if($red["Status"] == StatusKorisnika::Neaktiviran){
                 $greske .= "Vaš račun nije aktiviran.";
             }
-            else if($red["Status"] == 2) {
+            else if($red["Status"] == StatusKorisnika::Blokiran) {
                 $greske .= "Vaš račun je zaključan od strane administratora.";
             }
 
@@ -80,7 +80,20 @@ class Korisnik {
         return $greske;
     }
 
-    static function DodajKorisnika($korisnickoIme, $lozinka, $email, $ime, $prezime, $token) {
+    static function dohvatiSve(){
+        $baza = new Baza();
+        $korisnici = array();
+        $upit = "SELECT * FROM Korisnik";
+
+        $rezultat = $baza->dohvati($upit);
+        while ($red = $rezultat->fetch_assoc())
+        {
+            $korisnici[] = $red;
+        }
+        return $korisnici;
+    }
+
+    static function dodajKorisnika($korisnickoIme, $lozinka, $email, $ime, $prezime, $token) {
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();
    
@@ -163,6 +176,74 @@ class Korisnik {
                 
         //Dnevnik::dodajZapis(Akcije::Aktivacija, "", $veza->insert_id);
 
+        $uspjesno = $upit->affected_rows == 1;
+
+        $upit->close();
+
+        return $uspjesno;
+    }
+
+    static function postaviToken($idKor, $token) {
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+        $baza = new Baza();
+        $veza = $baza->dohvatiVezu();
+
+        $upit = $veza->prepare("UPDATE Korisnik SET Token = ? WHERE ID_korisnik = ?");
+        $upit->bind_param("si", $token, $idKor);
+        $upit->execute();
+            
+        $uspjesno = $upit->affected_rows == 1;
+
+        $upit->close();
+
+        return $uspjesno;
+    }
+
+    static function dohvatiZaToken($token){
+        $baza = new Baza();
+        $veza = $baza->dohvatiVezu();
+
+        $upit = $veza->prepare("SELECT ID_korisnik FROM Korisnik WHERE token = ? LIMIT 1");
+        $upit->bind_param("s", $token);
+        $upit->execute();
+        
+        
+        $rezultat = $upit->get_result();
+        
+        if($rezultat->num_rows > 0)
+          return $rezultat->fetch_assoc()['ID_korisnik'];
+        
+        return -1; 
+    }
+
+    static function dohvatiZaEmail($email){
+        $baza = new Baza();
+        $veza = $baza->dohvatiVezu();
+
+        $upit = $veza->prepare("SELECT ID_korisnik FROM Korisnik WHERE email = ? LIMIT 1");
+        $upit->bind_param("s", $email);
+        $upit->execute();
+        
+        
+        $rezultat = $upit->get_result();
+        
+        if($rezultat->num_rows > 0)
+          return $rezultat->fetch_assoc()['ID_korisnik'];
+        
+        return -1; 
+    }
+
+    static function promjeniStatus($idKor, $status){
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+        $baza = new Baza();
+        $veza = $baza->dohvatiVezu();
+
+        $upit = $veza->prepare("UPDATE Korisnik SET Status = ? WHERE ID_korisnik = ?");
+        $upit->bind_param("ii", $status, $idKor);
+        $upit->execute();
+            
         $uspjesno = $upit->affected_rows == 1;
 
         $upit->close();

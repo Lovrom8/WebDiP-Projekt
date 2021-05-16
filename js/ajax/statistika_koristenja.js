@@ -53,5 +53,10 @@ $(document).ready(() => {
         }
     });   
 
+    $('#generirajPDF').click(() => {
+        var doc  = new jsPDF();
+        doc.autoTable({ html: '#statistika' })
+        doc.save('statistikaKoristenja.pdf');
+    });
  
 });

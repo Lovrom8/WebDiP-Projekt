@@ -23,9 +23,12 @@
             </tr>
         </thead>
     </table>
+    <button id="generirajPDF">Generiraj PDF</button>
 {/block}
 {block name=javascript}
     <script src="../js/tablica.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+    <script src="https://unpkg.com/jspdf-autotable@3.5.14/dist/jspdf.plugin.autotable.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdn.datatables.net/datetime/1.0.3/js/dataTables.dateTime.min.js"></script>
     <script src="js/ajax/statistika_koristenja.js"></script>

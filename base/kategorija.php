@@ -15,6 +15,21 @@ class Kategorija
         return $kategorije;
     }
 
+    static function dohvatiZaId($idKat) {
+        $baza = new Baza();
+        $veza = $baza->dohvatiVezu();
+
+        $upit = $veza->prepare("SELECT Naziv_kategorije FROM Kategorija WHERE ID_kategorija=?");
+        $upit->bind_param("i", $idKat); 
+        $upit->execute();
+        
+        $rezultat = $upit->get_result()->fetch_assoc();
+        
+        $upit->close();
+
+        return $rezultat;
+    }
+
     static function dohvatiSModeratorima($idKat) {
         $baza = new Baza();
         $upit = "SELECT MK.ID_kategorija, MK.ID_moderator, M.Ime, M.Prezime, M.Korisnicko_ime, Kat.Naziv_kategorije FROM KategorijaModerator MK 
@@ -49,9 +64,17 @@ class Kategorija
 
     static function osvjezi($id, $naziv) {
         $baza = new Baza();
-        $upit = "UPDATE Kategorija SET Naziv = '$naziv' WHERE ID_kategorija = '$id'";
+        $veza = $baza->dohvatiVezu();
 
-        return $baza->provedi($upit);
+        $upit = $veza->prepare("UPDATE Kategorija SET Naziv_kategorije = ? WHERE ID_kategorija = ?");
+        $upit->bind_param("si", $naziv, $id);
+        $upit->execute();
+
+        $uspjesno = $upit->affected_rows == 1;
+
+        $upit->close();
+
+        return $uspjesno;
     }
 
     static function obrisi($id) {

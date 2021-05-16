@@ -42,6 +42,12 @@ if (isset($_POST['korisnik'])) {
     }
 }
 
+if (isset($_POST['korisnici'])) {
+    if(Sesija::tipKorisnika() == Korisnici::Administrator) {
+        echo json_encode(Korisnik::dohvatiSve());
+    } 
+}
+
 if (isset($_POST['email'])) {
     if(Korisnik::ProvjeriEmail($_POST['email'])){
         echo json_encode(array("postoji" => 0));
