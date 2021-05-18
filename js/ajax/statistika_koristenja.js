@@ -58,5 +58,8 @@ $(document).ready(() => {
         doc.autoTable({ html: '#statistika' })
         doc.save('statistikaKoristenja.pdf');
     });
- 
+    
+    $('#isprintaj').click(() => {
+        window.print(); 
+    });
 });

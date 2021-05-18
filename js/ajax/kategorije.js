@@ -1,3 +1,9 @@
+const stupci = {  "Naziv_kategorije" : 0, 
+                  "Uredi" : '<a href=kategorijaUredi.php?id={ID_kategorija}>Uredi</a>', 
+                  "Moderatori" : '<a href=moderatoriKategorije.php?id={ID_kategorija}>Uredi moderatore</a>'
+};
+const tablica = new Tablica('kategorije', 'kategorije', stupci, 0);
+
 $(document).ready(() => {
     $.ajax({
         type: "POST",
@@ -12,20 +18,6 @@ $(document).ready(() => {
                    $("<option></option>").val(el.ID_kategorija).html(el.Naziv_kategorije)
                 )
             });
-
-            $('#kategorije').DataTable ({
-                "data" : data,
-                "columns" : [
-                    {  "data" : "Naziv_kategorije" },
-                    {   
-                       "data": null,
-                       "render": function ( data, type, row, meta ) {
-                           return '<a href=moderatoriKategorije.php?id='+data.ID_kategorija+'>Uredi moderatore</a>'; 
-                        }
-                    }
-                ]
-            } );     
-
         }, error: (er) => {
             console.log(er);
         }

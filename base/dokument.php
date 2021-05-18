@@ -37,22 +37,40 @@ class Dokument {
         return $uspjesno;
     }
     
-    static function dohvatiDokumente($samoPotvrdene)
+    static function dohvatiDokumente($samoPotvrdene, $sortStupac, $paginacija, $trenutnaStranica)
     {
         $baza = new Baza();
         $dokumenti = array();
-        $upit = "";
+        $upit = "SELECT * FROM Dokument";
+        $upitBroj = "SELECT COUNT(*) FROM Dokument";
 
-        if($samoPotvrdene)
-            $upit = "SELECT * FROM Dokument WHERE Status=1";
-        else
-            $upit = "SELECT * FROM Dokument";
-
-        $rezultat = $baza->dohvati($upit);
-        while($red=$rezultat->fetch_assoc()){
-            $dokumenti[] = $red;
+        if($samoPotvrdene) {
+            $upit .= " WHERE Status=1";
+            $upitBroj .= " WHERE Status=1";
         }
-        return $dokumenti;
+
+        $ukupnoStranica = 1;
+        if($sortStupac)
+            $upit .= ' ORDER BY '.$sortStupac;
+
+        if($paginacija){
+            $brRedova = $baza->dohvati($upitBroj)->fetch_row();
+            $ukupnoStranica = ceil($brRedova[0]/$paginacija);
+            $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
+    
+            $upit .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
+        }
+        
+        $rezultat = $baza->dohvati($upit);
+        while($red=$rezultat->fetch_assoc())
+            $dokumenti[] = $red;
+        
+        $ret = array(
+            'podaci' => $dokumenti,
+            'brojStranica' => $ukupnoStranica
+        );
+    
+        return $ret;
     }
 
     static function dohvatiVrsteDokumenata()

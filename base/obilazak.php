@@ -20,12 +20,26 @@ class Obilazak {
         return $uspjesno;
     }
 
-    static function dohvatiSve($idKorisnika)
+    static function dohvatiSve($idKorisnika, $sortStupac, $paginacija, $trenutnaStranica)
     {
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();
 
-        $upit = $veza->prepare( "SELECT Oznaka, Datum, Broj_kilometara FROM Obilazak O JOIN Dionica D ON D.ID_dionica = O.ID_dionica WHERE O.ID_korisnik = ?");
+        $upit = "SELECT Oznaka, Datum, Broj_kilometara FROM Obilazak O JOIN Dionica D ON D.ID_dionica = O.ID_dionica WHERE O.ID_korisnik = ?";
+        
+        $ukupnoStranica = 1;
+        if($sortStupac)
+            $upit .= ' ORDER BY '.$sortStupac;
+
+        if($paginacija){
+            $brRedova = $baza->dohvati("SELECT COUNT(*) FROM Obilazak")->fetch_row();
+            $ukupnoStranica = ceil($brRedova[0]/$paginacija);
+            $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
+ 
+            $upit .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
+        }
+
+        $upit = $veza->prepare($upit);
         $upit->bind_param("i", $idKorisnika); 
         $upit->execute();
         
@@ -38,7 +52,12 @@ class Obilazak {
 
         $upit->close();
 
-        return $obilasci;
+        $ret = array(
+            'podaci' => $obilasci,
+            'brojStranica' => $ukupnoStranica
+        );
+
+        return $ret;
     }
 }
 

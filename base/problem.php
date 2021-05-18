@@ -17,21 +17,38 @@ class Problem
         return $problemi;
     }
 
-    static function dohvatiSveProbleme()
+    static function dohvatiSveProbleme($sortStupac, $paginacija, $trenutnaStranica)
     {
         $baza = new Baza();
         $problemi = array();
         $upit = "SELECT * FROM Prijava P JOIN Dionica D ON P.ID_dionica = D.ID_dionica";
 
+        $ukupnoStranica = 1;
+        if($sortStupac)
+            $upit .= ' ORDER BY '.$sortStupac;
+
+        if($paginacija){
+            $brRedova = $baza->dohvati("SELECT COUNT(*) FROM Prijava")->fetch_row();
+            $ukupnoStranica = ceil($brRedova[0]/$paginacija);
+            $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
+ 
+            $upit .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
+        }
+
+ 
         $rezultat = $baza->dohvati($upit);
         while ($red = $rezultat->fetch_assoc())
-        {
             $problemi[] = $red;
-        }
-        return $problemi;
+
+        $ret = array(
+            'podaci' => $problemi,
+            'brojStranica' => $ukupnoStranica
+        );
+        
+        return $ret;
     }
 
-    static function dohvatiStatistiku()
+    static function dohvatiStatistiku($sortStupac, $paginacija, $trenutnaStranica)
     {
         $baza = new Baza();
         $problemi = array();
@@ -40,12 +57,29 @@ class Problem
                  JOIN Kategorija K ON D.ID_kategorija = K.ID_kategorija 
                  WHERE Aktivna = 1 GROUP BY Naziv_kategorije";
 
+        $ukupnoStranica = 1;
+        if($sortStupac)
+            $upit .= ' ORDER BY '.$sortStupac;
+
+        if($paginacija){
+            $brRedova = $baza->dohvati("SELECT COUNT(*) FROM Prijava P JOIN Dionica D ON D.ID_dionica = P.ID_dionica 
+                                        JOIN Kategorija K ON D.ID_kategorija = K.ID_kategorija GROUP BY Naziv_kategorije")->fetch_row();
+            $ukupnoStranica = ceil($brRedova[0]/$paginacija);
+            $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
+    
+            $upit .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
+        }
+
         $rezultat = $baza->dohvati($upit);
         while ($red = $rezultat->fetch_assoc())
-        {
             $problemi[] = $red;
-        }
-        return $problemi;
+    
+        $ret = array(
+            'podaci' => $problemi,
+            'brojStranica' => $ukupnoStranica
+        );
+        
+        return $ret;
     }
 
     static function dohvatiZaId($idProblem)

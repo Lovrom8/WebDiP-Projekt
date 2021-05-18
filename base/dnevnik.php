@@ -18,14 +18,13 @@ class Dnevnik {
         $upit = "SELECT * FROM Dnevnik D JOIN TipAkcije T ON T.ID_tip_akcije = D.ID_tip_akcije";
 
         $rezultat = $baza->dohvati($upit);
-        while($red=$rezultat->fetch_assoc()){
+        while($red=$rezultat->fetch_assoc())
             $zapisi[] = $red;
-        }
 
         return $zapisi;
     }
 
-    static function dohvatiStatistikuKoristenja() {
+    static function dohvatiStatistikuKoristenja($sortStupac, $paginacija, $trenutnaStranica) {
         $baza = new Baza();
         $zapisi = array();
         $upit = "SELECT Opis, Datum_vrijeme, Korisnicko_ime FROM Dnevnik D
@@ -33,11 +32,27 @@ class Dnevnik {
                  WHERE ID_tip_akcije = ".Akcije::Posjeta;
 
         $rezultat = $baza->dohvati($upit);
-        while($red=$rezultat->fetch_assoc()){
+        while($red=$rezultat->fetch_assoc())
             $zapisi[] = $red;
+
+        $ukupnoStranica = 1;
+        if($sortStupac)
+            $upit .= ' ORDER BY '.$sortStupac;
+
+        if($paginacija){
+            $brRedova = $baza->dohvati("SELECT COUNT(*) FROM Dnevnik WHERE ID_tip_akcije = ".Akcije::Posjeta)->fetch_row();
+            $ukupnoStranica = ceil($brRedova[0]/$paginacija);
+            $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
+    
+            $upit .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
         }
         
-        return $zapisi;
+        $ret = array(
+            'podaci' => $zapisi,
+            'brojStranica' => $ukupnoStranica
+        );
+
+        return $ret;
     }
 }
 

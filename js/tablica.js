@@ -1,28 +1,40 @@
 class Tablica {
-    constructor(_ime, _podaci, _stupci, _paginacija, _formatiranje = {}, _vidljivostCelija = {}) {
-        this.podaci = _podaci;
-        this.raspon = this.podaci.length;
-        this.ime = _ime;
+    constructor(_imeTablice, _nazivPodataka, _stupci, _paginacija, _formatiranje = {}, _vidljivostCelija = {}) {
+        this.ime = _imeTablice;
+        this.naziv = _nazivPodataka;
         this.stupci = _stupci;
-        this.paginacija = this.dohvatiPaginaciju(_paginacija);
-        this.od = 0;
-        this.do = this.paginacija;
+        this.trenutnaStranica = 1;
+        this.brojStranica = 1;
         this.formatiranje = _formatiranje;
         this.vidljivostCelija = _vidljivostCelija;
 
-        this.prikaziTablicu();
-        this.dodajGumbe();
-        this.provjeriGumbe();
+        $.getJSON("../../base/postavke.json", (json) => {
+            if(_paginacija == 0) 
+                this.paginacija = parseInt(json.brojElPoStranici);
+            else
+                this.paginacija = _paginacija;
+
+            this.dodajGumbe();
+            this.dohvatiPodatke();
+        });
     }
 
-    dohvatiPaginaciju(paginacija) {
-        if(paginacija == 0) {
-            $.getJSON("../../base/postavke.json", (json) => {
-                return parseInt(json.brojElPoStranici);
-            });
-        } else {
-            return paginacija; 
-        }        
+    dohvatiPodatke() {
+        $.ajax({
+            type: "POST",
+            data: {
+               podaci : this.naziv,
+               paginacija: this.paginacija,
+               trenutna_stranica: this.trenutnaStranica
+            },
+            url: "base/dohvati.php",
+            dataType: "json",
+            success: (data) => {
+                this.postaviPodatke(data);
+            }, error: (er) => {
+                console.log(er);
+            }
+        });   
     }
 
     dodajGumbe() {
@@ -32,24 +44,17 @@ class Tablica {
         var tblFooter = $("<tfoot></tfoot>");
 
         btnSljedeca.click(() => {
-            this.od += this.paginacija;;
-            this.do += this.paginacija;
+            this.trenutnaStranica++;
 
             this.provjeriGumbe();
-            this.prikaziTablicu();
+            this.dohvatiPodatke();
         });
 
         btnPrethodna.click(() => {
-            this.od -= this.paginacija;
-            this.do -= this.paginacija;
-
-            if (this.od < 0) {
-                this.od = 0;
-                this.do = this.paginacija;
-            }
+            this.trenutnaStranica--;
 
             this.provjeriGumbe();
-            this.prikaziTablicu();
+            this.dohvatiPodatke();
         });
 
         tblFooter.append(btnPrethodna);
@@ -63,12 +68,12 @@ class Tablica {
 
         var tblBody = document.createElement("tbody");
 
-        this.podaci.slice(this.od, this.do).forEach((el) => {
+        this.podaci.forEach((el) => {
             var redak = document.createElement("tr");
 
             Object.entries(this.stupci).forEach(([stupac, vrijednost]) => {
                 var celija = document.createElement("td");
-                var sadrzaj = '';
+                var sadrzaj = document.createElement("p");;
 
                 if (vrijednost === 0) {
                     sadrzaj = document.createTextNode(el[stupac]);
@@ -80,7 +85,6 @@ class Tablica {
                         vrijednost = vrijednost.replace(match, el[match]).replace('{', '').replace('}', ''); //zamjeni sa vrijednošću s tim propom
                     });
 
-                    sadrzaj = document.createElement('td');
                     sadrzaj.innerHTML = vrijednost;
                 }
 
@@ -115,13 +119,13 @@ class Tablica {
     }
 
     provjeriGumbe() {
-        $('#btnSljedeca' + this.ime).prop('disabled', this.do + this.paginacija > this.raspon);
-        $('#btnPrethodna' + this.ime).prop('disabled', this.od - this.paginacija < 0);
+        $('#btnSljedeca' + this.ime).prop('disabled', this.trenutnaStranica + 1 == this.brojStranica);
+        $('#btnPrethodna' + this.ime).prop('disabled', this.trenutnaStranica === 1);
     }
 
-    postaviPodatke(podaci) {
-        this.podaci = podaci;
-        this.raspon = podaci.length;
+    postaviPodatke(data) {
+        this.podaci = data.podaci;
+        this.brojStranica = data.brojStranica;
         this.prikaziTablicu();
         this.provjeriGumbe();
     }

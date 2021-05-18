@@ -3,16 +3,32 @@ require_once 'baza.php';
 
 class Kategorija 
 {
-    static function dohvatiSve() {
+    static function dohvatiSve($sortStupac, $paginacija, $trenutnaStranica) {
         $baza = new Baza();
         $kategorije = array();
         $upit = "SELECT * FROM Kategorija";
 
-        $rezultat = $baza->dohvati($upit);
-        while($red=$rezultat->fetch_assoc()){
-            $kategorije[] = $red;
+        if($sortStupac)
+             $upit .= ' ORDER BY '.$sortStupac;
+
+        if($paginacija){
+            $brRedova = $baza->dohvati("SELECT COUNT(*) FROM Kategorija")->fetch_row();
+            $ukupnoStranica = ceil($brRedova[0]/$paginacija);
+            $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
+
+            $upit .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
         }
-        return $kategorije;
+
+        $rezultat = $baza->dohvati($upit);
+        while($red=$rezultat->fetch_assoc())
+            $kategorije[] = $red;
+        
+        $ret = array(
+            'podaci' => $kategorije,
+            'brojStranica' => $ukupnoStranica
+        );
+
+        return $ret;
     }
 
     static function dohvatiZaId($idKat) {

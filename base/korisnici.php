@@ -88,18 +88,34 @@ class Korisnik
         return $greske;
     }
 
-    static function dohvatiSve()
+    static function dohvatiSve($sortStupac, $paginacija, $trenutnaStranica)
     {
         $baza = new Baza();
         $korisnici = array();
         $upit = "SELECT * FROM Korisnik";
 
+        $ukupnoStranica = 1;
+        if($sortStupac)
+            $upit .= ' ORDER BY '.$sortStupac;
+
+        if($paginacija){
+            $brRedova = $baza->dohvati("SELECT COUNT(*) FROM Korisnik")->fetch_row();
+            $ukupnoStranica = ceil($brRedova[0]/$paginacija);
+            $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
+    
+            $upit .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
+        }
+
         $rezultat = $baza->dohvati($upit);
         while ($red = $rezultat->fetch_assoc())
-        {
             $korisnici[] = $red;
-        }
-        return $korisnici;
+    
+        $ret = array(
+            'podaci' => $korisnici,
+            'brojStranica' => $ukupnoStranica
+        );
+    
+        return $ret;
     }
 
     static function dodajKorisnika($korisnickoIme, $lozinka, $email, $ime, $prezime, $token)
