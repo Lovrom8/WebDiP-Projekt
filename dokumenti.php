@@ -16,6 +16,10 @@ $poruke = "";
 
 if($_SERVER["REQUEST_METHOD"]== "GET") {
     if (isset($_GET['idDokumenta']) && isset($_GET['status'])) {
+        if(Sesija::tipKorisnika() >= Korisnici::Moderator){
+            header("Location: index.php");
+            die();
+        }    
 
         $idDok = $_GET['idDokumenta'];
         $status = $_GET['status'];

@@ -1,6 +1,7 @@
 {extends file="base.tpl"}
 {block name=naslov}Zaboravljena lozinka{/block}
 {block name=sadrzaj}
+        <div>{$poruke}</div>
         <form class="form__obrazac" id="zaboravljena_lozinka" method="POST">
                     {* <input type="hidden" name="id" value="{$id}"> *}
 

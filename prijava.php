@@ -58,11 +58,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 }
 else
 {
-    $korisnik = "";
-
     if(isset($_COOKIE["korisnik"]))
-        $korisnik = $_COOKIE["korisnik"];
+        $korisnickoIme = $_COOKIE["korisnik"];
 }
 
+$smarty->assign('korIme', $korisnickoIme);
 $smarty->display('prijava.tpl');
 ?>

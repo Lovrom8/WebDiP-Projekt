@@ -2,7 +2,7 @@
 {block name=sadrzaj}
    <form class="form__obrazac" id="prijava" method="POST">
                     <label for="korIme">Korisničko ime:</label><br>
-                    <input type="text" id="korIme" name="korIme"><br>
+                    <input type="text" id="korIme" name="korIme" value={$korIme}><br>
                     <label for="lozinka">Lozinka:</label><br>
                     <input type="password" id="lozinka" name="lozinka" required> <br>
                     <label for="zapamti">Zapamti</label><br>
@@ -12,6 +12,9 @@
                         data-callback='onSubmit' 
                         data-action='submit'>Submit</button>
     </form>
+    <div>
+        <a href="zaboravljenaLozinka.php">Zaboravljena lozinka</a>
+    </div>
 {/block}
 {block name=javascript}
     <script src="../../js/valid/prijava.js"></script>
