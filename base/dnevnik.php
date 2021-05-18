@@ -1,11 +1,12 @@
 <?php
 require_once 'korisnici.php';
+require_once 'util.php';
 
 class Dnevnik {
     static function dodajZapis($akcijaId, $opis, $korisnikId)
     {
         $baza = new Baza();
-        $datum = date("Y-m-d H:i:s");
+        $datum = dohvatiTrenutoVrijeme();
         $upit = "INSERT INTO Dnevnik (ID_dnevnik, Opis, Datum_vrijeme, ID_korisnik, ID_tip_akcije) VALUES(DEFAULT, '$opis', '$datum', '$korisnikId', '$akcijaId')";
         $baza->provedi($upit);
     }
