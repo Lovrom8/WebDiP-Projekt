@@ -1,0 +1,26 @@
+* {
+    color: black;
+}
+
+body, input, select {
+    background-color: white;
+    font-size: 19px;
+    letter-spacing: .2rem;
+    line-height: calc(1ex / 0.3);
+}
+
+.pomoc {
+    background-color: #eee;
+    color: #000;
+}
+
+footer {
+    background-color: #eee;
+}
+
+.footer__img {
+    height: 30%;
+    width: 30%;
+    max-height: 32px;
+    max-width: 32px;
+}
