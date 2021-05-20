@@ -1,18 +1,19 @@
  {extends file="base.tpl"}
 {block name=sadrzaj}
+    <div>{$greske}</div>
     <form class="form__obrazac" id="obrazac_reg" novalidate method="POST" action="registracija.php">
-                    <label for="fname">Ime:</label><br>
-                    <input type="text" id="fname" name="fname"><br>
-                    <label for="lname">Prezime:</label><br>
-                    <input type="text" id="lname" name="lname"><br>
-                    <label for="username">Korsničko ime:</label><br>
-                    <input type="text" id="username" name="username" required><br>
+                    <label for="ime">Ime:</label><br>
+                    <input type="text" id="ime " name="ime  "><br>
+                    <label for="prezime">Prezime:</label><br>
+                    <input type="text" id="prezime" name="prezime"><br>
+                    <label for="korIme">Korsničko ime:</label><br>
+                    <input type="text" id="korIme" name="korIme" required><br>
                     <label for="email">E-mail:</label><br>
                     <input type="email" id="email" name="email" required><br>
-                    <label for="pwd">Lozinka:</label><br>
-                    <input type="password" id="pwd" name="pwd" required><br>
-                    <label for="pwdConfirm">Potvrda lozinke:</label><br>
-                    <input type="password" id="pwdConfirm" name="pwdConfirm" required><br>
+                    <label for="lozinka">Lozinka:</label><br>
+                    <input type="password" id="lozinka" name="lozinka" required><br>
+                    <label for="potvrdaLozinke">Potvrda lozinke:</label><br>
+                    <input type="password" id="potvrdaLozinke" name="potvrdaLozinke" required><br>
                     <input type="submit" value="Dovrši">
     </form>
 {/block}
