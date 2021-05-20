@@ -1,4 +1,4 @@
 AuthType Basic
 AuthName "Obavezna prijava"
-AuthUserFile "/var/www/WebDiP/2020_projekti/WebDiP2014x072/privatno/.htpasswd"
+AuthUserFile "C:\Users\38598\Documents\FOI\WebDIP\WebDiP\ProjektActual\WebDiP-Projekt\privatno\.htpasswd"
 Require valid-user
