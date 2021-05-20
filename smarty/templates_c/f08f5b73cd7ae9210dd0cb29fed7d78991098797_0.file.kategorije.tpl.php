@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-05-16 10:23:13
+/* Smarty version 3.1.39, created on 2021-05-18 23:11:34
   from 'C:\Users\38598\Documents\FOI\WebDIP\WebDiP\ProjektActual\WebDiP-Projekt\smarty\templates\kategorije.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_60a0d67185df47_16572475',
+  'unifunc' => 'content_60a42d865dc577_68479074',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f08f5b73cd7ae9210dd0cb29fed7d78991098797' => 
     array (
       0 => 'C:\\Users\\38598\\Documents\\FOI\\WebDIP\\WebDiP\\ProjektActual\\WebDiP-Projekt\\smarty\\templates\\kategorije.tpl',
-      1 => 1621075608,
+      1 => 1621372288,
       2 => 'file',
     ),
   ),
@@ -20,32 +20,32 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_60a0d67185df47_16572475 (Smarty_Internal_Template $_smarty_tpl) {
+function content_60a42d865dc577_68479074 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_210938502560a0d67185c438_06405655', 'naslov');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_34170727260a42d865d6c35_99283613', 'naslov');
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1605163260a0d67185cfc7_80566680', 'sadrzaj');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_182684359960a42d865d9579_30809417', 'sadrzaj');
 ?>
       
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_10774809160a0d67185d824_81072415', 'javascript');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_5439560760a42d865db368_42346460', 'javascript');
 ?>
 
      <?php $_smarty_tpl->inheritance->endChild($_smarty_tpl, "base.tpl");
 }
 /* {block 'naslov'} */
-class Block_210938502560a0d67185c438_06405655 extends Smarty_Internal_Block
+class Block_34170727260a42d865d6c35_99283613 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'naslov' => 
   array (
-    0 => 'Block_210938502560a0d67185c438_06405655',
+    0 => 'Block_34170727260a42d865d6c35_99283613',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -55,12 +55,12 @@ Uredi kategoriju<?php
 }
 /* {/block 'naslov'} */
 /* {block 'sadrzaj'} */
-class Block_1605163260a0d67185cfc7_80566680 extends Smarty_Internal_Block
+class Block_182684359960a42d865d9579_30809417 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'sadrzaj' => 
   array (
-    0 => 'Block_1605163260a0d67185cfc7_80566680',
+    0 => 'Block_182684359960a42d865d9579_30809417',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -70,30 +70,36 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
                 <thead>
                     <tr>
                         <th>Naziv kategorije</th>
+                        <th>Uredi</th>
                         <th>Moderatori</th>
                     </tr>
                 </thead>
         </table>
 
-        <form action="kategorijaDodaj.php">
-            <input type="submit" value="Nova kategorija" />
-        </form>
+        <a href="kategorijaUredi.php">
+            <button>
+                Nova kategorija
+            </button>
+        </a>
 <?php
 }
 }
 /* {/block 'sadrzaj'} */
 /* {block 'javascript'} */
-class Block_10774809160a0d67185d824_81072415 extends Smarty_Internal_Block
+class Block_5439560760a42d865db368_42346460 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'javascript' => 
   array (
-    0 => 'Block_10774809160a0d67185d824_81072415',
+    0 => 'Block_5439560760a42d865db368_42346460',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
  
+    <?php echo '<script'; ?>
+ src="../../js/tablica.js"><?php echo '</script'; ?>
+>
     <?php echo '<script'; ?>
  src="../../js/ajax/kategorije.js"><?php echo '</script'; ?>
 >

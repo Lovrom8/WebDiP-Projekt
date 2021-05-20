@@ -5,16 +5,20 @@
                 <thead>
                     <tr>
                         <th>Naziv kategorije</th>
+                        <th>Uredi</th>
                         <th>Moderatori</th>
                     </tr>
                 </thead>
         </table>
 
-        <form action="kategorijaDodaj.php">
-            <input type="submit" value="Nova kategorija" />
-        </form>
+        <a href="kategorijaUredi.php">
+            <button>
+                Nova kategorija
+            </button>
+        </a>
 {/block}      
 {block name=javascript} 
+    <script src="../../js/tablica.js"></script>
     <script src="../../js/ajax/kategorije.js"></script>
 {/block}
      
