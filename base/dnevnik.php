@@ -31,10 +31,6 @@ class Dnevnik {
                  JOIN Korisnik K ON K.ID_korisnik = D.ID_korisnik
                  WHERE ID_tip_akcije = ".Akcije::Posjeta;
 
-        $rezultat = $baza->dohvati($upit);
-        while($red=$rezultat->fetch_assoc())
-            $zapisi[] = $red;
-
         $ukupnoStranica = 1;
         if($sortStupac)
             $upit .= ' ORDER BY '.$sortStupac;
@@ -43,9 +39,13 @@ class Dnevnik {
             $brRedova = $baza->dohvati("SELECT COUNT(*) FROM Dnevnik WHERE ID_tip_akcije = ".Akcije::Posjeta)->fetch_row();
             $ukupnoStranica = ceil($brRedova[0]/$paginacija);
             $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
-    
+
             $upit .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
         }
+
+        $rezultat = $baza->dohvati($upit);
+        while($red=$rezultat->fetch_assoc())
+            $zapisi[] = $red;
         
         $ret = array(
             'podaci' => $zapisi,
@@ -53,6 +53,19 @@ class Dnevnik {
         );
 
         return $ret;
+    }
+
+    static function dohvatiGrupiranuStatistiku() {
+        $baza = new Baza();
+        $zapisi = array();
+        $upit = 'SELECT COUNT(*) AS BrojPosjeta FROM Dnevnik D
+                 WHERE ID_tip_akcije = '.Akcije::Posjeta.' GROUP BY Opis';
+
+        $rezultat = $baza->dohvati($upit);
+        while($red=$rezultat->fetch_assoc())
+            $zapisi[] = $red;
+            
+        return $zapisi;
     }
 }
 

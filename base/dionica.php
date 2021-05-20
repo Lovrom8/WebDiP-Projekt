@@ -64,7 +64,7 @@ class Dionica {
         return $dionice;
     }
 
-    static function dohvatiSve() {
+    static function dohvatiSve($sortStupac='', $paginacija='', $trenutnaStranica='') {
         $baza = new Baza();
         $dionice = array();
         $upit = "";
@@ -74,11 +74,28 @@ class Dionica {
                  JOIN Grad P ON P.ID_grada = D.ID_grada_polazište
                  JOIN Kategorija K ON K.ID_kategorija = D.ID_kategorija";
 
-        $rezultat = $baza->dohvati($upit);
-        while($red=$rezultat->fetch_assoc()){
-            $dionice[] = $red;
+        $ukupnoStranica = 1;
+        if($sortStupac)
+            $upit .= ' ORDER BY '.$sortStupac;
+
+        if($paginacija){
+            $brRedova = $baza->dohvati("SELECT COUNT(*) FROM Dionica")->fetch_row();
+            $ukupnoStranica = ceil($brRedova[0]/$paginacija);
+            $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
+    
+            $upit .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
         }
-        return $dionice;
+
+        $rezultat = $baza->dohvati($upit);
+        while($red=$rezultat->fetch_assoc())
+            $dionice[] = $red;
+
+        $ret = array(
+            'podaci' => $dionice,
+            'brojStranica' => $ukupnoStranica
+        );
+    
+        return $ret;
     }
 
     static function dohvatiZaId($idDionica) {

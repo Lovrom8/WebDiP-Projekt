@@ -20,6 +20,25 @@ function zadovoljavaFitler(redak) {
     return provjeriDatum(redak.Datum_vrijeme) && redak.Korisnicko_ime.includes($('#korisnik').val());
 }
 
+const stupci = { 'Opis' : 0, 'Korisnicko_ime' : 0, 'Datum_vrijeme' : 0 };
+const tablica = new Tablica('statistika', 'statistika_koristenja', stupci, 0);
+
+function prikaziGraf(podaci) {
+    var polje = document.getElementById("grafStatistike");
+    polje.width = 300;
+    polje.height = 300;
+    console.log(podaci);
+    let brojPosjeta = podaci.map(stranica => parseInt(stranica.BrojPosjeta));
+    
+    var graf = new Piechart({
+        canvas: polje,
+        data: brojPosjeta,
+        colors: ["#fde23e", "#f16e23", "#57d9ff", "#937e88"]
+    });
+    graf.draw();
+}
+
+
 $(document).ready(() => {
     var table;
 
@@ -38,9 +57,6 @@ $(document).ready(() => {
         url: "base/dohvati.php",
         dataType: "json",
         success: (data) => {
-            const stupci = { 'Opis' : 0, 'Korisnicko_ime' : 0, 'Datum_vrijeme' : 0 };
-            const tablica = new Tablica('statistika', data, stupci, 0);
-
             $('#od, #do').on('change', () => {
                 tablica.postaviPodatke(data.filter(podatak => zadovoljavaFitler(podatak)));
             } );
@@ -52,6 +68,21 @@ $(document).ready(() => {
             console.log(er);
         }
     });   
+
+    $.ajax({
+        type: "POST",
+        data: {
+           statistika_koristenja_grupirano : "1"
+        },
+        url: "base/dohvati.php",
+        dataType: "json",
+        success: (data) => {
+            prikaziGraf(data);
+        }, error: (er) => {
+            console.log(er);
+        }
+    });   
+
 
     $('#generirajPDF').click(() => {
         var doc  = new jsPDF();
