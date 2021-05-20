@@ -38,8 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         Dnevnik::dodajZapis(Akcije::AzuriranjeKategorije, $naziv,  Sesija::provjeriSesiju());
         $poruke = 'Uspješno promijenjen naziv kategorije';
         
-        header("refresh:5;kategorije.php");
-        die();
+        header("Refresh:3;Url=kategorije.php");
       }
       else
         $greske .= 'Neuspješna promjena naziva kategorije.';
@@ -51,8 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         Dnevnik::dodajZapis(Akcije::DodavanjeKategorije, $naziv, Sesija::dohvatiSesiju());
         $poruke = 'Uspješno dodana nova kategorija';
         
-        header("refresh:5;kategorije.php");
-        die();
+        header("Refresh:3;Url=kategorije.php");
       }
       else
         $greske .= 'Neuspješno dodavanje nove kategorije.';
@@ -69,7 +67,7 @@ else
   }
 }
 
-$smarty->assign('id', $id);
+$smarty->assign('idKat', $id);
 $smarty->assign('greske', $greske);
 $smarty->assign('poruke', $poruke);
 $smarty->assign('nazivKategorije', $naziv);

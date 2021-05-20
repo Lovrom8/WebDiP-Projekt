@@ -7,6 +7,7 @@ $greske = '';
 $ime = '';
 $prezime = '';
 $korIme = '';
+$email = '';
 $lozinka = '';
 $potvrdaLozinke = '';
 
@@ -23,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST')
         $prezime = ocistiString($_POST['prezime']);
 
     if (empty($_POST['email']))
-        $greske .= 'Email nije upisan.<br>';
+        $greske .= 'Email nije unesen.<br>';
     else
     {
         $email = ocistiString($_POST['email']);
@@ -35,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST')
     }
 
     if (empty($_POST['korIme']))
-        $greske .= "Korisničko ime nije upisano";
+        $greske .= "Korisničko ime nije unesen.<br>";
     else
     {
         $korIme = ocistiString($_POST['korIme']);
@@ -50,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST')
         $lozinka = ocistiString($_POST["lozinka"]);
 
     if (empty($_POST['potvrdaLozinke']))
-        $greske .= 'Lozinka nije unesena. <br>';
+        $greske .= 'Potvrda lozinke nije unesena. <br>';
     else
     {
         $potvrdaLozinke = ocistiString($_POST['potvrdaLozinke']);
@@ -62,16 +63,13 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST')
             $greske .= 'Lozinka i potvrda se ne poklapaju!';
     }
 
-    if ($greske != '')
+    if (empty($greske))
     {
         $token = md5(rand(0, 1000));
         if (Korisnik::DodajKorisnika($korIme, $lozinka, $email, $ime, $prezime, $token))
         {
             Korisnik::PosaljiAktivacijskiMail($token, $email);
-            echo 'proslo';
         }
-        else
-            echo 'fail';
     }
 }
 

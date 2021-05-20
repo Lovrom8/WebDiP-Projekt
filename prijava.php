@@ -62,6 +62,7 @@ else
         $korisnickoIme = $_COOKIE["korisnik"];
 }
 
+$smarty->assign('greske', $greske);
 $smarty->assign('korIme', $korisnickoIme);
 $smarty->display('prijava.tpl');
 ?>

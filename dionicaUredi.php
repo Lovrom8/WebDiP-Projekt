@@ -17,6 +17,11 @@ $idKategorija = '';
 $oznaka = '';
 $otvorena = '';
 
+if(!Sesija::provjeriSesiju() || Sesija::tipKorisnika() < Korisnici::Moderator){
+    header("Location: index.php");
+    die();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
     if (empty($_POST["oznaka"]))
@@ -99,4 +104,5 @@ $smarty->assign('kategorija', $idKategorija);
 $smarty->assign('oznaka', $oznaka);
 $smarty->assign('otvorena', $otvorena);
 
+$smarty->assign('greske', $greske);
 $smarty->display('dionicaUredi.tpl');

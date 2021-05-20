@@ -24,7 +24,7 @@
         </thead>
     </table>
     <button id="generirajPDF">Generiraj PDF</button>
-    <button id="isprintaj">Isprintaj<button>
+    <button id="isprintaj">Isprintaj</button>
     <canvas id="grafStatistike"></canvas>
 {/block}
 {block name=javascript}

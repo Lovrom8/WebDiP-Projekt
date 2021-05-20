@@ -1,5 +1,6 @@
 {extends file="base.tpl"}
 {block name=sadrzaj}
+    <h2>Statistika problema</h2>
     <table id="problemi">
             <thead>
                 <tr>
@@ -9,7 +10,9 @@
             </thead>
     </table>
     <button id="generirajPDF">Generiraj PDF</button>
-    <canvas id="grafStatistike"></canvas>
+    <div class="grafContainer">
+        <canvas id="grafStatistike"></canvas>
+    </div>
 </table>
 {/block}
 

@@ -10,10 +10,12 @@ if(!Sesija::dohvatiSesiju()) {
     die();
 }
 
+Dnevnik::dodajZapis(Akcije::Posjeta, "obilasci.php", Sesija::dohvatiSesiju());
+
 $greske = '';
 if(isset($_GET['id'])) {
     $idDionice = $_GET['id'];
-    $datum = date('Y-m-d H:i:s');
+    $datum = dohvatiTrenutoVrijeme();
 
     if(Obilazak::evidentiraj(Sesija::dohvatiSesiju(), $idDionice, $datum)) {
         Dnevnik::dodajZapis(Akcije::EvidentiranjeObilaska, "", Sesija::dohvatiSesiju());
