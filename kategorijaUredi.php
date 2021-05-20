@@ -64,12 +64,13 @@ else
   if (isset($_GET["id"]))
   {
     $id = $_GET["id"];
-    if(($rez = Kategorija::dohvatiZaId($id)) != null){
+    if(($rez = Kategorija::dohvatiZaId($id)) != null)
       $naziv = $rez['Naziv_kategorije'];
-    }
   }
 }
 
 $smarty->assign('id', $id);
+$smarty->assign('greske', $greske);
+$smarty->assign('poruke', $poruke);
 $smarty->assign('nazivKategorije', $naziv);
 $smarty->display('kategorijaUredi.tpl');
