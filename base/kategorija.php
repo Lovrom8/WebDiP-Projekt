@@ -1,29 +1,31 @@
 <?php
 require_once 'baza.php';
 
-class Kategorija 
+class Kategorija
 {
-    static function dohvatiSve($sortStupac='', $paginacija='', $trenutnaStranica='') {
+    static function dohvatiSve($sortStupac = '', $paginacija = '', $trenutnaStranica = '')
+    {
         $baza = new Baza();
         $kategorije = array();
         $upit = "SELECT * FROM Kategorija";
 
-        if($sortStupac)
-             $upit .= ' ORDER BY '.$sortStupac;
+        if ($sortStupac)
+            $upit .= ' ORDER BY ' . $sortStupac;
 
         $ukupnoStranica = 1;
-        if($paginacija){
+        if ($paginacija)
+        {
             $brRedova = $baza->dohvati("SELECT COUNT(*) FROM Kategorija")->fetch_row();
-            $ukupnoStranica = ceil($brRedova[0]/$paginacija);
-            $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
+            $ukupnoStranica = ceil($brRedova[0] / $paginacija);
+            $trenutnaPozicija = (($trenutnaStranica - 1) * $paginacija);
 
-            $upit .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
+            $upit .= ' LIMIT ' . $trenutnaPozicija . ', ' . $paginacija;
         }
 
         $rezultat = $baza->dohvati($upit);
-        while($red=$rezultat->fetch_assoc())
+        while ($red = $rezultat->fetch_assoc())
             $kategorije[] = $red;
-        
+
         $ret = array(
             'podaci' => $kategorije,
             'brojStranica' => $ukupnoStranica
@@ -32,39 +34,73 @@ class Kategorija
         return $ret;
     }
 
-    static function dohvatiZaId($idKat) {
+    static function dohvatiZaId($idKat)
+    {
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();
 
         $upit = $veza->prepare("SELECT Naziv_kategorije FROM Kategorija WHERE ID_kategorija=?");
-        $upit->bind_param("i", $idKat); 
+        $upit->bind_param("i", $idKat);
         $upit->execute();
-        
+
         $rezultat = $upit->get_result()->fetch_assoc();
-        
+
         $upit->close();
 
         return $rezultat;
     }
 
-    static function dohvatiSModeratorima($idKat) {
+    static function dohvatiSModeratorima($idKat, $sortStupac, $paginacija, $trenutnaStranica)
+    {
         $baza = new Baza();
+        $veza = $baza->dohvatiVezu();
+
         $upit = "SELECT MK.ID_kategorija, MK.ID_moderator, M.Ime, M.Prezime, M.Korisnicko_ime, Kat.Naziv_kategorije FROM KategorijaModerator MK 
                         JOIN Korisnik M ON M.ID_korisnik = MK.ID_moderator
                         JOIN Kategorija Kat ON Kat.ID_kategorija = MK.ID_kategorija
-                        WHERE MK.ID_kategorija = '$idKat'";
-        
-        $kategorije = array();
+                        WHERE MK.ID_kategorija = ?";
 
-        $rezultat = $baza->dohvati($upit);
-        while($red=$rezultat->fetch_assoc()){
-            $kategorije[] = $red;
+        $ukupnoStranica = 1;
+        if ($sortStupac)
+            $upit .= ' ORDER BY ' . $sortStupac;
+
+        if ($paginacija)
+        {
+            $upitBroj = $veza->prepare("SELECT COUNT(*) FROM KategorijaModerator WHERE ID_kategorija = ?");
+            $upitBroj->bind_param("i", $idKat);
+            $upitBroj->execute();
+        
+            $brRedova = $upitBroj->get_result()->fetch_row();
+
+            $ukupnoStranica = ceil($brRedova[0] / $paginacija);
+            $trenutnaPozicija = (($trenutnaStranica - 1) * $paginacija);
+
+            $upitBroj->close();
+            $upit .= ' LIMIT ' . $trenutnaPozicija . ', ' . $paginacija;
         }
 
-        return $kategorije;
+        $upit = $veza->prepare($upit);
+        $upit->bind_param("i", $idKat);
+        $upit->execute();
+
+        $kategorije = array();
+
+        $rezultat = $upit->get_result();
+        while ($red = $rezultat->fetch_assoc())
+            $kategorije[] = $red;
+
+        $upit->close();
+
+        $ret = array(
+            'podaci' => $kategorije,
+            'brojStranica' => $ukupnoStranica
+        );
+
+        return $ret;
     }
 
-    static function dodaj($naziv) {
+    static function dodaj($naziv)
+    {
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();
 
@@ -79,7 +115,8 @@ class Kategorija
         return $uspjesno;
     }
 
-    static function osvjezi($id, $naziv) {
+    static function osvjezi($id, $naziv)
+    {
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();
 
@@ -94,16 +131,18 @@ class Kategorija
         return $uspjesno;
     }
 
-    static function obrisi($id) {
+    static function obrisi($id)
+    {
         $baza = new Baza();
         $upit = "DELETE FROM Kategorija WHERE ID_kategorija = '$id'";
 
         return $baza->provedi($upit);
     }
 
-    static function dodijeliModeratora($idKat, $idMod) {
+    static function dodijeliModeratora($idKat, $idMod)
+    {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-        
+
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();
 
@@ -116,11 +155,12 @@ class Kategorija
         $upit->close();
 
         return $uspjesno;
-    }       
+    }
 
-    static function ukloniModeratora($idKat, $idMod) {
+    static function ukloniModeratora($idKat, $idMod)
+    {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-        
+
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();
 
@@ -135,5 +175,3 @@ class Kategorija
         return $uspjesno;
     }
 }
-
-?>

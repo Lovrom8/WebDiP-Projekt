@@ -1,5 +1,5 @@
 class Tablica {
-    constructor(_imeTablice, _nazivPodataka, _stupci, _paginacija, _formatiranje = {}, _vidljivostCelija = {}) {
+    constructor(_imeTablice, _nazivPodataka, _stupci, _paginacija, _formatiranje = {}, _vidljivostCelija = {}, _id='') {
         this.ime = _imeTablice;
         this.naziv = _nazivPodataka;
         this.stupci = _stupci;
@@ -7,6 +7,7 @@ class Tablica {
         this.brojStranica = 1;
         this.formatiranje = _formatiranje;
         this.vidljivostCelija = _vidljivostCelija;
+        this.id = _id;
 
         $.getJSON("../../base/postavke.json", (json) => {
             if(_paginacija == 0) 
@@ -25,7 +26,8 @@ class Tablica {
             data: {
                podaci : this.naziv,
                paginacija: this.paginacija,
-               trenutna_stranica: this.trenutnaStranica
+               trenutna_stranica: this.trenutnaStranica,
+               id : this.id
             },
             url: "base/dohvati.php",
             dataType: "json",

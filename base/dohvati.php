@@ -12,7 +12,7 @@ include_once './util.php';
 
 $sortStupac = '';
 $paginacija = 6;
-$brojStranice = 0;
+$trenutnaStranica = 0;
 
 /* POSTAVKE PAGINACIJE */
 if (isset($_POST['sort_stupac']))
@@ -22,40 +22,39 @@ if (isset($_POST['paginacija']))
     $paginacija = ocistiString($_POST['paginacija']);
     
 if (isset($_POST['trenutna_stranica']))
-    $brojStranice = ocistiString($_POST['trenutna_stranica']);
+    $trenutnaStranica = ocistiString($_POST['trenutna_stranica']);
 
 /* TABLICE */
 if (isset($_POST['podaci'])) {
     $naziv = $_POST['podaci'];
 
     if($naziv === 'problemi')
-        echo json_encode(Problem::dohvatiSveProbleme($sortStupac, $paginacija, $brojStranice));
+        echo json_encode(Problem::dohvatiSveProbleme($sortStupac, $paginacija, $trenutnaStranica));
     elseif ($naziv === 'obilasci')
-        echo json_encode(Obilazak::dohvatiSve(Sesija::dohvatiSesiju(), $sortStupac, $paginacija, $brojStranice));
+        echo json_encode(Obilazak::dohvatiSve(Sesija::dohvatiSesiju(), $sortStupac, $paginacija, $trenutnaStranica));
     elseif ($naziv === 'statistika_problema')
-        echo json_encode(Problem::dohvatiStatistiku($sortStupac, $paginacija, $brojStranice));
+        echo json_encode(Problem::dohvatiStatistiku($sortStupac, $paginacija, $trenutnaStranica));
     elseif ($naziv === 'kategorije')
-        echo json_encode(Kategorija::dohvatiSve($sortStupac, $paginacija, $brojStranice));
+        echo json_encode(Kategorija::dohvatiSve($sortStupac, $paginacija, $trenutnaStranica));
     elseif ($naziv === 'statistika_koristenja')
-        echo json_encode(Dnevnik::dohvatiStatistikuKoristenja($sortStupac, $paginacija, $brojStranice));
+        echo json_encode(Dnevnik::dohvatiStatistikuKoristenja($sortStupac, $paginacija, $trenutnaStranica));
     elseif ($naziv === 'dionice')
-        echo json_encode(Dionica::dohvatiSve($sortStupac, $paginacija, $brojStranice));
+        echo json_encode(Dionica::dohvatiSve($sortStupac, $paginacija, $trenutnaStranica));
+    elseif ($naziv === 'moderatori_kategorije')
+        echo json_encode(Kategorija::dohvatiSModeratorima($_POST['id'], $sortStupac, $paginacija, $trenutnaStranica));
     elseif ($naziv === 'korisnici') {
         if(Sesija::tipKorisnika() == Korisnici::Administrator) {
-            echo json_encode(Korisnik::dohvatiSve($sortStupac, $paginacija, $brojStranice));
+            echo json_encode(Korisnik::dohvatiSve($sortStupac, $paginacija, $trenutnaStranica));
         } 
-    }
-    elseif ($naziv == 'dokumenti') {
+    }    elseif ($naziv == 'dokumenti') {
         if(Sesija::tipKorisnika() > Korisnici::Prometnik) 
-            echo json_encode(Dokument::dohvatiDokumente(false, $sortStupac, $paginacija, $brojStranice));
+            echo json_encode(Dokument::dohvatiDokumente(false, $sortStupac, $paginacija, $trenutnaStranica));
         else
-            echo json_encode(Dokument::dohvatiDokumente(true, $sortStupac, $paginacija, $brojStranice));
+            echo json_encode(Dokument::dohvatiDokumente(true, $sortStupac, $paginacija, $trenutnaStranica));
     }
 }
 
-if (isset($_POST['moderatori_kategorije'])) {
-    echo json_encode(Kategorija::dohvatiSModeratorima($_POST['moderatori_kategorije']));
-}
+
 
 /* OSTALI UI */
 
@@ -69,6 +68,10 @@ if (isset($_POST['dionice'])) {
 
 if (isset($_POST['gradovi'])) {
     echo json_encode(Grad::dohvatiSve());
+}
+
+if (isset($_POST['moderatori'])) {
+    echo json_encode(Korisnik::dohvatiModeratore());
 }
 
 if (isset($_POST['kategorije'])) {

@@ -1,8 +1,8 @@
-function nacrtajPolukrug(ctx, centerX, centerY, radius, startAngle, endAngle, color) {
-    ctx.fillStyle = color;
+function nacrtajPolukrug(ctx, centerX, centerY, radius, pocetniKut, zavrsniKut, boja) {
+    ctx.fillStyle = boja;
     ctx.beginPath();
     ctx.moveTo(centerX, centerY);
-    ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+    ctx.arc(centerX, centerY, radius, pocetniKut, zavrsniKut);
     ctx.closePath();
     ctx.fill();
 }

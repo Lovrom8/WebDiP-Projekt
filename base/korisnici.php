@@ -95,26 +95,27 @@ class Korisnik
         $upit = "SELECT * FROM Korisnik";
 
         $ukupnoStranica = 1;
-        if($sortStupac)
-            $upit .= ' ORDER BY '.$sortStupac;
+        if ($sortStupac)
+            $upit .= ' ORDER BY ' . $sortStupac;
 
-        if($paginacija){
+        if ($paginacija)
+        {
             $brRedova = $baza->dohvati("SELECT COUNT(*) FROM Korisnik")->fetch_row();
-            $ukupnoStranica = ceil($brRedova[0]/$paginacija);
-            $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
-    
-            $upit .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
+            $ukupnoStranica = ceil($brRedova[0] / $paginacija);
+            $trenutnaPozicija = (($trenutnaStranica - 1) * $paginacija);
+
+            $upit .= ' LIMIT ' . $trenutnaPozicija . ', ' . $paginacija;
         }
 
         $rezultat = $baza->dohvati($upit);
         while ($red = $rezultat->fetch_assoc())
             $korisnici[] = $red;
-    
+
         $ret = array(
             'podaci' => $korisnici,
             'brojStranica' => $ukupnoStranica
         );
-    
+
         return $ret;
     }
 
@@ -308,5 +309,19 @@ class Korisnik
         $upit->close();
 
         return $uspjesno;
+    }
+
+    static function dohvatiModeratore()
+    {
+        $baza = new Baza();
+        $moderatori = array();
+        $prazno = ' ';
+        $upit = 'SELECT ID_korisnik, CONCAT(Ime, Prezime) AS ImePrezime FROM Korisnik WHERE ID_uloga='.Korisnici::Moderator;
+                 
+        $rezultat = $baza->dohvati($upit);
+        while($red=$rezultat->fetch_assoc())
+            $moderatori[] = $red;
+            
+        return $moderatori;
     }
 }

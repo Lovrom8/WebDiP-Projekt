@@ -25,7 +25,9 @@
     </table>
     <button id="generirajPDF">Generiraj PDF</button>
     <button id="isprintaj">Isprintaj</button>
-    <canvas id="grafStatistike"></canvas>
+    <div class="grafContainer">
+        <canvas id="grafStatistike"></canvas>
+    </div>
 {/block}
 {block name=javascript}
     <script src="../js/tablica.js"></script>

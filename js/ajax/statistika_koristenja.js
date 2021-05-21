@@ -25,23 +25,23 @@ const tablica = new Tablica('statistika', 'statistika_koristenja', stupci, 0);
 
 function prikaziGraf(podaci) {
     var polje = document.getElementById("grafStatistike");
-    polje.width = 300;
-    polje.height = 300;
-    console.log(podaci);
-    let brojPosjeta = podaci.map(stranica => parseInt(stranica.BrojPosjeta));
+    polje.width = 500;
+    polje.height = 500;
+
+    let brojPosjeta = podaci.reduce((a,b) => {a[b.Opis] = parseInt(b.BrojPosjeta) 
+        return a}, {});
     
-    var graf = new Piechart({
+    var graf = new TortaGraf({
         canvas: polje,
-        data: brojPosjeta,
-        colors: ["#fde23e", "#f16e23", "#57d9ff", "#937e88"]
+        podaci: brojPosjeta
     });
-    graf.draw();
+
+    graf.nacrtaj();
+    graf.nacrtajLegendu();
 }
 
 
 $(document).ready(() => {
-    var table;
-
     odDatum = new DateTime($('#od'), {
         format: 'YYYY-MM-DD HH:MM:SS'
     });
