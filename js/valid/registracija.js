@@ -1,85 +1,97 @@
 // LOZINKA
 
-$('#lozinkaPotvrda').on('blur', () => {
-    var lozinka = $("#pwd").val();
-    var lozinkaPotvrda = $("#pwdConfirm").val();
+const greskaNepodudaranje = "Lozinka i potvrda lozinke se ne poklapaju!";
+const greskaPrekratkaLozinka = "Lozinka mora biti najmanje 8 znakova";
+const greskaZauzetoKorIme = "Korisničko ime je zazueto";
+const greskaPrekratkoKorIme = "Korisničko ime mora biti duljine najmanje 3 znaka";
+const greskaMailNeispravan = "Email je neispravnog formata";
+const greksaMailZauzet = "Email je već iskorišten";
 
-    if(lozinka === lozinkaPotvrda || lozinka.length < 8){
-        $("#pwd").addClass("krivo");
-        $("#conpass_err").html("Lozinka i potvrda lozinke se ne poklapaju!").addClass("greska");
-    }else{
-        $("#pwd").removeClass("krivo");
-        $("#conpass_err").html("").removeClass("greska")
+function prikaziGresku(greska) {
+    var trenutniTekst = $("#greske").text();
+    console.log(trenutniTekst);
+    if (trenutniTekst.indexOf(greska) === -1) {
+        $("#greske").text(trenutniTekst.concat(greska));
     }
- });
-
- function lozinkaValjana(lozinka) {
-    var re = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$";
-    return re.test(lozinka);
- }
-
-// KORISNIČKO IME
-function usernameProvjera(greska) {
-    
 }
 
-$('#username').on('blur', () => {
-    const korIme = $('#username').val();
-    var greska = "";
+function makniGresku(greska) {
+    var trenutniTekst = $("#greske").text();
+    $("#greske").text(trenutniTekst.replace(greska, ""));
+}
 
-    if(korIme.length >= 3) {
+$('#potvrdaLozinke').on('blur', () => {
+    var lozinka = $("#lozinka").val();
+    var lozinkaPotvrda = $("#potvrdaLozinke").val();
+
+    if (lozinka !== lozinkaPotvrda) {
+        $("#lozinka").addClass("krivo");
+        prikaziGresku(greskaNepodudaranje);
+    } else
+        makniGresku(greskaNepodudaranje);
+
+    if (lozinka.length < 8)
+        prikaziGresku(greskaPrekratkaLozinka);
+    else
+        makniGresku(greskaPrekratkaLozinka);
+});
+
+function lozinkaValjana(lozinka) {
+    var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    return re.test(lozinka);
+}
+
+$('#korIme').on('blur', () => {
+    const korIme = $('#korIme').val();
+
+    if (korIme.length >= 3) {
+        makniGresku(greskaPrekratkoKorIme);
+
         $.ajax({
             type: "POST",
             data: {
-                korisnik : korIme
+                korisnik: korIme
             },
             url: "base/dohvati.php",
             dataType: "json",
-            success: function(data) {
-                if(data.postoji == 1) {
-                    greska = "Korisničko ime je zauzeto!";
-                }
+            success: function (data) {
+                if (data.postoji == 1)
+                    prikaziGresku(greskaZauzetoKorIme);
+                else
+                    makniGresku(greskaZauzetoKorIme);
             }
         });
-    }
-    else 
-        greska = "Korisničko ime mora biti duljine barem 3 znaka";
-
-    usernameProvjera(greska);
+    } else
+        prikaziGresku(greskaPrekratkoKorIme);
 });
 
 // EMAIL
 
-function emailProvjera(greska) {
-
-}
-
 function mailIspravan(email) {
-    var re = "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/";
+    var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     return re.test(email);
 }
 
 $('#email').on('blur', () => {
     const email = $('#email').val();
-    var greska = "";
 
-    if(mailIspravan(email)) {
+    if (mailIspravan(email)) {
+        prikaziGresku(greskaMailNeispravan);
+
         $.ajax({
             type: "POST",
             data: {
-                email : email
+                email: email
             },
             url: "base/dohvati.php",
             dataType: "json",
-            success: function(data) {
-                if(data.postoji == 1) {
-                    greska = "Email je već iskorišten!";
-                }
+            success: function (data) {
+                if (data.postoji == 1) 
+                   prikaziGresku(greksaMailZauzet);
+                else
+                   makniGresku(greksaMailZauzet);
             }
         });
-    }
-    else 
-        greska = "Email nije u ispravnom obliku!";
-
-    emailProvjera(greska);
+    } else
+       makniGresku(greskaMailNeispravan);   
 });

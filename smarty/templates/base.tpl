@@ -27,6 +27,7 @@
                 {if ( $smarty.session.tip eq 4)}
                     <a href="kategorije.php">Kategorije</a>
                     <a href="statistikaKoristenja.php">Dnevnik</a>
+                    <a href="korisnici.php">Korisnici</a>
                     <a href="postavke.php">Postavke</a>
                 {/if}
                 

@@ -4,7 +4,7 @@
         <div class="form_naslov">
             <h2>Registracija</h2>
         </div>
-        <div class="form_greske">{$greske}</div>
+        <div class="form_greske" id="greske">{$greske}</div>
         <div class="form_tijelo">
             <label for="ime">Ime:</label><br>
             <input type="text" id="ime " name="ime  "><br>
