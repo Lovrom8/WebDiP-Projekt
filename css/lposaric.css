@@ -55,18 +55,25 @@ table {
     margin: 20px 0;
     overflow:hidden;
     border-collapse: collapse;
-    border-radius: 15px;
+    border-radius: 10px;
     border-style: hidden; /* hide standard table (collapsed) border */
-    box-shadow: 0 0 0 1px #666; /* this draws the table border  */ 
+    box-shadow: 0px 0px 18px 10px rgba(0, 0, 0, 0.10);
 }
 
 td, th {
-    border: 1px solid rgb(139, 135, 135);
+    /* border: 1px solid rgb(139, 135, 135); */
     padding: 10px;
 }
 
+td a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #221f1f;
+    text-align: center;
+}
+
 th {
-    background-color: #ac9898;
+    background-color: #ac9e9e;
 }
 
 tfoot tr {
@@ -74,7 +81,7 @@ tfoot tr {
 }
 
 tr:nth-child(even) {
-    background-color: #ac9898;
+    background-color: #ac9e9e;
 }
 
 tr:last-of-type {
@@ -124,49 +131,102 @@ tr:last-of-type {
 
 /* OBRASCI */
 
-.form__obrazac > label {
-    margin-bottom:10px;
+form {
+    width:650px;
+    margin:30px auto;
+    border-radius: 10px;
+    background:rgb(197, 187, 187);
 }
 
-.form__obrazac > input, select {
-    padding: 12px 20px;
-    margin-bottom: 20px;
+.form_naslov {
+    background-color: #EFF0F1;
+    border-radius: 10px 10px 0 0;
 }
 
-.form__obrazac > input[type=text], input[type=email] {
+.form_naslov h2 {
+    font-size: 24px;
+    text-align:center;
+    color:#666;
+    padding:12px 0;
+    border-bottom:1px solid #cccccc;
+}
+
+.form_tijelo {
+    padding:10px 40px;
+    color:#666;     
+}
+
+.form_tijelo input, select {
+    font-size: 16px;
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    color: #222222;
+    border: 1px solid #d6d6d6;
+    border-radius: 6px;
+    outline: none;
+    margin: 10px 0;
+}
+
+.form_greske {
+    color:rgb(65, 10, 10);
+    font-size: 16px;
+    margin: auto;
+    text-align: justify; 
+    font-weight: bold;
+    line-height: 24px;   
+    padding: 10px 40px;
+}
+
+.form_podnozje {
+    padding: 10px 0px 20px 40px;
+}
+
+.form_podnozje a {
+    text-decoration: none;
+    color: #222222;
+    font-weight: bold;
+}
+
+form > input[type=text], input[type=email] {
     width: 30%;
     margin: 8px 0;
+    border-radius: 4px;
 }
 
-.form__obrazac > input[type=passsword] {
+form > input[type=passsword] {
     width: 20%;
     margin: 8px 0;
 }
 
-.form__obrazac > input[type=submit] {
+form > input[type=submit] {
     width: 20%;
     margin: 15px 0;
 }
 
-/* VIDEO */
+/* GUMBI */
 
-.main__video {
-    position: relative;
-	padding-bottom: 56.25%; 
-	padding-top: 25px;
-	height: 0;
+button, input[type=submit] {
+    border-radius: 4px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    height: 40px;
+    width: 200px;
+    transition: all 0.3s ease 0s;
+    border: none;
 }
 
-.main__video iframe {
-    position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+button:not([disabled]):hover, input[type=submit]:hover {
+    background-color: #ac9898;
+    box-shadow: 0px 15px 20px rgba(150, 121, 89, 0.137);
+    color: #fff;
+    transform: translateY(-3px);
 }
 
-p#citat {
-    width: 100%;
+/* GRAFOVI */
+
+.grafContainer {
+    margin: 0 auto;
+    text-align: center;
 }
 
 /* FOOTER */

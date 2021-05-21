@@ -1,44 +1,67 @@
-function drawPieSlice(ctx,centerX, centerY, radius, startAngle, endAngle, color ){
+function nacrtajPolukrug(ctx, centerX, centerY, radius, startAngle, endAngle, color) {
     ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.moveTo(centerX,centerY);
+    ctx.moveTo(centerX, centerY);
     ctx.arc(centerX, centerY, radius, startAngle, endAngle);
     ctx.closePath();
     ctx.fill();
 }
 
-var Piechart = function(options){
-    this.options = options;
-    this.canvas = options.canvas;
-    this.ctx = this.canvas.getContext("2d");
-    this.colors = options.colors;
- 
-    this.draw = function(){
-        var total_value = 0;
-        var color_index = 0;
-        for (var categ in this.options.data){
-            var val = this.options.data[categ];
-            total_value += val;
-        }
- 
-        var start_angle = 0;
-        for (categ in this.options.data){
-            val = this.options.data[categ];
-            var slice_angle = 2 * Math.PI * val / total_value;
- 
-            drawPieSlice(
-                this.ctx,
-                this.canvas.width/2,
-                this.canvas.height/2,
-                Math.min(this.canvas.width/2,this.canvas.height/2),
-                start_angle,
-                start_angle+slice_angle,
-                this.colors[color_index%this.colors.length]
-            );
- 
-            start_angle += slice_angle;
-            color_index++;
-        }
- 
+function generirajNasumicneBoje(podaci) {
+    boje = [];
+    while (boje.length < Object.keys(podaci).length) {
+        var nasumicnaBoja = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
+        if (!boje.includes(nasumicnaBoja))
+            boje.push(nasumicnaBoja);
     }
+
+    return boje;
+}
+
+var TortaGraf = function (postavke) {
+    this.podaci = postavke.podaci;
+    this.canvas = postavke.canvas;
+    this.boje = generirajNasumicneBoje(postavke.podaci);
+    this.ctx = this.canvas.getContext("2d");
+    this.centarX = this.canvas.width / 2;
+    this.centarY = this.canvas.height / 2;
+
+    this.nacrtaj = () => {
+        var ukupno = 0;
+        var tren = 0;
+
+        $.each(this.podaci, (index, vrijednost) => {
+            ukupno += vrijednost;
+        });
+
+        var pocetniKut = 0;
+        $.each(this.podaci, (index, vrijednost) => {
+            var kutIsjecka = 2 * Math.PI * vrijednost / ukupno;
+
+            nacrtajPolukrug(
+                this.ctx,
+                this.centarX,
+                this.centarY,
+                Math.min(this.centarX, this.centarY),
+                pocetniKut,
+                pocetniKut + kutIsjecka,
+                this.boje[tren]
+            );
+
+            pocetniKut += kutIsjecka;
+            tren++;
+        });
+    }
+
+    this.nacrtajLegendu = (podaci) => {
+        let tren = 0;
+        $.each(podaci, (index, vrijednost) => {
+            this.ctx.fillStyle = this.boje[tren];
+            this.ctx.fillRect(0, 450 + 20 * tren, 20, 20);
+            this.ctx.font = '20px serif';
+            this.ctx.fillText(index, 25, 465 + 20 * tren);
+            tren++;
+
+        });
+    };
 }

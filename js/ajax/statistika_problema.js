@@ -6,19 +6,21 @@ const tablica = new Tablica('problemi', 'statistika_problema', stupci, 0);
 
 function prikaziGraf(podaci) {
     var polje = document.getElementById("grafStatistike");
-    polje.width = 300;
-    polje.height = 300;
+    polje.width = 500;
+    polje.height = 500;
 
-    //let brojProblema = podaci.reduce((a,b) => {a[b.Naziv_kategorije] = parseInt(b.BrojProblema) 
-    //                                          return a}, {});
-    let brojProblema = podaci.map(problem => parseInt(problem.BrojProblema));
+    let brojProblema = podaci.reduce((a,b) => {a[b.Naziv_kategorije] = parseInt(b.BrojProblema) 
+                                              return a}, {});
+    //let brojProblema = podaci.map(problem => parseInt(problem.BrojProblema));
+    //console.log(brojProblema);
     
-    var graf = new Piechart({
+    var graf = new TortaGraf({
         canvas: polje,
-        data: brojProblema,
-        colors: ["#fde23e", "#f16e23", "#57d9ff", "#937e88"]
+        podaci: brojProblema
     });
-    graf.draw();
+
+    graf.nacrtaj();
+    graf.nacrtajLegendu(brojProblema);
 }
 
 $(document).ready(() => {
