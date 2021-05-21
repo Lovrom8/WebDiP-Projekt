@@ -131,10 +131,9 @@ class Tablica {
     }
 
     postaviPaginaciju(paginacija) {
-        this.paginacija = paginacija;
-        this.od = 0;
-        this.do = paginacija;
-        this.prikaziTablicu();
-        this.provjeriGumbe();
+        if(!isNaN(paginacija)) {
+            this.paginacija = paginacija;
+            this.dohvatiPodatke();    
+        }
     }
 }

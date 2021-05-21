@@ -10,6 +10,7 @@
             </thead>
     </table>
     <button id="generirajPDF">Generiraj PDF</button>
+    <button id="isprintaj">Isprintaj</button>
     <div class="grafContainer">
         <canvas id="grafStatistike"></canvas>
     </div>

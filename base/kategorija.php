@@ -3,7 +3,7 @@ require_once 'baza.php';
 
 class Kategorija 
 {
-    static function dohvatiSve($sortStupac, $paginacija, $trenutnaStranica) {
+    static function dohvatiSve($sortStupac='', $paginacija='', $trenutnaStranica='') {
         $baza = new Baza();
         $kategorije = array();
         $upit = "SELECT * FROM Kategorija";
@@ -11,6 +11,7 @@ class Kategorija
         if($sortStupac)
              $upit .= ' ORDER BY '.$sortStupac;
 
+        $ukupnoStranica = 1;
         if($paginacija){
             $brRedova = $baza->dohvati("SELECT COUNT(*) FROM Kategorija")->fetch_row();
             $ukupnoStranica = ceil($brRedova[0]/$paginacija);

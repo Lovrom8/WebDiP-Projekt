@@ -1,12 +1,18 @@
 $(document).ready(() => {
     $.getJSON("../../base/postavke.json", (json) => {
-        const poStranici = parseInt(json.brojElPoStranici);
+        var dokPoStranici = 0;
 
-        $('#po_stranici').val(poStranici);
+        paginacija = dohvatiVrijednostKolacica('paginacijaDokumenata');
+        if(paginacija == "")
+            dokPoStranici = parseInt(json.brojElPoStranici);
+        else 
+            dokPoStranici = parseInt(paginacija);
 
-        const stupci = { "Naslov" : 0, "Status" : 0, "Poveznica" : 0, "Potvrdi" : '<a href=dokumenti.php?idDokumenta={ID_dokumenta}&status=1>Potvrdi</a>', "Odbij" : '<a href=dokumenti.php?idDokumenta={ID_dokumenta}&status=0>Odbij</a>'  };
+        $('#po_stranici').val(dokPoStranici);
+
+        const stupci = { "Naslov" : 0, "Status" : 0, "Poveznica" : '<a href={Poveznica}>{Poveznica}</a>', "Potvrdi" : '<a href=dokumenti.php?idDokumenta={ID_dokumenta}&status=1>Potvrdi</a>', "Odbij" : '<a href=dokumenti.php?idDokumenta={ID_dokumenta}&status=0>Odbij</a>'  };
         const formatiranje = { "Status" : { 1 : 'zeleniRed', 2 : 'crveniRed'} };
-        const tablica = new Tablica('dokumenti', 'dokumenti', stupci, poStranici, formatiranje);
+        const tablica = new Tablica('dokumenti', 'dokumenti', stupci, dokPoStranici, formatiranje);
         
         $('#vrsta_dokumenta').on('change', () => {
             tablica.postaviPodatke(data.filter(podatak => podatak.ID_vrste === $('#vrsta_dokumenta').val() || $('#vrsta_dokumenta').val() == '0' ));
@@ -14,6 +20,7 @@ $(document).ready(() => {
 
         $('#po_stranici').on('keyup change click', () => {
             tablica.postaviPaginaciju(parseInt( $('#po_stranici').val()));
+            postaviKolacic('paginacijaDokumenata', parseInt($('#po_stranici').val()), 365 );
         } );
     });
 

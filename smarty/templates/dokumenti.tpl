@@ -23,6 +23,7 @@
 {/block}
 
 {block name=javascript}
+      <script src="../../js/general.js"></script>
       <script src="../../js/tablica.js"></script>
       <script src="../../js/ajax/dokumenti.js"></script>
 {/block}

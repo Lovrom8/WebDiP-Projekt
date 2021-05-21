@@ -46,4 +46,8 @@ $(document).ready(() => {
             console.log(er);
         }
     });   
+
+    $('#isprintaj').click(() => {
+        window.print(); 
+    });
 });

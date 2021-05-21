@@ -1,9 +1,3 @@
-const stupci = {  "Naziv_kategorije" : 0, 
-                  "Uredi" : '<a href=kategorijaUredi.php?id={ID_kategorija}>Uredi</a>', 
-                  "Moderatori" : '<a href=moderatoriKategorije.php?id={ID_kategorija}>Uredi moderatore</a>'
-};
-const tablica = new Tablica('kategorije', 'kategorije', stupci, 0);
-
 $(document).ready(() => {
     $.ajax({
         type: "POST",
@@ -23,3 +17,9 @@ $(document).ready(() => {
         }
     });   
 });
+
+const stupci = {  "Naziv_kategorije" : 0, 
+                  "Uredi" : '<a href=kategorijaUredi.php?id={ID_kategorija}>Uredi</a>', 
+                  "Moderatori" : '<a href=moderatoriKategorije.php?id={ID_kategorija}>Uredi moderatore</a>'
+};
+const tablica = new Tablica('kategorije', 'kategorije', stupci, 0);

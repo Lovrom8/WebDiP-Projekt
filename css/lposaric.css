@@ -122,11 +122,11 @@ tr:last-of-type {
 }
 
 .crveniRed {
-    background-color: #990F02 !important;
+    background-color: #b31506 !important;
 }
 
 .zeleniRed {
-    background-color: #74B72E !important;
+    background-color: #95b96e !important;
 }
 
 /* OBRASCI */
@@ -158,14 +158,18 @@ form {
 
 .form_tijelo input, select {
     font-size: 16px;
-    width: 100%;
+    min-width: 125px;
     height: 40px;
-    padding: 10px;
+    padding: 10px 0;
     color: #222222;
     border: 1px solid #d6d6d6;
     border-radius: 6px;
     outline: none;
     margin: 10px 0;
+}
+
+.form_tijelo > input{
+    width: 100%;
 }
 
 .form_greske {

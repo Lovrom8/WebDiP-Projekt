@@ -39,7 +39,7 @@ if (isset($_POST['podaci'])) {
     elseif ($naziv === 'statistika_koristenja')
         echo json_encode(Dnevnik::dohvatiStatistikuKoristenja($sortStupac, $paginacija, $brojStranice));
     elseif ($naziv === 'dionice')
-        echo json_encode(Dionica::dohvatiSve());
+        echo json_encode(Dionica::dohvatiSve($sortStupac, $paginacija, $brojStranice));
     elseif ($naziv === 'korisnici') {
         if(Sesija::tipKorisnika() == Korisnici::Administrator) {
             echo json_encode(Korisnik::dohvatiSve($sortStupac, $paginacija, $brojStranice));
@@ -69,6 +69,14 @@ if (isset($_POST['dionice'])) {
 
 if (isset($_POST['gradovi'])) {
     echo json_encode(Grad::dohvatiSve());
+}
+
+if (isset($_POST['kategorije'])) {
+    echo json_encode(Kategorija::dohvatiSve()['podaci']);
+}
+
+if (isset($_POST['statistika_koristenja_grupirano'])) {
+    echo json_encode(Dnevnik::dohvatiGrupiranuStatistiku());
 }
 
 /* VALIDACIJA */
