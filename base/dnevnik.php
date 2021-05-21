@@ -58,7 +58,7 @@ class Dnevnik {
     static function dohvatiGrupiranuStatistiku() {
         $baza = new Baza();
         $zapisi = array();
-        $upit = 'SELECT COUNT(*) AS BrojPosjeta FROM Dnevnik D
+        $upit = 'SELECT COUNT(*) AS BrojPosjeta, Opis FROM Dnevnik D
                  WHERE ID_tip_akcije = '.Akcije::Posjeta.' GROUP BY Opis';
 
         $rezultat = $baza->dohvati($upit);
