@@ -23,7 +23,5 @@
         <script src="../../js/grafovi.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
         <script src="https://unpkg.com/jspdf-autotable@3.5.14/dist/jspdf.plugin.autotable.js"></script>
-        <script id="ajaxDionice"                
-                 src="../../js/ajax/dionice.js"></script>
         <script src="../../js/ajax/statistika_problema.js"></script>
 {/block}

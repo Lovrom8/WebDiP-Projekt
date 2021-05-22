@@ -2,7 +2,8 @@ const stupci = {
     "Naziv_kategorije": 0,
     "BrojProblema": 0
 };
-const tablica = new Tablica('problemi', 'statistika_problema', stupci, 0);
+const naslovi = ["Kategorija", "Broj problema"];
+const tablica = new Tablica('problemi', 'statistika_problema', stupci, naslovi, 0);
 
 function prikaziGraf(podaci) {
     var polje = document.getElementById("grafStatistike");

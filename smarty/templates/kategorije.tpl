@@ -16,6 +16,8 @@
                 Nova kategorija
             </button>
         </a>
+
+        
 {/block}      
 {block name=javascript} 
     <script src="../../js/tablica.js"></script>

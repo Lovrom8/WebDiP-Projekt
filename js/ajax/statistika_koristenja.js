@@ -21,7 +21,8 @@ function zadovoljavaFitler(redak) {
 }
 
 const stupci = { 'Opis' : 0, 'Korisnicko_ime' : 0, 'Datum_vrijeme' : 0 };
-const tablica = new Tablica('statistika', 'statistika_koristenja', stupci, 0);
+const naslovi = ["Stranica", "Korisnik", "Datum"];
+const tablica = new Tablica('statistika', 'statistika_koristenja', stupci, naslovi, 0);
 
 function prikaziGraf(podaci) {
     var polje = document.getElementById("grafStatistike");
