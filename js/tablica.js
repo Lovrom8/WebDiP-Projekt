@@ -1,9 +1,10 @@
 class Tablica {
-    constructor(_imeTablice, _nazivPodataka, _stupci, _naslovi, _paginacija, _formatiranje = {}, _vidljivostCelija = {}, _id = '') {
+    constructor(_imeTablice, _nazivPodataka, _stupci, _naslovi, _filteri, _paginacija, _formatiranje = {}, _vidljivostCelija = {}, _id = '') {
         this.ime = _imeTablice;
         this.naziv = _nazivPodataka;
         this.naslovi = _naslovi;
         this.stupci = _stupci;
+        this.filteri = _filteri;
         this.trenutnaStranica = 1;
         this.brojStranica = 1;
         this.formatiranje = _formatiranje;
@@ -30,7 +31,8 @@ class Tablica {
                 paginacija: this.paginacija,
                 trenutna_stranica: this.trenutnaStranica,
                 sort_stupac: this.sortStupac,
-                id: this.id
+                id: this.id,
+                filteri: JSON.stringify(this.filteri)
             },
             url: "base/dohvati.php",
             dataType: "json",
@@ -152,9 +154,13 @@ class Tablica {
     }
 
     provjeriGumbe() {
-        console.log(this.brojStranica);
         $('#btnSljedeca' + this.ime).prop('disabled', this.trenutnaStranica == this.brojStranica);
         $('#btnPrethodna' + this.ime).prop('disabled', this.trenutnaStranica === 1);
+    }
+
+    postaviFilter(naziv, vrijednost) {
+        this.filteri[naziv] = vrijednost;
+        this.dohvatiPodatke();
     }
 
     postaviPodatke(data) {

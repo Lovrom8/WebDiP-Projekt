@@ -10,11 +10,13 @@ function prikaziGraf(podaci) {
     polje.width = 500;
     polje.height = 500;
 
-    let brojProblema = podaci.reduce((a,b) => {a[b.Naziv_kategorije] = parseInt(b.BrojProblema) 
-                                              return a}, {});
+    let brojProblema = podaci.reduce((a, b) => {
+        a[b.Naziv_kategorije] = parseInt(b.BrojProblema)
+        return a
+    }, {});
     //let brojProblema = podaci.map(problem => parseInt(problem.BrojProblema));
     //console.log(brojProblema);
-    
+
     var graf = new TortaGraf({
         canvas: polje,
         podaci: brojProblema
@@ -36,19 +38,20 @@ $(document).ready(() => {
     $.ajax({
         type: "POST",
         data: {
-           podaci : 'statistika_problema',
-           paginacija: 0
+            podaci: 'statistika_problema',
+            paginacija: 0
         },
         url: "base/dohvati.php",
         dataType: "json",
         success: (data) => {
             prikaziGraf(data.podaci);
-        }, error: (er) => {
+        },
+        error: (er) => {
             console.log(er);
         }
-    });   
+    });
 
     $('#isprintaj').click(() => {
-        window.print(); 
+        window.print();
     });
 });

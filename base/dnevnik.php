@@ -24,12 +24,30 @@ class Dnevnik {
         return $zapisi;
     }
 
-    static function dohvatiStatistikuKoristenja($sortStupac, $paginacija, $trenutnaStranica) {
+    static function dohvatiStatistikuKoristenja($sortStupac, $paginacija, $trenutnaStranica, $filteri) {
         $baza = new Baza();
         $zapisi = array();
         $upit = "SELECT Opis, Datum_vrijeme, Korisnicko_ime FROM Dnevnik D
                  JOIN Korisnik K ON K.ID_korisnik = D.ID_korisnik
                  WHERE ID_tip_akcije = ".Akcije::Posjeta;
+
+        $upitFilteri = "";
+        if(!empty($filteri['Korisnik'])){
+            $korisnik = $filteri['Korisnik'];
+            $upitFilteri .= " AND Korisnicko_ime LIKE '%$korisnik%' ";
+        }
+
+        if(!empty($filteri['Od'])) {
+            $od = $filteri['Od'];
+            $upitFilteri .= " AND Datum_vrijeme >= '$od'";
+        }
+
+        if(!empty($filteri['Do'])) {
+            $do = $filteri['Do'];
+            $upitFilteri .= " AND Datum_vrijeme <= '$do'";
+        }
+
+        $upit .= $upitFilteri;
 
         $ukupnoStranica = 1;
         if($sortStupac)

@@ -13,6 +13,7 @@ include_once './util.php';
 $sortStupac = '';
 $paginacija = 6;
 $trenutnaStranica = 0;
+$filteri = [];
 
 /* POSTAVKE PAGINACIJE */
 if (isset($_POST['sort_stupac']))
@@ -23,6 +24,9 @@ if (isset($_POST['paginacija']))
     
 if (isset($_POST['trenutna_stranica']))
     $trenutnaStranica = ocistiString($_POST['trenutna_stranica']);
+
+if (isset($_POST['filteri'])) 
+    $filteri = json_decode($_POST['filteri'], true);
 
 /* TABLICE */
 if (isset($_POST['podaci'])) {
@@ -35,9 +39,9 @@ if (isset($_POST['podaci'])) {
     elseif ($naziv === 'statistika_problema')
         echo json_encode(Problem::dohvatiStatistiku($sortStupac, $paginacija, $trenutnaStranica));
     elseif ($naziv === 'kategorije')
-        echo json_encode(Kategorija::dohvatiSve($sortStupac, $paginacija, $trenutnaStranica));
+        echo json_encode(Kategorija::dohvatiSve($sortStupac, $paginacija, $trenutnaStranica, $filteri));
     elseif ($naziv === 'statistika_koristenja')
-        echo json_encode(Dnevnik::dohvatiStatistikuKoristenja($sortStupac, $paginacija, $trenutnaStranica));
+        echo json_encode(Dnevnik::dohvatiStatistikuKoristenja($sortStupac, $paginacija, $trenutnaStranica, $filteri));
     elseif ($naziv === 'dionice')
         echo json_encode(Dionica::dohvatiSve($sortStupac, $paginacija, $trenutnaStranica));
     elseif ($naziv === 'moderatori_kategorije')

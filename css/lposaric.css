@@ -65,6 +65,11 @@ td, th {
     padding: 10px;
 }
 
+th a {
+    font-weight: bold;
+    color: #221f1f;
+}
+
 td a {
     text-decoration: none;
     font-weight: bold;

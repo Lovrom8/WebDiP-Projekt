@@ -2,7 +2,7 @@ $(document).ready(() => {
     $.ajax({
         type: "POST",
         data: {
-           moderatori : "1"
+            moderatori: "1"
         },
         url: "base/dohvati.php",
         dataType: "json",
@@ -10,11 +10,12 @@ $(document).ready(() => {
             console.log(data);
             $.each(data, (i, el) => {
                 $("#idMod").append(
-                   $("<option></option>").val(el.ID_korisnik).html(el.ImePrezime)
+                    $("<option></option>").val(el.ID_korisnik).html(el.ImePrezime)
                 )
             });
-        }, error: (er) => {
+        },
+        error: (er) => {
             console.log(er);
         }
-    });   
+    });
 });

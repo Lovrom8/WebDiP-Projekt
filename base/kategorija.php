@@ -3,11 +3,19 @@ require_once 'baza.php';
 
 class Kategorija
 {
-    static function dohvatiSve($sortStupac = '', $paginacija = '', $trenutnaStranica = '')
+    static function dohvatiSve($sortStupac = '', $paginacija = '', $trenutnaStranica = '', $filteri='')
     {
         $baza = new Baza();
         $kategorije = array();
         $upit = "SELECT * FROM Kategorija";
+
+        $upitFilteri = "";
+        if(!empty($filteri['Kategorija'])){
+            $kategorija = $filteri['Kategorija'];
+            $upitFilteri .= " WHERE Naziv_kategorije LIKE '%$kategorija%' ";
+        }
+
+        $upit .= $upitFilteri;
 
         if ($sortStupac)
             $upit .= ' ORDER BY ' . $sortStupac;
