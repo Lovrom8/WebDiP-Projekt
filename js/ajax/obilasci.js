@@ -18,10 +18,24 @@ $(document).ready(() => {
     $('#oznaka').change(() => {
         tablica.postaviFilter('Oznaka', $('#oznaka').val());
     });
-});
 
-/*let ukupno = 0;
-data.forEach((el) => {
-    ukupno += el.Broj_kilometara;
-    $('#ukupnoKm').text(ukupno);
-});*/
+    $.ajax({
+        type: "POST",
+        data: {
+            obilasci : "1"
+        },
+        url: "base/dohvati.php",
+        dataType: "json",
+        success: (data) => {
+            let ukupno = 0;
+            data.podaci.forEach((el) => {
+                ukupno += el.Broj_kilometara;
+            });
+
+            $('#ukupnoKm').text(ukupno);
+        },
+        error: (er) => {
+            console.log(er);
+        }
+    });
+});

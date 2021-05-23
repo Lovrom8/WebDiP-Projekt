@@ -20,7 +20,7 @@ class Obilazak {
         return $uspjesno;
     }
 
-    static function dohvatiSve($idKorisnika, $sortStupac, $paginacija, $trenutnaStranica, $filteri)
+    static function dohvatiSve($idKorisnika, $sortStupac = '', $paginacija = '', $trenutnaStranica = '', $filteri = '')
     {
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();

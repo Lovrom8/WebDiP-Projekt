@@ -71,6 +71,10 @@ if (isset($_POST['dionice'])) {
     echo json_encode(Dionica::dohvatiSve());
 }
 
+if (isset($_POST['obilasci'])) {
+    echo json_encode(Obilazak::dohvatiSve(Sesija::dohvatiSesiju()));
+}
+
 if (isset($_POST['gradovi'])) {
     echo json_encode(Grad::dohvatiSve());
 }
