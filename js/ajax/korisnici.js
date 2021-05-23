@@ -11,4 +11,19 @@ const formatiranjeCelije = {
         'Status': 2
     }
 };
-const tablica2 = new Tablica('korisnici', 'korisnici', stupci, 0, {}, formatiranjeCelije);
+const naslovi = ['Korisničko ime', 'Blokiraj', 'Odblokiraj'];
+const filteri = {
+    'KorisnickoIme': '',
+    'SamoBlokirani': ''
+};
+const tablica = new Tablica('korisnici', 'korisnici', stupci, naslovi, filteri, 0, {}, formatiranjeCelije);
+
+$(document).ready(() => {
+    $('#korIme').change(() => {
+        tablica.postaviFilter('KorisnickoIme', $('#korIme').val());
+    });
+
+    $('#samoBlokirani').change(() => {
+        tablica.postaviFilter('SamoBlokirani', $('#samoBlokirani').is(":checked"));
+    });
+});

@@ -1,6 +1,12 @@
 {extends file="base.tpl"}
 {block name=sadrzaj}
     <h2>Statistika problema</h2>
+
+    <label for="kategorija">Kategorija: </label>
+    <input type="text" id="kategorija" name="kategorija">
+    <label for="minProblema">Problema više od: </label>
+    <input type="number" id="minProblema" name="minProblema">
+
     <table id="problemi">
             <thead>
                 <tr>

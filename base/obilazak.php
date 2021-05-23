@@ -20,13 +20,26 @@ class Obilazak {
         return $uspjesno;
     }
 
-    static function dohvatiSve($idKorisnika, $sortStupac, $paginacija, $trenutnaStranica)
+    static function dohvatiSve($idKorisnika, $sortStupac, $paginacija, $trenutnaStranica, $filteri)
     {
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();
 
         $upit = "SELECT Oznaka, Datum, Broj_kilometara FROM Obilazak O JOIN Dionica D ON D.ID_dionica = O.ID_dionica WHERE O.ID_korisnik = ?";
         
+        $upitFilteri = "";
+        if(!empty($filteri['Oznaka'])){
+            $oznaka = $filteri['Oznaka'];
+            $upitFilteri .= " AND Oznaka LIKE '%$oznaka%' ";
+        }
+
+        if(!empty($filteri['BrojKilometara'])){
+            $brojKilometara = $filteri['BrojKilometara'];
+            $upitFilteri .= " AND Broj_kilometara > $brojKilometara";
+        }
+
+        $upit .= $upitFilteri;
+
         $ukupnoStranica = 1;
         if($sortStupac)
             $upit .= ' ORDER BY '.$sortStupac;

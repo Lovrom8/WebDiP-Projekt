@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-05-22 21:23:47
+/* Smarty version 3.1.39, created on 2021-05-23 12:02:03
   from 'C:\Users\38598\Documents\FOI\WebDIP\WebDiP\ProjektActual\WebDiP-Projekt\smarty\templates\moderatoriKategorije.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_60a95a43576510_52069675',
+  'unifunc' => 'content_60aa281bbbf3b1_35987969',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '55e696ce03a90c8cabe01cd90c6417b84e42b617' => 
     array (
       0 => 'C:\\Users\\38598\\Documents\\FOI\\WebDIP\\WebDiP\\ProjektActual\\WebDiP-Projekt\\smarty\\templates\\moderatoriKategorije.tpl',
-      1 => 1621711375,
+      1 => 1621764089,
       2 => 'file',
     ),
   ),
@@ -20,30 +20,35 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_60a95a43576510_52069675 (Smarty_Internal_Template $_smarty_tpl) {
+function content_60aa281bbbf3b1_35987969 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_107363219360a95a434ea1f6_92368132', "sadrzaj");
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_160429437960aa281bb5ca63_41957817', "sadrzaj");
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_56369649460a95a43575a03_73823692', "javascript");
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_83784271960aa281bbbde78_88751276', "javascript");
 $_smarty_tpl->inheritance->endChild($_smarty_tpl, "base.tpl");
 }
 /* {block "sadrzaj"} */
-class Block_107363219360a95a434ea1f6_92368132 extends Smarty_Internal_Block
+class Block_160429437960aa281bb5ca63_41957817 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'sadrzaj' => 
   array (
-    0 => 'Block_107363219360a95a434ea1f6_92368132',
+    0 => 'Block_160429437960aa281bb5ca63_41957817',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
+
+    <label for="ime">Ime: </label>
+    <input type="text" id="ime" name="ime">
+    <label for="prezime">Prezime: </label>
+    <input type="text" id="prezime" name="prezime">
 
     <table id="moderatori">
         <thead>
@@ -75,12 +80,12 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 }
 /* {/block "sadrzaj"} */
 /* {block "javascript"} */
-class Block_56369649460a95a43575a03_73823692 extends Smarty_Internal_Block
+class Block_83784271960aa281bbbde78_88751276 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'javascript' => 
   array (
-    0 => 'Block_56369649460a95a43575a03_73823692',
+    0 => 'Block_83784271960aa281bbbde78_88751276',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {

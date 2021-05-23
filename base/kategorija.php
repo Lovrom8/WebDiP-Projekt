@@ -58,7 +58,7 @@ class Kategorija
         return $rezultat;
     }
 
-    static function dohvatiSModeratorima($idKat, $sortStupac, $paginacija, $trenutnaStranica)
+    static function dohvatiSModeratorima($idKat, $sortStupac, $paginacija, $trenutnaStranica, $filteri)
     {
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();
@@ -67,6 +67,19 @@ class Kategorija
                         JOIN Korisnik M ON M.ID_korisnik = MK.ID_moderator
                         JOIN Kategorija Kat ON Kat.ID_kategorija = MK.ID_kategorija
                         WHERE MK.ID_kategorija = ?";
+
+        $upitFilteri = "";
+        if(!empty($filteri['Ime'])){
+            $ime = $filteri['Ime'];
+            $upitFilteri .= " AND M.Ime LIKE '%$ime%' ";
+        }
+
+        if(!empty($filteri['Prezime'])){
+            $prezime = $filteri['Prezime'];
+            $upitFilteri .= " AND M.Prezime LIKE '%$prezime%' ";
+        }
+
+        $upit .= $upitFilteri;
 
         $ukupnoStranica = 1;
         if ($sortStupac)

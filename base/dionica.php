@@ -64,7 +64,7 @@ class Dionica {
         return $dionice;
     }
 
-    static function dohvatiSve($sortStupac='', $paginacija='', $trenutnaStranica='') {
+    static function dohvatiSve($sortStupac='', $paginacija='', $trenutnaStranica='', $filteri='') {
         $baza = new Baza();
         $dionice = array();
         $upit = "";
@@ -73,6 +73,23 @@ class Dionica {
                  JOIN Grad O ON O.ID_grada = D.ID_grada_odredište
                  JOIN Grad P ON P.ID_grada = D.ID_grada_polazište
                  JOIN Kategorija K ON K.ID_kategorija = D.ID_kategorija";
+
+        $upitFilteri = "";
+        if(!empty($filteri['Polazište'])){
+            $polaziste = $filteri['Polazište'];
+            $upitFilteri .= " WHERE P.Naziv LIKE '%$polaziste%' ";
+        }
+
+        if(!empty($filteri['Odredište'])){
+            $odrediste = $filteri['Odredište'];
+
+            if(!empty($filteri['Polazište']))
+                $upitFilteri .= " AND O.Naziv LIKE '%$odrediste%'";
+            else
+                $upitFilteri .= " WHERE O.Naziv LIKE '%$odrediste%'";
+        }
+
+        $upit .= $upitFilteri;
 
         $ukupnoStranica = 1;
         if($sortStupac)

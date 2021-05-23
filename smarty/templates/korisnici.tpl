@@ -1,5 +1,11 @@
 {extends file="base.tpl"}
 {block name=sadrzaj}
+    <label for="korIme">Korisničko ime: </label>
+    <input type="text" id="korIme" name="korIme">
+
+    <label for="samoBlokirani">Samo blokirani: </label>
+    <input type="checkbox" id="samoBlokirani" name="samoBlokirani">
+
     <div>{$poruke}</div>
     <div>{$greske}</div>
     <table id="korisnici">

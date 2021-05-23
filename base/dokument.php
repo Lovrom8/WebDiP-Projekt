@@ -37,7 +37,7 @@ class Dokument {
         return $uspjesno;
     }
     
-    static function dohvatiDokumente($samoPotvrdene, $sortStupac, $paginacija, $trenutnaStranica)
+    static function dohvatiDokumente($samoPotvrdene, $sortStupac, $paginacija, $trenutnaStranica, $filteri)
     {
         $baza = new Baza();
         $dokumenti = array();
@@ -48,6 +48,20 @@ class Dokument {
             $upit .= " WHERE Status=1";
             $upitBroj .= " WHERE Status=1";
         }
+
+        $upitFilteri = "";
+        if(!empty($filteri['VrstaDokumenta'])){
+            $vrstaDokumenta = $filteri['VrstaDokumenta'];
+
+            if($vrstaDokumenta > 0) {
+                if($samoPotvrdene)
+                    $upitFilteri .= " AND ID_vrste = '$vrstaDokumenta'";
+                else
+                    $upitFilteri .= " WHERE ID_vrste = '$vrstaDokumenta'";
+            }
+        }
+
+        $upit .= $upitFilteri;
 
         $ukupnoStranica = 1;
         if($sortStupac)

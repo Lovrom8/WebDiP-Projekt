@@ -3,6 +3,13 @@
 {block name=sadrzaj}
     <div>{$greske}</div>
     <div>{$poruke}</div>
+
+    <label for="dionica">Dionica: </label>
+    <input type="text" id="dionica" name="dionica">
+
+    <label for="opis">Opis: </label>
+    <input type="text" id="opis" name="opis">
+
     <table id="problemi">
         <thead>
             <tr>

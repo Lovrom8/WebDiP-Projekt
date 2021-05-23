@@ -13,5 +13,17 @@ $(document).ready(() => {
         'Dokumenti': '<a href=dokumentDodaj.php?id={ID_dionica}&oznaka={Oznaka}>Dodaj</a>',
         'Obilazak': '<a href=obilasci.php?id={ID_dionica}>Evidentiraj</a>',
     };
-    const tablica2 = new Tablica('dionice', 'dionice', stupci, naslovi, 0);
+    const filteri = {
+        'Polazište': '',
+        'Odredište': ''
+    };
+    const tablica = new Tablica('dionice', 'dionice', stupci, naslovi, filteri, 0);
+
+    $('#polaziste').change(() => {
+        tablica.postaviFilter('Polazište', $('#polaziste').val());
+    });
+
+    $('#odrediste').change(() => {
+        tablica.postaviFilter('Odredište', $('#odrediste').val());
+    });
 });

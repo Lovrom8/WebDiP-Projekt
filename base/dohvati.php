@@ -33,28 +33,29 @@ if (isset($_POST['podaci'])) {
     $naziv = $_POST['podaci'];
 
     if($naziv === 'problemi')
-        echo json_encode(Problem::dohvatiSveProbleme($sortStupac, $paginacija, $trenutnaStranica));
+        echo json_encode(Problem::dohvatiSveProbleme($sortStupac, $paginacija, $trenutnaStranica, $filteri));
     elseif ($naziv === 'obilasci')
-        echo json_encode(Obilazak::dohvatiSve(Sesija::dohvatiSesiju(), $sortStupac, $paginacija, $trenutnaStranica));
+        echo json_encode(Obilazak::dohvatiSve(Sesija::dohvatiSesiju(), $sortStupac, $paginacija, $trenutnaStranica, $filteri));
     elseif ($naziv === 'statistika_problema')
-        echo json_encode(Problem::dohvatiStatistiku($sortStupac, $paginacija, $trenutnaStranica));
+        echo json_encode(Problem::dohvatiStatistiku($sortStupac, $paginacija, $trenutnaStranica, $filteri));
     elseif ($naziv === 'kategorije')
         echo json_encode(Kategorija::dohvatiSve($sortStupac, $paginacija, $trenutnaStranica, $filteri));
     elseif ($naziv === 'statistika_koristenja')
         echo json_encode(Dnevnik::dohvatiStatistikuKoristenja($sortStupac, $paginacija, $trenutnaStranica, $filteri));
     elseif ($naziv === 'dionice')
-        echo json_encode(Dionica::dohvatiSve($sortStupac, $paginacija, $trenutnaStranica));
+        echo json_encode(Dionica::dohvatiSve($sortStupac, $paginacija, $trenutnaStranica, $filteri)); 
     elseif ($naziv === 'moderatori_kategorije')
-        echo json_encode(Kategorija::dohvatiSModeratorima($_POST['id'], $sortStupac, $paginacija, $trenutnaStranica));
+        echo json_encode(Kategorija::dohvatiSModeratorima($_POST['id'], $sortStupac, $paginacija, $trenutnaStranica, $filteri)); 
     elseif ($naziv === 'korisnici') {
         if(Sesija::tipKorisnika() == Korisnici::Administrator) {
-            echo json_encode(Korisnik::dohvatiSve($sortStupac, $paginacija, $trenutnaStranica));
+            echo json_encode(Korisnik::dohvatiSve($sortStupac, $paginacija, $trenutnaStranica, $filteri)); 
         } 
-    }    elseif ($naziv == 'dokumenti') {
+    }
+    elseif ($naziv == 'dokumenti') {
         if(Sesija::tipKorisnika() > Korisnici::Prometnik) 
-            echo json_encode(Dokument::dohvatiDokumente(false, $sortStupac, $paginacija, $trenutnaStranica));
+            echo json_encode(Dokument::dohvatiDokumente(false, $sortStupac, $paginacija, $trenutnaStranica, $filteri));
         else
-            echo json_encode(Dokument::dohvatiDokumente(true, $sortStupac, $paginacija, $trenutnaStranica));
+            echo json_encode(Dokument::dohvatiDokumente(true, $sortStupac, $paginacija, $trenutnaStranica, $filteri));
     }
 }
 

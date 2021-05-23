@@ -21,6 +21,7 @@
             {if isset($smarty.session.ID) }
                 {if ( $smarty.session.tip > 1)}
                     <a href="dokumenti.php">Dokumenti</a>
+                    <a href="obilasci.php">Obilasci</a>
                     <a href="problemi.php">Problemi</a>            
                 {/if}
 

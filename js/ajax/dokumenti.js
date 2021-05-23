@@ -24,10 +24,15 @@ $(document).ready(() => {
                 2: 'crveniRed'
             }
         };
-        const tablica = new Tablica('dokumenti', 'dokumenti', stupci, naslovi, dokPoStranici, formatiranje);
+        const filteri = {
+            'VrstaDokumenta': '',
+            'Status': ''
+        };
+        const tablica = new Tablica('dokumenti', 'dokumenti', stupci, naslovi, filteri, dokPoStranici, formatiranje);
 
         $('#vrsta_dokumenta').on('change', () => {
-            tablica.postaviPodatke(data.filter(podatak => podatak.ID_vrste === $('#vrsta_dokumenta').val() || $('#vrsta_dokumenta').val() == '0'));
+            //tablica.postaviPodatke(data.filter(podatak => podatak.ID_vrste === $('#vrsta_dokumenta').val() || $('#vrsta_dokumenta').val() == '0'));
+            tablica.postaviFilter('VrstaDokumenta', $('#vrsta_dokumenta').val());
         });
 
         $('#po_stranici').on('keyup change click', () => {
@@ -49,4 +54,6 @@ $(document).ready(() => {
             });
         }
     });
+
+
 });

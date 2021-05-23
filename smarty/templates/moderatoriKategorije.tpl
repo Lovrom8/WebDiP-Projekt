@@ -1,5 +1,10 @@
 {extends file="base.tpl"}
 {block name="sadrzaj"}
+    <label for="ime">Ime: </label>
+    <input type="text" id="ime" name="ime">
+    <label for="prezime">Prezime: </label>
+    <input type="text" id="prezime" name="prezime">
+
     <table id="moderatori">
         <thead>
             <tr>

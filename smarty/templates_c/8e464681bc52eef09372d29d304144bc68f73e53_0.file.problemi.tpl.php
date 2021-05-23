@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-05-16 10:34:41
+/* Smarty version 3.1.39, created on 2021-05-23 00:21:29
   from 'C:\Users\38598\Documents\FOI\WebDIP\WebDiP\ProjektActual\WebDiP-Projekt\smarty\templates\problemi.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_60a0d921340525_87410182',
+  'unifunc' => 'content_60a983e91cf465_93470304',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8e464681bc52eef09372d29d304144bc68f73e53' => 
     array (
       0 => 'C:\\Users\\38598\\Documents\\FOI\\WebDIP\\WebDiP\\ProjektActual\\WebDiP-Projekt\\smarty\\templates\\problemi.tpl',
-      1 => 1621154078,
+      1 => 1621722087,
       2 => 'file',
     ),
   ),
@@ -20,30 +20,30 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_60a0d921340525_87410182 (Smarty_Internal_Template $_smarty_tpl) {
+function content_60a983e91cf465_93470304 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_201374994160a0d921293e22_32953663', 'naslov');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_34136037960a983e91c0515_37486695', 'naslov');
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_31733226960a0d921295293_86865372', 'sadrzaj');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_115437782160a983e91c37a6_70535923', 'sadrzaj');
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_58772462960a0d92133f3e1_07289964', 'javascript');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_46853353260a983e91cd6a2_36056767', 'javascript');
 $_smarty_tpl->inheritance->endChild($_smarty_tpl, "base.tpl");
 }
 /* {block 'naslov'} */
-class Block_201374994160a0d921293e22_32953663 extends Smarty_Internal_Block
+class Block_34136037960a983e91c0515_37486695 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'naslov' => 
   array (
-    0 => 'Block_201374994160a0d921293e22_32953663',
+    0 => 'Block_34136037960a983e91c0515_37486695',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -53,12 +53,12 @@ Problemi<?php
 }
 /* {/block 'naslov'} */
 /* {block 'sadrzaj'} */
-class Block_31733226960a0d921295293_86865372 extends Smarty_Internal_Block
+class Block_115437782160a983e91c37a6_70535923 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'sadrzaj' => 
   array (
-    0 => 'Block_31733226960a0d921295293_86865372',
+    0 => 'Block_115437782160a983e91c37a6_70535923',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -68,6 +68,13 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 </div>
     <div><?php echo $_smarty_tpl->tpl_vars['poruke']->value;?>
 </div>
+
+    <label for="dionica">Dionica: </label>
+    <input type="text" id="dionica" name="dionica">
+
+    <label for="opis">Opis: </label>
+    <input type="text" id="opis" name="opis">
+
     <table id="problemi">
         <thead>
             <tr>
@@ -84,12 +91,12 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 }
 /* {/block 'sadrzaj'} */
 /* {block 'javascript'} */
-class Block_58772462960a0d92133f3e1_07289964 extends Smarty_Internal_Block
+class Block_46853353260a983e91cd6a2_36056767 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'javascript' => 
   array (
-    0 => 'Block_58772462960a0d92133f3e1_07289964',
+    0 => 'Block_46853353260a983e91cd6a2_36056767',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {

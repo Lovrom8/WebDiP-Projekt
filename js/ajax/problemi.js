@@ -14,4 +14,18 @@ const formatiranjeCelije = {
         'Otvorena': 0
     }
 };
-const tablica = new Tablica('problemi', 'problemi', stupci, naslovi, 0, {}, formatiranjeCelije);
+const filteri = {
+    'Dionica': '',
+    'Opis': ''
+};
+const tablica = new Tablica('problemi', 'problemi', stupci, naslovi, filteri, 0, {}, formatiranjeCelije);
+
+$(document).ready(() => {
+    $('#dionica').change(() => {
+        tablica.postaviFilter('Dionica', $('#dionica').val());
+    });
+
+    $('#opis').change(() => {
+        tablica.postaviFilter('Opis', $('#opis').val());
+    });
+});

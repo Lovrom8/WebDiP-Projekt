@@ -3,7 +3,11 @@ const stupci = {
     "BrojProblema": 0
 };
 const naslovi = ["Kategorija", "Broj problema"];
-const tablica = new Tablica('problemi', 'statistika_problema', stupci, naslovi, 0);
+const filteri = {
+    'MinProblema': '',
+    'Kategorija': ''
+};
+const tablica = new Tablica('problemi', 'statistika_problema', stupci, naslovi, filteri, 0);
 
 function prikaziGraf(podaci) {
     var polje = document.getElementById("grafStatistike");
@@ -53,5 +57,13 @@ $(document).ready(() => {
 
     $('#isprintaj').click(() => {
         window.print();
+    });
+
+    $('#minProblema').change(() => {
+        tablica.postaviFilter('MinProblema', $('#minProblema').val());
+    });
+
+    $('#kategorija').change(() => {
+        tablica.postaviFilter('Kategorija', $('#kategorija').val());
     });
 });

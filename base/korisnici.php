@@ -88,11 +88,28 @@ class Korisnik
         return $greske;
     }
 
-    static function dohvatiSve($sortStupac, $paginacija, $trenutnaStranica)
+    static function dohvatiSve($sortStupac, $paginacija, $trenutnaStranica, $filteri)
     {
         $baza = new Baza();
         $korisnici = array();
         $upit = "SELECT * FROM Korisnik";
+
+        $upitFilteri = "";
+        if(!empty($filteri['KorisnickoIme'])){
+            $ime = $filteri['KorisnickoIme'];
+            $upitFilteri .= " WHERE Korisnicko_ime LIKE '%$ime%' ";
+        }
+
+        if(!empty($filteri['SamoBlokirani'])){
+            $samoBlokirani = $filteri['SamoBlokirani'] === true;
+
+            if(!empty($filteri['KorisnickoIme']) && $samoBlokirani)
+                $upitFilteri .= " AND Status = 3";
+            else if($samoBlokirani)
+                $upitFilteri .= ' WHERE Status = 3';
+        }
+
+        $upit .= $upitFilteri;
 
         $ukupnoStranica = 1;
         if ($sortStupac)

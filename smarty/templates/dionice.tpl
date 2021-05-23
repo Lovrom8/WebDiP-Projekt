@@ -1,5 +1,10 @@
 {extends file="base.tpl"}
 {block name=sadrzaj}
+    <label for="polaziste">Polazište: </label>
+    <input type="text" id="polaziste" name="polaziste">
+    <label for="odrediste">Odredište: </label>
+    <input type="text" id="odrediste" name="odrediste">
+
     <table id="dionice">
     <thead>
         <tr>
