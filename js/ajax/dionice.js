@@ -1,18 +1,21 @@
 $(document).ready(() => {
     const sve = $("#ajaxDionice").attr('sve');
 
-    if (sve === "1")
-        $("#dok").css("display", "block");
-
-    const naslovi = ["Oznaka", "Polazište", "Odredište", "Naziv kategorije", "Dokumenti", "Obilazak "];
-    const stupci = {
+    var naslovi = ["Oznaka", "Polazište", "Odredište", "Naziv kategorije"];
+    var stupci = {
         "Oznaka": 0,
         "Polazište": 0,
         "Odredište": 0,
-        "Naziv_kategorije": 0,
-        'Dokumenti': '<a href=dokumentDodaj.php?id={ID_dionica}&oznaka={Oznaka}>Dodaj</a>',
-        'Obilazak': '<a href=obilasci.php?id={ID_dionica}>Evidentiraj</a>',
+        "Naziv_kategorije": 0
     };
+
+    if (sve === "1") {
+        naslovi.push("Dokumenti", "Obilazak");
+
+        stupci['Dokumenti'] =  '<a href=dokumentDodaj.php?id={ID_dionica}&oznaka={Oznaka}>Dodaj</a>';
+        stupci['Obilazak'] = '<a href=obilasci.php?id={ID_dionica}>Evidentiraj</a>';
+    }
+
     const filteri = {
         'Polazište': '',
         'Odredište': ''

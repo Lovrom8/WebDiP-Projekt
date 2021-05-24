@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     if(empty($greske)) {
         if(Kategorija::dodijeliModeratora($kategorija, $mod)) {
             $uspjeh = 'Dodan je moderator za odabranu kategoriju! Preusmjeravamo natrag...';
-            Dnevnik::dodajZapis(Akcije::DodavanjeModeratora, '', Sesija::dohvatiSesiju());
+            Dnevnik::dodajZapis(Akcije::DodavanjeModeratora, '', Sesija::provjeriSesiju());
         } 
         else
             $greske .= 'Nismo uspjeli ukloniti moderatora! Preusmjeravamo natrag...';

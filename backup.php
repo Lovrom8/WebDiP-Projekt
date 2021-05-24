@@ -12,7 +12,7 @@ if (!(Sesija::provjeriSesiju()) || Sesija::tipKorisnika() != Korisnici::Administ
     die();
 }
 
-Dnevnik::dodajZapis(Akcije::Posjeta, "backup.php", Sesija::dohvatiSesiju());
+Dnevnik::dodajZapis(Akcije::Posjeta, "backup.php", Sesija::provjeriSesiju());
 
 $skripte = array();
 if ($_SERVER["REQUEST_METHOD"] == "POST")

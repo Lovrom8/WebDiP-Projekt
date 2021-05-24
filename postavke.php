@@ -22,7 +22,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     file_put_contents('base/postavke.json', json_encode($settings) );
 } else {
-    Dnevnik::dodajZapis(Akcije::Posjeta, "Postavke", Sesija::dohvatiSesiju());
+    Dnevnik::dodajZapis(Akcije::Posjeta, "Postavke", Sesija::provjeriSesiju());
 }
 
 $smarty->assign('trajanjeKolacica', $settings->{'trajanjeKolacica'});

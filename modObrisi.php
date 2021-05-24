@@ -26,7 +26,7 @@ else
 if(empty($greske)) {
     if(Kategorija::ukloniModeratora($kategorija, $mod)) {
         $uspjeh = 'Maknut je moderator za odabranu kategoriju! Preusmjeravamo natrag...';
-        Dnevnik::dodajZapis(Akcije::BrisanjeModeratora, '', Sesija::dohvatiSesiju());
+        Dnevnik::dodajZapis(Akcije::BrisanjeModeratora, '', Sesija::provjeriSesiju());
     } 
     else
         $greske .= 'Nismo uspjeli ukloniti moderatora! Preusmjeravamo natrag...';

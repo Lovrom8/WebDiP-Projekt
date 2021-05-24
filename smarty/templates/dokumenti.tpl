@@ -25,5 +25,11 @@
 {block name=javascript}
       <script src="../../js/general.js"></script>
       <script src="../../js/tablica.js"></script>
-      <script src="../../js/ajax/dokumenti.js"></script>
+      <script id="ajaxDokumenti" 
+            {if isset($smarty.session.tip) && ($smarty.session.tip >= 3)}
+                sve="1"
+            {else}
+                sve="0"
+            {/if}
+            src="../../js/ajax/dokumenti.js"></script>
 {/block}

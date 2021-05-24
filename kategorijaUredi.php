@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
       if (Kategorija::dodaj($naziv))
       {
-        Dnevnik::dodajZapis(Akcije::DodavanjeKategorije, $naziv, Sesija::dohvatiSesiju());
+        Dnevnik::dodajZapis(Akcije::DodavanjeKategorije, $naziv, Sesija::provjeriSesiju());
         $poruke = 'Uspješno dodana nova kategorija';
         
         header("Refresh:3;Url=kategorije.php");

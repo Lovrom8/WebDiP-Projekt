@@ -15,7 +15,7 @@ if (!Sesija::provjeriSesiju() || Sesija::tipKorisnika() != Korisnici::Administra
     die();
 }
 
-Dnevnik::dodajZapis(Akcije::Posjeta, "korisnici.php", Sesija::dohvatiSesiju());
+Dnevnik::dodajZapis(Akcije::Posjeta, "korisnici.php", Sesija::provjeriSesiju());
 
 $idKor = '';
 $status = '';

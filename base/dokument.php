@@ -28,7 +28,7 @@ class Dokument {
         $upit->execute();
                 
         if($status == StatusDokumeta::Potvrden)
-            Dnevnik::dodajZapis(Akcije::PotvrdaDokumenta, "", Sesija::dohvatiSesiju());
+            Dnevnik::dodajZapis(Akcije::PotvrdaDokumenta, "", Sesija::provjeriSesiju());
 
         $uspjesno = $upit->affected_rows == 1;
 

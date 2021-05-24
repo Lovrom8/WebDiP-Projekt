@@ -18,9 +18,7 @@ function prikaziGraf(podaci) {
         a[b.Naziv_kategorije] = parseInt(b.BrojProblema)
         return a
     }, {});
-    //let brojProblema = podaci.map(problem => parseInt(problem.BrojProblema));
-    //console.log(brojProblema);
-
+   
     var graf = new TortaGraf({
         canvas: polje,
         podaci: brojProblema

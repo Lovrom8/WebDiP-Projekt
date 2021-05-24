@@ -48,7 +48,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $greske = Korisnik::Prijavi($korisnickoIme, $lozinka, $zapamti);
         
         if($greske == "") {
-            Dnevnik::dodajZapis(Akcije::Prijava, "", Sesija::dohvatiSesiju());
+            Dnevnik::dodajZapis(Akcije::Prijava, "", Sesija::provjeriSesiju());
             header("Location: index.php");
             die();
         }

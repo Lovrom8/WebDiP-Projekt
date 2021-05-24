@@ -66,9 +66,9 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST')
     if (empty($greske))
     {
         $token = md5(rand(0, 1000));
-        if (Korisnik::DodajKorisnika($korIme, $lozinka, $email, $ime, $prezime, $token))
+        if (Korisnik::dodajKorisnika($korIme, $lozinka, $email, $ime, $prezime, $token))
         {
-            Korisnik::PosaljiAktivacijskiMail($token, $email);
+            Korisnik::posaljiAktivacijskiMail($token, $email);
         }
     }
 }

@@ -12,6 +12,10 @@ function nasumicniString($duljina) {
   return substr(str_shuffle($znakovi), 0, $duljina);
 }
 
+function hashirajLozinku($lozinka, $sol) {
+  return hash("sha256", $lozinka . $sol);
+}
+
 function dohvatiSPomakom() {
 
 }

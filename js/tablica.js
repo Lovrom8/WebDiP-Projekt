@@ -120,7 +120,8 @@ class Tablica {
                 if (stupac in this.vidljivostCelija) {
                     var formatStupca = this.vidljivostCelija[stupac];
 
-                    Object.entries(formatStupca).forEach(([stupacUvjet, vrijednostUvjeta]) => {
+                    Object.entries(formatStupca).forEach(([vrijednostUvjeta, stupacUvjet]) => { // Hacky but functional za slučaj kada su uvjetni stupci isti
+                        console.log(stupacUvjet + " " + vrijednostUvjeta);
                         if (el[stupacUvjet] == vrijednostUvjeta) {
                             celija.style.visibility = "hidden";
                         }

@@ -10,7 +10,7 @@ if(!Sesija::provjeriSesiju() || Sesija::tipKorisnika() < Korisnici::Moderator){
     die();
 }
 
-Dnevnik::dodajZapis(Akcije::Posjeta, "problemi.php", Sesija::dohvatiSesiju());
+Dnevnik::dodajZapis(Akcije::Posjeta, "problemi.php", Sesija::provjeriSesiju());
 
 $poruke = '';
 $greske = '';

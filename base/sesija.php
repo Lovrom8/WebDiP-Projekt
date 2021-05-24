@@ -9,11 +9,11 @@ class Sesija {
     const PREZIME = "prezime";
     const E_MAIL = "email";
 
-    static function kreirajSesiju($id, $kor_ime, $ime, $prezime, $mail, $tip) 
+    static function kreirajSesiju($id, $kor_ime, $ime, $prezime, $mail, $tip)
     {
-        session_name(self::SESSION_NAME);
-        
-        if(session_id() == ""){
+        if (session_id() == "")
+        {
+            session_name(self::SESSION_NAME);
             session_start();
         }
 
@@ -25,69 +25,41 @@ class Sesija {
         $_SESSION[self::TIP] = $tip;
     }
 
-    static function provjeriSesiju() {
-        session_name(self::SESSION_NAME);
-
-        if (session_status() != PHP_SESSION_ACTIVE) {
-            session_start();
-        }
-        
-        if(session_id() == ""){
-            session_start();
-        }
-
-        if (isset($_SESSION[self::ID])) {
-            $id = $_SESSION[self::ID];
-        } else {
-            return null;
-        }
-        return $id;
-    }
-
-    static function dohvatiSesiju() 
+    static function provjeriSesiju()
     {
-        if (session_status() != PHP_SESSION_ACTIVE)
+        if (session_id() == "")
+        {
             session_name(self::SESSION_NAME);
-        
-        if(session_id() == ""){
             session_start();
         }
-
-        if (isset($_SESSION[self::ID])) {
-            $id = $_SESSION[self::ID];
-        } else {
+        
+        if (isset($_SESSION[self::ID]))
+            return $_SESSION[self::ID];
+        else
             return null;
-        }
-        return $id;
     }
 
-
-    static function tipKorisnika(){
-        if(Sesija::dohvatiSesiju())
+    static function tipKorisnika()
+    {
+        if (Sesija::provjeriSesiju())
         {
-            if (isset($_SESSION[self::TIP])) 
-            {
+            if (isset($_SESSION[self::TIP]))
                 $tip = $_SESSION[self::TIP];
-            } 
-            else 
-            {
+            else
                 $tip = null;
-            }
         }
         else
-        {
             $tip = null;
-        }
 
         return $tip;
     }
 
-    static function zavrsiSesiju(){
-        session_name(self::SESSION_NAME);
-
-        if(session_id() == "") 
+    static function zavrsiSesiju()
+    {
+        if (session_id() == "")
         {
             session_start();
+            session_name(self::SESSION_NAME);
         }
 
         session_unset();

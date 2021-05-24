@@ -35,7 +35,7 @@ if (isset($_POST['podaci'])) {
     if($naziv === 'problemi')
         echo json_encode(Problem::dohvatiSveProbleme($sortStupac, $paginacija, $trenutnaStranica, $filteri));
     elseif ($naziv === 'obilasci')
-        echo json_encode(Obilazak::dohvatiSve(Sesija::dohvatiSesiju(), $sortStupac, $paginacija, $trenutnaStranica, $filteri));
+        echo json_encode(Obilazak::dohvatiSve(Sesija::provjeriSesiju(), $sortStupac, $paginacija, $trenutnaStranica, $filteri));
     elseif ($naziv === 'statistika_problema')
         echo json_encode(Problem::dohvatiStatistiku($sortStupac, $paginacija, $trenutnaStranica, $filteri));
     elseif ($naziv === 'kategorije')
@@ -72,7 +72,7 @@ if (isset($_POST['dionice'])) {
 }
 
 if (isset($_POST['obilasci'])) {
-    echo json_encode(Obilazak::dohvatiSve(Sesija::dohvatiSesiju()));
+    echo json_encode(Obilazak::dohvatiSve(Sesija::provjeriSesiju()));
 }
 
 if (isset($_POST['gradovi'])) {

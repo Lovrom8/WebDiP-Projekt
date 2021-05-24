@@ -48,15 +48,38 @@ class Korisnik
     static function Prijavi($korisnickoIme, $lozinka, $zapamti)
     {
         $baza = new Baza();
+        $veza = $baza->dohvatiVezu();
         $greske = "";
+
+        $upitSol = "SELECT Sol FROM Korisnik WHERE Korisnicko_ime = ?";
+    
+        $upit = $veza->prepare($upitSol);
+        $upit->bind_param('s', $korisnickoIme);
+        $upit->execute();
+
+        $rezultat = $upit->get_result();
+
+        if ($rezultat->num_rows == 0)
+        {
+            $greske .= "Ne postoji korisnik s tim korisničkim imenom i lozinkom.</br>";
+            Dnevnik::dodajZapis(Akcije::NeuspjesnaPrijava, $korisnickoIme, 0);
+            return $greske;
+        }
+
+        $red = mysqli_fetch_assoc($rezultat);
+        $sol = $red["Sol"];
+        $lozinkaSha = hashirajLozinku($lozinka, $sol);
 
         $upit = "SELECT ID_korisnik, Ime, Prezime, Email, Status, ID_Uloga AS TipKorisnika
             FROM Korisnik
-            WHERE Korisnicko_ime = '$korisnickoIme'
-            AND Lozinka = '$lozinka'";
+            WHERE Korisnicko_ime = ?
+            AND Lozinka_SHA256 = ?";
 
-        $rezultat = $baza->Dohvati($upit);
-        $red = mysqli_fetch_assoc($rezultat);
+        $upit = $veza->prepare($upit);
+        $upit->bind_param('ss', $korisnickoIme, $lozinkaSha);
+        $upit->execute();
+
+        $rezultat = $upit->get_result();
 
         if ($rezultat->num_rows == 0)
         {
@@ -65,6 +88,8 @@ class Korisnik
         }
         else
         {
+            $red = mysqli_fetch_assoc($rezultat);
+
             if ($red["Status"] == StatusKorisnika::Neaktiviran)
                 $greske .= "Vaš račun nije aktiviran.";
             else if ($red["Status"] == StatusKorisnika::Blokiran)
@@ -141,13 +166,13 @@ class Korisnik
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();
 
-        $lozinkaSha = $lozinka;
-        $lozinkaSha = sha1($lozinka);
+        $sol = nasumicniString(20);
+        $lozinkaSha = hashirajLozinku($lozinka, $sol);
 
         $vrijemeReg = date('Y-m-d H:i:s');
 
-        $upit = $veza->prepare("INSERT INTO Korisnik (Ime, Prezime, Lozinka, Lozinka_SHA1, Korisnicko_ime, Email, Status, ID_uloga, Token, Vrijeme_registracije) VALUES (?, ?, ?, ?, ?, ?, '0', '2', ?, ?)");
-        $upit->bind_param("ssssssss", $ime, $prezime, $lozinka, $lozinkaSha, $korisnickoIme, $email, $token, $vrijemeReg);
+        $upit = $veza->prepare("INSERT INTO Korisnik (Ime, Prezime, Lozinka, Lozinka_SHA256, Korisnicko_ime, Email, Status, ID_uloga, Token, Vrijeme_registracije, Sol) VALUES (?, ?, ?, ?, ?, ?, '0', '2', ?, ?, ?)");
+        $upit->bind_param("sssssssss", $ime, $prezime, $lozinka, $lozinkaSha, $korisnickoIme, $email, $token, $vrijemeReg, $sol);
         $upit->execute();
 
         printf("%d row inserted.\n", $upit->affected_rows);
@@ -161,7 +186,7 @@ class Korisnik
         return $uspjesno;
     }
 
-    static function ProvjeriEmail($email)
+    static function provjeriEmail($email)
     {
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();
@@ -177,7 +202,7 @@ class Korisnik
         return $rezultat->num_rows == 0;
     }
 
-    static function ProvjeriUsername($username)
+    static function provjeriUsername($username)
     {
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();
@@ -193,7 +218,7 @@ class Korisnik
         return $rezultat->num_rows == 0;
     }
 
-    static function PosaljiAktivacijskiMail($token, $email)
+    static function posaljiAktivacijskiMail($token, $email)
     {
         $actual_link = "http://$_SERVER[HTTP_HOST]/" . "aktivacija.php?token=" . $token;
         $subject = "Aktivacijski mail";

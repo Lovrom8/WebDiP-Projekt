@@ -44,6 +44,14 @@ function provjeriPostavke() {
         postaviCSS();
 }
 
+function sakrijStupac(idTablice, brojStupca, pokazi) {
+    var tablica = document.getElementById(idTablice);
+    var stupac = tbl.getElementsByTagName('col')[brojStupca];
+    if (stupac) {
+      stupac.style.visibility=pokazi?"":"collapse";
+    }
+ }
+
 $(document).ready(() => {
     $('#icoPrilagodljivost').click(() => postaviCSS());
 

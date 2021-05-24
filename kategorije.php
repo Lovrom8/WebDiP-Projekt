@@ -12,7 +12,7 @@ if(!Sesija::provjeriSesiju() || Sesija::tipKorisnika() != Korisnici::Administrat
     die();
 }
 
-Dnevnik::dodajZapis(Akcije::Posjeta, "kategorije.php", Sesija::dohvatiSesiju());
+Dnevnik::dodajZapis(Akcije::Posjeta, "kategorije.php", Sesija::provjeriSesiju());
 
 $smarty->display('kategorije.tpl');
 

@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
             if (Problem::uredi($id, $opis, $datum, $vrijeme, $idDionica, $aktivan))
             {
-                Dnevnik::dodajZapis(Akcije::AzuriranjeProblema, $opis, Sesija::dohvatiSesiju());
+                Dnevnik::dodajZapis(Akcije::AzuriranjeProblema, $opis, Sesija::provjeriSesiju());
                 $poruke .= 'Uspješno uređivanje problema.';
 
                 header("refresh:5;index.php");
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
             if (Problem::dodaj($opis, $datum, $vrijeme, $idDionica, $aktivan))
             {
-                Dnevnik::dodajZapis(Akcije::DodavanjeProblema, $opis, Sesija::dohvatiSesiju());
+                Dnevnik::dodajZapis(Akcije::DodavanjeProblema, $opis, Sesija::provjeriSesiju());
                 $poruke .= 'Uspješno dodavanje novog problema.';
 
                 header("refresh:5;index.php");

@@ -15,7 +15,7 @@ $datum = dohvatiTrenutoVrijeme();
 
 if(isset($_GET['idDionice'])) {
     $idDionica = $_GET['idDionice'];
-    Obilazak::evidentiraj(Sesija::dohvatiSesiju(), $idDionica, $datum);
+    Obilazak::evidentiraj(Sesija::provjeriSesiju(), $idDionica, $datum);
 }
 
 

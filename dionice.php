@@ -7,7 +7,7 @@ include_once 'base/sesija.php';
 require_once 'base/smarty.base.php';
 include_once 'base/dionica.php';
 
-Sesija::dohvatiSesiju();
+Sesija::provjeriSesiju();
 $poruke = '';
 
 $smarty->assign('poruke', $poruke);

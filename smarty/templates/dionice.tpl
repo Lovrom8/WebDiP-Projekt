@@ -30,7 +30,7 @@
 {block name=javascript}
         <script src="../../js/tablica.js"></script>
         <script id="ajaxDionice" 
-                {if {$smarty.session.tip} == 1}
+                {if isset($smarty.session.tip) && ($smarty.session.tip >= 2)}
                     sve="1"
                 {else}
                     sve="0"

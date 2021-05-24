@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
             if (Dionica::uredi($id, $oznaka, $polaziste, $odrediste, $idKategorija, $brojKm, $otvorena))
             {
-                Dnevnik::dodajZapis(Akcije::AzuriranjeDionice, $oznaka, Sesija::dohvatiSesiju());
+                Dnevnik::dodajZapis(Akcije::AzuriranjeDionice, $oznaka, Sesija::provjeriSesiju());
                 $poruke .= 'Uspješno ažuriranje dionice.';
 
                 header("refresh:5;index.php");
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
             if (Dionica::dodaj($oznaka, $polaziste, $odrediste, $idKategorija, $brojKm, $otvorena))
             {
-                Dnevnik::dodajZapis(Akcije::DodavanjeDionice, $oznaka, Sesija::dohvatiSesiju());
+                Dnevnik::dodajZapis(Akcije::DodavanjeDionice, $oznaka, Sesija::provjeriSesiju());
                 $poruke .= 'Uspješno dodavanje nove dionice.';
 
                 header("refresh:5;index.php");

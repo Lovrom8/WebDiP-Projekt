@@ -11,27 +11,42 @@ $(document).ready(() => {
         $('#po_stranici').val(dokPoStranici);
 
         const naslovi = ["Naslov", "Status", "Poveznica"];
-        const stupci = {
+        var stupci = {
             "Naslov": 0,
             "Status": 0,
             "Poveznica": '<a href={Poveznica}>{Poveznica}</a>',
-            "Potvrdi": '<a href=dokumenti.php?idDokumenta={ID_dokumenta}&status=1>Potvrdi</a>',
-            "Odbij": '<a href=dokumenti.php?idDokumenta={ID_dokumenta}&status=0>Odbij</a>'
         };
+
+        const sve = $("#ajaxDokumenti").attr('sve');
+
+        if(sve === "1") {
+            stupci["Potvrdi"]  = '<a href=dokumenti.php?idDokumenta={ID_dokumenta}&status=1>Potvrdi</a>';
+            stupci["Odbij"] = '<a href=dokumenti.php?idDokumenta={ID_dokumenta}&status=0>Odbij</a>';
+        }
+
         const formatiranje = {
             "Status": {
                 1: 'zeleniRed',
                 2: 'crveniRed'
             }
         };
+        const vidljivostCelija = {
+            "Potvrdi": {
+                1 : "Status",
+                2 : "Status"
+            },
+            "Odbij": {
+                1 : "Status",
+                2 : "Status"
+            },
+        };
         const filteri = {
             'VrstaDokumenta': '',
             'Status': ''
         };
-        const tablica = new Tablica('dokumenti', 'dokumenti', stupci, naslovi, filteri, dokPoStranici, formatiranje);
+        const tablica = new Tablica('dokumenti', 'dokumenti', stupci, naslovi, filteri, dokPoStranici, formatiranje, vidljivostCelija);
 
         $('#vrsta_dokumenta').on('change', () => {
-            //tablica.postaviPodatke(data.filter(podatak => podatak.ID_vrste === $('#vrsta_dokumenta').val() || $('#vrsta_dokumenta').val() == '0'));
             tablica.postaviFilter('VrstaDokumenta', $('#vrsta_dokumenta').val());
         });
 
