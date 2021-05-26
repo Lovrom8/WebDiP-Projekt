@@ -1,61 +1,119 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="Lovro Posarić">
-        <link rel="stylesheet" href="./css/lposaric.css">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-        <title>Promet</title>
-    </head>
-    <body>
-     <header class="header">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Lovro Posarić">
+    <link rel="stylesheet" href="./css/lposaric.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+    <title>Promet</title>
+</head>
+
+<body>
+    <header>
+        <div class="inner">
             <h1><a href="index.php">Promet</a></h1>
             <nav>
-            <a href="index.php">Početna</a>
-            <a href="autor.html">O autoru</a>
+                <div id="navWrapper" class="navWrapper">
+                    <a href="index.php">Početna</a>
+                    <a href="autor.html">O autoru</a>
+                </div>
             </nav>
-      </header>
-      <main id="sadrzaj">
+            <div id="hamburger" class="hamburger">
+                <div class="hambugerLine"></div>
+                <div class="hambugerLine"></div>
+                <div class="hambugerLine"></div>
+            </div>
+        </div>
+    </header>
+    <main id="sadrzaj">
         <div id="opisZadatka">
             <h2>Opis zadatka</h2>
-            Projektni zadatak vezan je uz sustav za upravljanje popisom cestovnih dionica. 
+            Projektni zadatak vezan je uz sustav za upravljanje popisom cestovnih dionica.
+            U sustavu postoje četiri vrste korisnika - neregistrirani, registrirani (prometnik), moderator te
+            administrator.
         </div>
         <div id="opisRjesenja">
             <h2>Opis rješenja</h2>
-            U sustavu postoje četiri vrste korisnika - neregistrirani, registrirani (prometnik), moderator te administrator. 
+            Sustav je realiziran uz pomoć HTML-a, CSS-a, JS/jQuery-a, PHP-a te MySQL-om kao bazom podatka.
         </div>
         <div id="bitneOdrednice">
             <h2>ERA model</h2>
+            <figure id="eraModel">
+                <img src="./multimedija/era.png" alt="ERA model">
+            </figure>
         </div>
         <div id="popisSkripata">
             <h2>Popis skripata raspoređeno po mapama</h2>
             <ul>
-                <li>Privatno</li>
-                <li>Tea</li>
-                <li>Milk</li>
-            </ul>              
+                <li>
+                    <h3>korijenski direktorij</h3>
+                    Sadrži sve skripte vezane uz prikaz stranica na temelju Smarty predložaka, prihvaćanje i validaciju
+                    korisničkih inputa, te slanje podataka prema odgovarajućim klasa.
+                </li>
+                <li>
+                    <h3>base</h3>
+                    Sadrži sve klase kojima vadimo/filtriramo/sortiramo podatke iz baze podataka, uključno sa klasom za
+                    upravljanje bazom podatka (baza.php), upravljanje sesijom (sesija.php), upravljanje Smarty sustavom
+                    (smarty.base.php), te skriptom s pomoćnim funkcijama (util.php).
+                </li>
+                <li>
+                    <h3>css</h3>
+                    Sadrži sav dizajn, uključujući datoteke sa stilovima prilagođenim za print, te stilovima sa
+                    prilagodbama za disleksiju.
+                </li>
+                <li>
+                    <h3>js</h3>
+                    U korijenskom js direktoriju nalaze se JS klase koje koristim u više datoteka, te ostale općenite
+                    funkcionalnosti (uvjeti korištenja, pomoć, ...).
+                    U direktoriju js/ajax nalaze se sve funkcionalnosti koje se temelje na AJAX-u (paginacija,
+                    dohvaćanje podataka, ...)
+                    U direktoriju js/valid nalaze se JS datoteke vezane uz validaciju korisničkih inputa.
+                </li>
+                <li>
+                    <h3>smarty</h3>
+                    Sustav sam realizirao uz pomoć Smarty predložaka, pa se u direktoriju smarty/templates nalaze svi
+                    predlošci za svaku stranicu te općeniti predložak (base.tpl).
+                </li>
+                <li>
+                    <h3>privatno</h3>
+                    Sadrži skripte vezane uz htaccess i ispis korisnika sustava.
+                </li>
+            </ul>
         </div>
         <div id="popisKoristenihTehnologija">
+            <h2>Popis korištenih tehnologija i alata</h2>
+            Za izradu ovog projekta koristio sam Visual Studio Code, XAMP za lokalni PHP i MySQL server, te MySQL
+            Workbench za ERA modeliranje i upravljanje bazom podataka.
 
         </div>
         <div id="popisVanjskihBiblioteka">
+            <h2>Popis vanjskih biblioteka</h2>
+            <ul>
+                <li>moment.js i dataTables.dateTime - za dodavanje datum/vrijeme widgeta kod dnevnika korištenja</li>
+                <li>jsPDF i jsPDF-AutoTable za pretvaranje HTML tablica u PDF dokument</li>
 
+            </ul>
         </div>
-      </main>
-      <footer>
-            <p><a href="autor.html">Autor: Lovro Posarić &copy; 2021</a></p>
-            <figure>
-                <a target="_blank" href="http://validator.w3.org/check?uri=http://barka.foi.hr/WebDiP/2020/projekti/lposaric/dokumentacija.html">
-                    <img class="footer__img" alt="HTML Valid" src="multimedija/HTML5.png">
-                </a>
-                <a target="_blank" href="https://jigsaw.w3.org/css-validator/validator?uri=http://barka.foi.hr/WebDiP/2020/projekti/lposaric/dokumentacija.html">
-                    <img class="footer__img" alt="CSS Valid" src="multimedija/CSS3.png">
-                </a>
-            </figure>
-        </footer>
-    </body>
+    </main>
+    <footer>
+        <p><a href="autor.html">Autor: Lovro Posarić &copy; 2021</a></p>
+        <figure>
+            <a target="_blank"
+                href="http://validator.w3.org/check?uri=http://barka.foi.hr/WebDiP/2020/projekti/lposaric/dokumentacija.html">
+                <img class="footer__img" alt="HTML Valid" src="multimedija/HTML5.png">
+            </a>
+            <a target="_blank"
+                href="https://jigsaw.w3.org/css-validator/validator?uri=http://barka.foi.hr/WebDiP/2020/projekti/lposaric/dokumentacija.html">
+                <img class="footer__img" alt="CSS Valid" src="multimedija/CSS3.png">
+            </a>
+        </figure>
+    </footer>
+    <script src="./js/general.js"></script>
+</body>
+
 </html>

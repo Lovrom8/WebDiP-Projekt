@@ -1,36 +1,140 @@
 * {
     font-family: 'Raleway', sans-serif;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     width: 80%;
-    background-color: #ded8d7;   
+    height: 100%;
+    background-color: #ded8d7;
     margin: auto;
     margin-bottom: 150px;
     clear: both;
 }
 
+main {
+    margin-top: 100px;
+    flex: 1 0 auto;
+}
 
 /* HEADER */
 
+.hamburger {
+    width: 25px;
+}
+
+.navWrapper {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background-color: #d0d0d0;
+    visibility: hidden;
+}
+
+.hambugerLine {
+    width: 100%;
+    height: 2px;
+    border-radius: 100px;
+    background-color: #646160;
+    margin-bottom: 6px;
+}
+
+.hambugerLine:last-child {
+    margin-bottom: 0;
+} 
+
 nav {
-    display: inline-block;
+    display: block;
 }
 
 nav a {
-    color:rgb(63, 18, 18);
-    font-size: 18px;
-    text-decoration:none;
+    color: rgb(63, 18, 18);
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+    margin: 5px 0px;
+    text-decoration: none;
 }
 
-.header {
+nav a:last-child {
+    margin-right: 0;
+}
+
+nav a:hover {
+    color:rgb(63, 18, 18);
+    font-weight: bold;
+    font-size: 18px;
+}
+
+header {
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color:rgb(146, 139, 139)
+}
+
+.inner {
+    height: 100%;
+    padding: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    white-space: nowrap;
 }
+
+@media screen and (min-width: 768px) {
+    .inner {
+        padding: 15px 25px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .navWrapper {
+        background-color: transparent;
+        top: 0;
+        position: static;
+        visibility: visible;
+    }
+
+    .inner {
+        padding: 15px 0;
+        max-width: 993px;
+        margin: 0 auto;
+    }
+
+    nav {
+        display: block;
+    }
+
+    nav a {
+        display: inline-block;    
+        line-height: 50px;
+
+        font-size: 16px;
+        margin: 15px 0;
+        margin-right: 8px;
+    }
+
+    .hamburger {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1300px) {
+    nav a {
+        font-size: 18px;
+    }
+
+    .inner {
+        max-width: 1280px;
+    }
+}
+
 
 .header__icon {
     max-width: 64px;
@@ -38,7 +142,7 @@ nav a {
 
 h1 a {
     text-decoration: none;
-    color: inherit; 
+    color: inherit;
 }
 
 /* TABLICA */
@@ -53,14 +157,16 @@ table {
     border-collapse: collapse;
     width: 100%;
     margin: 20px 0;
-    overflow:hidden;
+    overflow: hidden;
     border-collapse: collapse;
     border-radius: 10px;
-    border-style: hidden; /* hide standard table (collapsed) border */
+    border-style: hidden;
+    /* hide standard table (collapsed) border */
     box-shadow: 0px 0px 18px 10px rgba(0, 0, 0, 0.10);
 }
 
-td, th {
+td,
+th {
     /* border: 1px solid rgb(139, 135, 135); */
     padding: 10px;
 }
@@ -96,13 +202,13 @@ tr:last-of-type {
 @media only screen and (max-width: 760px) {
     table {
         border: 0;
-      }
-    
-      table caption {
+    }
+
+    table caption {
         font-size: 1.5em;
-      }
-      
-      table thead {
+    }
+
+    table thead {
         border: none;
         clip: rect(0 0 0 0);
         height: 1px;
@@ -110,20 +216,20 @@ tr:last-of-type {
         padding: 0;
         position: absolute;
         width: 1px;
-      }
-      
-      table tr {
+    }
+
+    table tr {
         border-bottom: 3px solid #ddd;
         display: block;
         margin-bottom: .625em;
-      }
-      
-      table td {
+    }
+
+    table td {
         border-bottom: 1px solid #ddd;
         display: block;
         font-size: .8em;
         text-align: right;
-      }
+    }
 }
 
 .crveniRed {
@@ -136,7 +242,7 @@ tr:last-of-type {
 
 .pomoc {
     width: 100%;
-    background-color:rgb(200, 100, 187);
+    background-color: rgb(200, 100, 187);
     height: 100px;
     margin: 10px;
     padding: 10px;
@@ -149,10 +255,10 @@ tr:last-of-type {
 /* OBRASCI */
 
 form {
-    width:650px;
-    margin:30px auto;
+    width: 650px;
+    margin: 30px auto;
     border-radius: 10px;
-    background:rgb(197, 187, 187);
+    background: rgb(197, 187, 187);
 }
 
 .form_naslov {
@@ -162,22 +268,23 @@ form {
 
 .form_naslov h2 {
     font-size: 24px;
-    text-align:center;
-    color:#666;
-    padding:12px 0;
-    border-bottom:1px solid #cccccc;
+    text-align: center;
+    color: #666;
+    padding: 12px 0;
+    border-bottom: 1px solid #cccccc;
 }
 
 .form_tijelo {
-    padding:10px 40px;
-    color:#666;     
+    padding: 10px 40px;
+    color: #666;
 }
 
-.form_tijelo input, select {
+input,
+select {
     font-size: 16px;
     min-width: 125px;
     height: 40px;
-    padding: 10px 0;
+    padding: 10px 10px;
     color: #222222;
     border: 1px solid #d6d6d6;
     border-radius: 6px;
@@ -185,17 +292,17 @@ form {
     margin: 10px 0;
 }
 
-.form_tijelo > input{
+.form_tijelo>input {
     width: 100%;
 }
 
 .form_greske {
-    color:rgb(65, 10, 10);
+    color: rgb(65, 10, 10);
     font-size: 16px;
     margin: auto;
-    text-align: justify; 
+    text-align: justify;
     font-weight: bold;
-    line-height: 24px;   
+    line-height: 24px;
     padding: 10px 40px;
 }
 
@@ -209,25 +316,27 @@ form {
     font-weight: bold;
 }
 
-form > input[type=text], input[type=email] {
+form>input[type=text],
+input[type=email] {
     width: 30%;
     margin: 8px 0;
     border-radius: 4px;
 }
 
-form > input[type=passsword] {
+form>input[type=passsword] {
     width: 20%;
     margin: 8px 0;
 }
 
-form > input[type=submit] {
+form>input[type=submit] {
     width: 20%;
     margin: 15px 0;
 }
 
 /* GUMBI */
 
-button, input[type=submit] {
+button,
+input[type=submit] {
     border-radius: 4px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     height: 40px;
@@ -236,7 +345,8 @@ button, input[type=submit] {
     border: none;
 }
 
-button:not([disabled]):hover, input[type=submit]:hover {
+button:not([disabled]):hover,
+input[type=submit]:hover {
     background-color: #ac9898;
     box-shadow: 0px 15px 20px rgba(150, 121, 89, 0.137);
     color: #fff;
@@ -266,7 +376,7 @@ footer {
 }
 
 footer a {
-    color:rgb(63, 18, 18);
+    color: rgb(63, 18, 18);
 }
 
 .footer__img {
@@ -274,38 +384,4 @@ footer a {
     width: 30%;
     max-height: 32px;
     max-width: 32px;
-}
-
-/* RESP */
-
-@media (min-width: 1920px) {
-    * {
-        font-family: 'Pangolin', sans-serif;
-    }
-
-    body {
-        background-color: #646160;
-        color: rgb(211, 204, 204);
-    }
-
-    footer {
-        background-color: #943232;
-    }
-
-    caption {
-        font-size: 25px;
-    }
-
-    th {
-        background-color: #b84242;
-        font-size: 20px;
-    }
-
-    tr:nth-child(even) {
-        background-color: #be4444;
-    }
-
-    input, textarea, select {
-        background-color: #e2dcda;
-    }
 }

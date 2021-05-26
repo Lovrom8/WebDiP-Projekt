@@ -52,8 +52,14 @@ function sakrijStupac(idTablice, brojStupca, pokazi) {
     }
  }
 
+function postaviHamburger() {
+    const tren = $('#navWrapper').css('visibility');
+    $('#navWrapper').css('visibility', tren === 'hidden' ? 'visible' : 'hidden');
+}
+
 $(document).ready(() => {
     $('#icoPrilagodljivost').click(() => postaviCSS());
-
+    $('#hamburger').click(() => postaviHamburger());
+    $('nav a').click(() => postaviHamburger());
     provjeriPostavke();
 });

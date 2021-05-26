@@ -13,13 +13,21 @@
 		<title>O autoru</title>
     </head>
     <body>
-        <header class="header">
-            <h1><a href="#sadrzaj">O autoru</a></h1>
-			<nav>
-				<a href="index.php">Početna stranica</a>
-				<a href="prijava.php">Prijava</a>
-				<a href="registracija.php">Registracija</a>
-			</nav>
+        <header>
+            <div class="inner">
+                <h1><a href="index.php">Promet</a></h1>
+                <nav>
+                    <div id="navWrapper" class="navWrapper">
+                        <a href="index.php">Početna</a>
+                        <a href="dokumentacija.html">Dokumentacija</a>
+                    </div>
+                </nav>
+                <div id="hamburger" class="hamburger">
+                    <div class="hambugerLine"></div>
+                    <div class="hambugerLine"></div>
+                    <div class="hambugerLine"></div>
+                </div>
+            </div>
         </header>
         <main>
 			<section id="sadrzaj">
@@ -45,5 +53,6 @@
                 </a>
             </figure>
         </footer>
+        <script src="./js/general.js"></script>
     </body>
 </html>

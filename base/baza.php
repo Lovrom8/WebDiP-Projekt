@@ -32,15 +32,15 @@ class Baza {
         
         if($rezultat = $veza->query($upit))
         {
-            self::ugasiVezu();
-            return $rezultat;
         }
         else
         {
             echo "Pogreška kod upita: ".$veza->error;
-            self::ugasiVezu();
-            return $rezultat;
         }
+
+        self::ugasiVezu();
+        return $rezultat;
+
     }
 
     function provedi($upit) 
@@ -61,4 +61,3 @@ class Baza {
         }
     }
 }
-?>
