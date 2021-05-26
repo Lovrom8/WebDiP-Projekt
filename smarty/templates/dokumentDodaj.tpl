@@ -23,7 +23,7 @@
             </select><br>
             <label for="poveznica">Poveznica:</label>
             <input type="url" id="poveznica" name="poveznica"><br>
-            <input type="submit" value="Prijavi se" name="Dodaj dokument" />
+            <input type="submit" value="Dodaj dokument" name="dodajDokument" />
         </div>
     </form>
 {/block}

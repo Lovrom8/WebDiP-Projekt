@@ -62,27 +62,6 @@ $(document).ready(() => {
     $.ajax({
         type: "POST",
         data: {
-            statistika_koristenja: "1"
-        },
-        url: "base/dohvati.php",
-        dataType: "json",
-        success: (data) => {
-            $('#od, #do').on('change', () => {
-                tablica.postaviPodatke(data.filter(podatak => zadovoljavaFitler(podatak)));
-            });
-
-            $('#korisnik').on('keyup', () => {
-                tablica.postaviPodatke(data.filter(podatak => zadovoljavaFitler(podatak)));
-            });
-        },
-        error: (er) => {
-            console.log(er);
-        }
-    });
-
-    $.ajax({
-        type: "POST",
-        data: {
             statistika_koristenja_grupirano: "1"
         },
         url: "base/dohvati.php",

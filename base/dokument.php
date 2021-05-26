@@ -8,12 +8,19 @@ abstract class StatusDokumeta {
 }
 
 class Dokument {
-    static function dodajNovi($naslov, $status, $idVrste, $idDionice, $poveznica)
+    static function dodajNovi($naslov, $opis, $idVrste, $idDionice, $poveznica)
     {
         $baza = new Baza();
-        $upit = "INSERT INTO (Naslov, Status, ID_vrste, ID_dionica, Poveznica) VALUES ('$naslov', '$status', '$idVrste', '$idDionice', '$poveznica')";
-        
-        return $baza->provedi($upit);
+        $veza = $baza->dohvatiVezu();
+
+        $upit = $veza->prepare("INSERT INTO Dokument (Naslov, Opis, ID_vrste, ID_dionica, Poveznica) VALUES (?, ?, ?, ?, ?)");
+        $upit->bind_param("ssiis", $naslov, $opis, $idVrste, $idDionice, $status);
+        $upit->execute();
+                
+        $uspjesno = $upit->affected_rows == 1;
+
+        $upit->close();
+        return $uspjesno;
     }
 
     static function promjeniStatus($idDokument, $status)
@@ -40,12 +47,15 @@ class Dokument {
     static function dohvatiDokumente($samoPotvrdene, $sortStupac, $paginacija, $trenutnaStranica, $filteri)
     {
         $baza = new Baza();
+        $veza = $baza->dohvatiVezu();
         $dokumenti = array();
-        $upit = "SELECT * FROM Dokument";
+        $upitSql = "SELECT * FROM Dokument";
         $upitBroj = "SELECT COUNT(*) FROM Dokument";
-
+        $upitArgs = "";
+        $args = array();
+        
         if($samoPotvrdene) {
-            $upit .= " WHERE Status=1";
+            $upitSql .= " WHERE Status=1";
             $upitBroj .= " WHERE Status=1";
         }
 
@@ -55,27 +65,34 @@ class Dokument {
 
             if($vrstaDokumenta > 0) {
                 if($samoPotvrdene)
-                    $upitFilteri .= " AND ID_vrste = '$vrstaDokumenta'";
+                    $upitFilteri .= " AND ID_vrste = ?";
                 else
-                    $upitFilteri .= " WHERE ID_vrste = '$vrstaDokumenta'";
+                    $upitFilteri .= " WHERE ID_vrste = ?";
             }
+
+            $args[] = $vrstaDokumenta;
+            $upitArgs .= "i";
         }
 
-        $upit .= $upitFilteri;
+        $upitSql .= $upitFilteri;
 
         $ukupnoStranica = 1;
         if($sortStupac)
-            $upit .= ' ORDER BY '.$sortStupac;
+            $upitSql .= ' ORDER BY '.$sortStupac;
 
         if($paginacija){
             $brRedova = $baza->dohvati($upitBroj)->fetch_row();
             $ukupnoStranica = ceil($brRedova[0]/$paginacija);
             $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
     
-            $upit .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
+            $upitSql .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
         }
         
-        $rezultat = $baza->dohvati($upit);
+        $upit = $veza->prepare($upitSql);
+        if(count($args)) $upit->bind_param($upitArgs, ...$args);
+        $upit->execute();
+
+        $rezultat = $upit->get_result();
         while($red=$rezultat->fetch_assoc())
             $dokumenti[] = $red;
         

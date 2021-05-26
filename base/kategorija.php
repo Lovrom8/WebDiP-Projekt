@@ -6,13 +6,20 @@ class Kategorija
     static function dohvatiSve($sortStupac = '', $paginacija = '', $trenutnaStranica = '', $filteri='')
     {
         $baza = new Baza();
+        $veza = $baza->dohvatiVezu();
+
         $kategorije = array();
         $upit = "SELECT * FROM Kategorija";
+        $upitArgs = "";
+        $args = array();
 
         $upitFilteri = "";
         if(!empty($filteri['Kategorija'])){
-            $kategorija = $filteri['Kategorija'];
-            $upitFilteri .= " WHERE Naziv_kategorije LIKE '%$kategorija%' ";
+            $kategorija = "%".$filteri['Kategorija']."%";
+            $upitFilteri .= " WHERE Naziv_kategorije LIKE ? ";
+
+            $args[] = $kategorija;
+            $upitArgs = "s";
         }
 
         $upit .= $upitFilteri;
@@ -23,14 +30,22 @@ class Kategorija
         $ukupnoStranica = 1;
         if ($paginacija)
         {
-            $brRedova = $baza->dohvati("SELECT COUNT(*) FROM Kategorija")->fetch_row();
+            $upitBroj = $veza->prepare("SELECT COUNT(*) FROM Kategorija".$upitFilteri);
+            if($args) $upitBroj->bind_param($upitArgs, ...$args);
+            $upitBroj->execute();
+            
+            $brRedova = $upitBroj->get_result()->fetch_row();
             $ukupnoStranica = ceil($brRedova[0] / $paginacija);
             $trenutnaPozicija = (($trenutnaStranica - 1) * $paginacija);
 
             $upit .= ' LIMIT ' . $trenutnaPozicija . ', ' . $paginacija;
         }
 
-        $rezultat = $baza->dohvati($upit);
+        $upit = $veza->prepare($upit);
+        if(count($args)) $upit->bind_param($upitArgs, ...$args);
+        $upit->execute();
+
+        $rezultat = $upit->get_result();
         while ($red = $rezultat->fetch_assoc())
             $kategorije[] = $red;
 
@@ -67,16 +82,24 @@ class Kategorija
                         JOIN Korisnik M ON M.ID_korisnik = MK.ID_moderator
                         JOIN Kategorija Kat ON Kat.ID_kategorija = MK.ID_kategorija
                         WHERE MK.ID_kategorija = ?";
+        $args = array($idKat);
+        $upitArgs = "i";
 
         $upitFilteri = "";
         if(!empty($filteri['Ime'])){
-            $ime = $filteri['Ime'];
-            $upitFilteri .= " AND M.Ime LIKE '%$ime%' ";
+            $ime = "%".$filteri['Ime']."%";
+            $upitFilteri .= " AND M.Ime LIKE ? ";
+
+            $args[] = $ime;
+            $upitArgs .= "s";
         }
 
         if(!empty($filteri['Prezime'])){
-            $prezime = $filteri['Prezime'];
-            $upitFilteri .= " AND M.Prezime LIKE '%$prezime%' ";
+            $prezime = "%".$filteri['Prezime']."%";
+            $upitFilteri .= " AND M.Prezime LIKE ? ";
+
+            $args[] = $prezime;
+            $upitArgs .= "s";
         }
 
         $upit .= $upitFilteri;
@@ -87,8 +110,8 @@ class Kategorija
 
         if ($paginacija)
         {
-            $upitBroj = $veza->prepare("SELECT COUNT(*) FROM KategorijaModerator WHERE ID_kategorija = ?");
-            $upitBroj->bind_param("i", $idKat);
+            $upitBroj = $veza->prepare("SELECT COUNT(*) FROM KategorijaModerator WHERE ID_kategorija = ?".$upitFilteri);
+            $upitBroj->bind_param($upitArgs, ...$args);
             $upitBroj->execute();
         
             $brRedova = $upitBroj->get_result()->fetch_row();
@@ -101,7 +124,7 @@ class Kategorija
         }
 
         $upit = $veza->prepare($upit);
-        $upit->bind_param("i", $idKat);
+        if(count($args)) $upit->bind_param($upitArgs, ...$args);
         $upit->execute();
 
         $kategorije = array();

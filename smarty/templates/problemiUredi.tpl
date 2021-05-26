@@ -22,10 +22,10 @@
             <label for="vrijeme">Vrijeme:</label>
             <input type="time" id="vrijeme" name="vrijeme" value="{$vrijeme}"><br>
 
-            <label for="aktivan">Aktivan:</label>
+            <label for="aktivan">Aktivna:</label>
             <input type="checkbox" id="aktivan" name="aktivan" {if $aktivan} checked {/if}><br>
 
-            <input type="submit" value="Dodaj dionicu" name="Submit" />
+            <input type="submit" value="Dodaj prijavu" name="Submit" />
         </div>
     </form>
 {/block}

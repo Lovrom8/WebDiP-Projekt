@@ -21,12 +21,19 @@
         <canvas id="grafStatistike"></canvas>
     </div>
 </table>
+<div class="pomoc" id="pomoc">
+    <div id="pomocSadrzaj">Ovo je sadrzaj pomoći...</div>
+    <button id="prethodnaStranicaPomoc">Prethodna stranica</button>
+    <button id="sljedecaStranicaPomoc">Sljedeća stranica</button>
+    <button id="ugasiPomoc">Ugasi pomoć</button>
+</div>
 {/block}
 
 {block name=javascript}
         <script src="../../js/uvjeti.js"></script>
         <script src="../../js/tablica.js"></script>
         <script src="../../js/grafovi.js"></script>
+        <script src="../../js/pomoc.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
         <script src="https://unpkg.com/jspdf-autotable@3.5.14/dist/jspdf.plugin.autotable.js"></script>
         <script src="../../js/ajax/statistika_problema.js"></script>

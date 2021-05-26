@@ -4,8 +4,6 @@ require_once 'baza.php';
 class Obilazak {
     static function evidentiraj($idKorisnika, $idDionice, $datum)
     {
-        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-        
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();
 
@@ -26,16 +24,24 @@ class Obilazak {
         $veza = $baza->dohvatiVezu();
 
         $upit = "SELECT Oznaka, Datum, Broj_kilometara FROM Obilazak O JOIN Dionica D ON D.ID_dionica = O.ID_dionica WHERE O.ID_korisnik = ?";
-        
+        $args = array($idKorisnika);
+        $upitArgs = "i";
+
         $upitFilteri = "";
         if(!empty($filteri['Oznaka'])){
-            $oznaka = $filteri['Oznaka'];
-            $upitFilteri .= " AND Oznaka LIKE '%$oznaka%' ";
+            $oznaka = "%".$filteri['Oznaka']."%";
+            $upitFilteri .= " AND Oznaka LIKE ? ";
+
+            $args[] = $oznaka;
+            $upitArgs .= "s";
         }
 
         if(!empty($filteri['BrojKilometara'])){
             $brojKilometara = $filteri['BrojKilometara'];
-            $upitFilteri .= " AND Broj_kilometara > $brojKilometara";
+            $upitFilteri .= " AND Broj_kilometara > ?";
+
+            $args[] = $brojKilometara;
+            $upitArgs .= "i";
         }
 
         $upit .= $upitFilteri;
@@ -45,7 +51,11 @@ class Obilazak {
             $upit .= ' ORDER BY '.$sortStupac;
 
         if($paginacija){
-            $brRedova = $baza->dohvati("SELECT COUNT(*) FROM Obilazak")->fetch_row();
+            $upitBroj = $veza->prepare("SELECT COUNT(ID_obilazak) FROM Obilazak O JOIN Dionica D ON D.ID_dionica = O.ID_dionica WHERE O.ID_korisnik = ?".$upitFilteri);
+            if($args) $upitBroj->bind_param($upitArgs, ...$args);
+            $upitBroj->execute();
+
+            $brRedova = $upitBroj->get_result()->fetch_row();
             $ukupnoStranica = ceil($brRedova[0]/$paginacija);
             $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
  
@@ -53,15 +63,14 @@ class Obilazak {
         }
 
         $upit = $veza->prepare($upit);
-        $upit->bind_param("i", $idKorisnika); 
+        $upit->bind_param($upitArgs, ...$args); 
         $upit->execute();
         
         $rezultat = $upit->get_result();
 
         $obilasci = array();
-        while($red=$rezultat->fetch_assoc()){
+        while($red=$rezultat->fetch_assoc())
             $obilasci[] = $red;
-        }
 
         $upit->close();
 

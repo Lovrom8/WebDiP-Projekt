@@ -61,7 +61,6 @@ var TortaGraf = function (postavke) {
             this.ctx.font = '20px serif';
             this.ctx.fillText(index, 25, 465 + 20 * tren);
             tren++;
-
         });
     };
 }

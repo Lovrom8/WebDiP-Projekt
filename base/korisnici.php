@@ -169,7 +169,7 @@ class Korisnik
         $sol = nasumicniString(20);
         $lozinkaSha = hashirajLozinku($lozinka, $sol);
 
-        $vrijemeReg = date('Y-m-d H:i:s');
+        $vrijemeReg = dohvatiTrenutoVrijeme();
 
         $upit = $veza->prepare("INSERT INTO Korisnik (Ime, Prezime, Lozinka, Lozinka_SHA256, Korisnicko_ime, Email, Status, ID_uloga, Token, Vrijeme_registracije, Sol) VALUES (?, ?, ?, ?, ?, ?, '0', '2', ?, ?, ?)");
         $upit->bind_param("sssssssss", $ime, $prezime, $lozinka, $lozinkaSha, $korisnickoIme, $email, $token, $vrijemeReg, $sol);
@@ -185,6 +185,13 @@ class Korisnik
 
         return $uspjesno;
     }
+
+    static function odblokirajKorisnika($idKor) {
+        $baza = new Baza();
+        $upit = "UPDATE Korisnik SET Status = 1 WHERE ID_korisnik = '$idKor'";
+        
+        $baza->provedi($upit);
+     }  
 
     static function provjeriEmail($email)
     {

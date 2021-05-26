@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-05-23 00:21:29
+/* Smarty version 3.1.39, created on 2021-05-25 23:23:36
   from 'C:\Users\38598\Documents\FOI\WebDIP\WebDiP\ProjektActual\WebDiP-Projekt\smarty\templates\problemi.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_60a983e91cf465_93470304',
+  'unifunc' => 'content_60ad6ad85c6ae8_63215867',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8e464681bc52eef09372d29d304144bc68f73e53' => 
     array (
       0 => 'C:\\Users\\38598\\Documents\\FOI\\WebDIP\\WebDiP\\ProjektActual\\WebDiP-Projekt\\smarty\\templates\\problemi.tpl',
-      1 => 1621722087,
+      1 => 1621977814,
       2 => 'file',
     ),
   ),
@@ -20,30 +20,30 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_60a983e91cf465_93470304 (Smarty_Internal_Template $_smarty_tpl) {
+function content_60ad6ad85c6ae8_63215867 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_34136037960a983e91c0515_37486695', 'naslov');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_10753377460ad6ad85bc4f6_72304250', 'naslov');
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_115437782160a983e91c37a6_70535923', 'sadrzaj');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_182235954960ad6ad85be312_66617309', 'sadrzaj');
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_46853353260a983e91cd6a2_36056767', 'javascript');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_189478972160ad6ad85c6053_76685010', 'javascript');
 $_smarty_tpl->inheritance->endChild($_smarty_tpl, "base.tpl");
 }
 /* {block 'naslov'} */
-class Block_34136037960a983e91c0515_37486695 extends Smarty_Internal_Block
+class Block_10753377460ad6ad85bc4f6_72304250 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'naslov' => 
   array (
-    0 => 'Block_34136037960a983e91c0515_37486695',
+    0 => 'Block_10753377460ad6ad85bc4f6_72304250',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -53,12 +53,12 @@ Problemi<?php
 }
 /* {/block 'naslov'} */
 /* {block 'sadrzaj'} */
-class Block_115437782160a983e91c37a6_70535923 extends Smarty_Internal_Block
+class Block_182235954960ad6ad85be312_66617309 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'sadrzaj' => 
   array (
-    0 => 'Block_115437782160a983e91c37a6_70535923',
+    0 => 'Block_182235954960ad6ad85be312_66617309',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -86,17 +86,24 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
             </tr>
         </thead>
     </table>
+
+    <a href="problemiUredi.php">
+        <button>
+            Novi problem
+        </button>
+    </a>
+</a>
 <?php
 }
 }
 /* {/block 'sadrzaj'} */
 /* {block 'javascript'} */
-class Block_46853353260a983e91cd6a2_36056767 extends Smarty_Internal_Block
+class Block_189478972160ad6ad85c6053_76685010 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'javascript' => 
   array (
-    0 => 'Block_46853353260a983e91cd6a2_36056767',
+    0 => 'Block_189478972160ad6ad85c6053_76685010',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {

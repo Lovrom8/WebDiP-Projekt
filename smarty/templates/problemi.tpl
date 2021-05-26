@@ -21,6 +21,13 @@
             </tr>
         </thead>
     </table>
+
+    <a href="problemiUredi.php">
+        <button>
+            Novi problem
+        </button>
+    </a>
+</a>
 {/block}
 {block name=javascript}
     <script src="../../js/tablica.js"></script>

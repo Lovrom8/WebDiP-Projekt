@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-05-20 19:50:25
+/* Smarty version 3.1.39, created on 2021-05-26 11:09:01
   from 'C:\Users\38598\Documents\FOI\WebDIP\WebDiP\ProjektActual\WebDiP-Projekt\smarty\templates\dionicaUredi.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_60a6a161b34e02_98462485',
+  'unifunc' => 'content_60ae102d6efc68_37796730',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd895eb4f7a86a3d1a12046b28cad2fb465c04e5a' => 
     array (
       0 => 'C:\\Users\\38598\\Documents\\FOI\\WebDIP\\WebDiP\\ProjektActual\\WebDiP-Projekt\\smarty\\templates\\dionicaUredi.tpl',
-      1 => 1621532142,
+      1 => 1621977511,
       2 => 'file',
     ),
   ),
@@ -20,35 +20,35 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_60a6a161b34e02_98462485 (Smarty_Internal_Template $_smarty_tpl) {
+function content_60ae102d6efc68_37796730 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_103683742460a6a161b2a3e1_12106037', 'naslov');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_201992050760ae102d5ad1b6_69413685', 'naslov');
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_168408593260a6a161b2af86_76610590', 'css');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_32980618460ae102d5ae967_71236482', 'css');
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_143535591560a6a161b2b7c6_45767081', 'sadrzaj');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_145073056860ae102d5af239_01132535', 'sadrzaj');
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_83285886960a6a161b346f1_72304289', 'javascript');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_115922653660ae102d6ef387_28199608', 'javascript');
 $_smarty_tpl->inheritance->endChild($_smarty_tpl, "base.tpl");
 }
 /* {block 'naslov'} */
-class Block_103683742460a6a161b2a3e1_12106037 extends Smarty_Internal_Block
+class Block_201992050760ae102d5ad1b6_69413685 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'naslov' => 
   array (
-    0 => 'Block_103683742460a6a161b2a3e1_12106037',
+    0 => 'Block_201992050760ae102d5ad1b6_69413685',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -58,12 +58,12 @@ Nova dionica<?php
 }
 /* {/block 'naslov'} */
 /* {block 'css'} */
-class Block_168408593260a6a161b2af86_76610590 extends Smarty_Internal_Block
+class Block_32980618460ae102d5ae967_71236482 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'css' => 
   array (
-    0 => 'Block_168408593260a6a161b2af86_76610590',
+    0 => 'Block_32980618460ae102d5ae967_71236482',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -75,12 +75,12 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 }
 /* {/block 'css'} */
 /* {block 'sadrzaj'} */
-class Block_143535591560a6a161b2b7c6_45767081 extends Smarty_Internal_Block
+class Block_145073056860ae102d5af239_01132535 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'sadrzaj' => 
   array (
-    0 => 'Block_143535591560a6a161b2b7c6_45767081',
+    0 => 'Block_145073056860ae102d5af239_01132535',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -122,12 +122,12 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 }
 /* {/block 'sadrzaj'} */
 /* {block 'javascript'} */
-class Block_83285886960a6a161b346f1_72304289 extends Smarty_Internal_Block
+class Block_115922653660ae102d6ef387_28199608 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'javascript' => 
   array (
-    0 => 'Block_83285886960a6a161b346f1_72304289',
+    0 => 'Block_115922653660ae102d6ef387_28199608',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -138,6 +138,9 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 >
         <?php echo '<script'; ?>
  src="../../js/ajax/gradovi.js"><?php echo '</script'; ?>
+>
+        <?php echo '<script'; ?>
+ src="../../js/ajax/popis_kategorija.js"><?php echo '</script'; ?>
 >
 <?php
 }

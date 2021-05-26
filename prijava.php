@@ -12,7 +12,8 @@ $korisnickoIme = "";
 $lozinka = "";
 $greske = "";
 
-if(Sesija::provjeriSesiju()){
+if (Sesija::provjeriSesiju())
+{
     header("Location: index.php");
     die();
 }
@@ -23,46 +24,44 @@ if(Sesija::provjeriSesiju()){
     exit();
 }*/
 
-if($_SERVER["REQUEST_METHOD"] == "POST") 
+if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
-    if(empty($_POST["korIme"])) 
+    if (empty($_POST["korIme"]))
         $greske .= "Niste unijeli korisnicko ime.</br>";
     else
         $korisnickoIme = ocistiString($_POST["korIme"]);
 
-    if(empty($_POST["lozinka"])) 
+    if (empty($_POST["lozinka"]))
         $greske .= "Niste unijeli lozinku.</br>";
     else
         $lozinka = ocistiString($_POST["lozinka"]);
 
-    if(empty($_POST["zapamti"])) 
+    if (empty($_POST["zapamti"]))
     {
         $zapamti = "";
-        setcookie("korisnik", $korisnickoIme, time()-3600, "/");
+        setcookie("korisnik", $korisnickoIme, time() - 3600, "/");
     }
     else
         $zapamti = $_POST["zapamti"];
 
-    if($greske == "")
+    if (empty($greske))
     {
         $greske = Korisnik::Prijavi($korisnickoIme, $lozinka, $zapamti);
-        
-        if($greske == "") {
+
+        if (empty($greske))
+        {
             Dnevnik::dodajZapis(Akcije::Prijava, "", Sesija::provjeriSesiju());
             header("Location: index.php");
             die();
         }
-        else
-            echo $greske;
     }
 }
 else
 {
-    if(isset($_COOKIE["korisnik"]))
+    if (isset($_COOKIE["korisnik"]))
         $korisnickoIme = $_COOKIE["korisnik"];
 }
 
 $smarty->assign('greske', $greske);
 $smarty->assign('korIme', $korisnickoIme);
 $smarty->display('prijava.tpl');
-?>

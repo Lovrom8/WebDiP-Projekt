@@ -34,4 +34,5 @@
 {block name=javascript}
         <script src="../../js/ajax/kategorije.js"></script>
         <script src="../../js/ajax/gradovi.js"></script>
+        <script src="../../js/ajax/popis_kategorija.js"></script>
 {/block}

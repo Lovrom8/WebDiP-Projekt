@@ -19,6 +19,12 @@ $vrijeme = '';
 $aktivan = '';
 $dionice = array();
 
+if (!Sesija::provjeriSesiju() || Sesija::tipKorisnika() < Korisnici::Prometnik)
+{
+    header("Location: index.php");
+    die();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
     if (empty($_POST["opis"]))
@@ -54,8 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 Dnevnik::dodajZapis(Akcije::AzuriranjeProblema, $opis, Sesija::provjeriSesiju());
                 $poruke .= 'Uspješno uređivanje problema.';
 
-                header("refresh:5;index.php");
-                die();
+                header("refresh:3;problemi.php");
             }
         }
         else
@@ -65,8 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 Dnevnik::dodajZapis(Akcije::DodavanjeProblema, $opis, Sesija::provjeriSesiju());
                 $poruke .= 'Uspješno dodavanje novog problema.';
 
-                header("refresh:5;index.php");
-                die();
+                header("refresh:3;problemi.php");
             }
         }
     }

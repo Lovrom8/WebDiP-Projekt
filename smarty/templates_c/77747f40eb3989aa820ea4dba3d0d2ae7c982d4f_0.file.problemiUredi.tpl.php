@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-05-20 19:42:29
+/* Smarty version 3.1.39, created on 2021-05-25 23:32:59
   from 'C:\Users\38598\Documents\FOI\WebDIP\WebDiP\ProjektActual\WebDiP-Projekt\smarty\templates\problemiUredi.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_60a69f858449e6_97141784',
+  'unifunc' => 'content_60ad6d0bdf2c95_30655421',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '77747f40eb3989aa820ea4dba3d0d2ae7c982d4f' => 
     array (
       0 => 'C:\\Users\\38598\\Documents\\FOI\\WebDIP\\WebDiP\\ProjektActual\\WebDiP-Projekt\\smarty\\templates\\problemiUredi.tpl',
-      1 => 1621532476,
+      1 => 1621977860,
       2 => 'file',
     ),
   ),
@@ -20,27 +20,27 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_60a69f858449e6_97141784 (Smarty_Internal_Template $_smarty_tpl) {
+function content_60ad6d0bdf2c95_30655421 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_83619395960a69f85835990_46936672', 'sadrzaj');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_92029876160ad6d0bdd1d95_24767815', 'sadrzaj');
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_62867444460a69f858442d0_37229863', 'javascript');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_25807132160ad6d0bdf2263_60774333', 'javascript');
 $_smarty_tpl->inheritance->endChild($_smarty_tpl, "base.tpl");
 }
 /* {block 'sadrzaj'} */
-class Block_83619395960a69f85835990_46936672 extends Smarty_Internal_Block
+class Block_92029876160ad6d0bdd1d95_24767815 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'sadrzaj' => 
   array (
-    0 => 'Block_83619395960a69f85835990_46936672',
+    0 => 'Block_92029876160ad6d0bdd1d95_24767815',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -75,10 +75,10 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\38598\\Documents\
             <input type="time" id="vrijeme" name="vrijeme" value="<?php echo $_smarty_tpl->tpl_vars['vrijeme']->value;?>
 "><br>
 
-            <label for="aktivan">Aktivan:</label>
+            <label for="aktivan">Aktivna:</label>
             <input type="checkbox" id="aktivan" name="aktivan" <?php if ($_smarty_tpl->tpl_vars['aktivan']->value) {?> checked <?php }?>><br>
 
-            <input type="submit" value="Dodaj dionicu" name="Submit" />
+            <input type="submit" value="Dodaj prijavu" name="Submit" />
         </div>
     </form>
 <?php
@@ -86,12 +86,12 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\Users\\38598\\Documents\
 }
 /* {/block 'sadrzaj'} */
 /* {block 'javascript'} */
-class Block_62867444460a69f858442d0_37229863 extends Smarty_Internal_Block
+class Block_25807132160ad6d0bdf2263_60774333 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'javascript' => 
   array (
-    0 => 'Block_62867444460a69f858442d0_37229863',
+    0 => 'Block_25807132160ad6d0bdf2263_60774333',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {

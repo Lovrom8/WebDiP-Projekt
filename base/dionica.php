@@ -58,52 +58,68 @@ class Dionica {
         $upit = "SELECT ID_dionica, Oznaka FROM Dionica";
 
         $rezultat = $baza->dohvati($upit);
-        while($red=$rezultat->fetch_array()){
+        while($red=$rezultat->fetch_array())
             $dionice[$red['ID_dionica']] = $red['Oznaka'];
-        }
+        
         return $dionice;
     }
 
     static function dohvatiSve($sortStupac='', $paginacija='', $trenutnaStranica='', $filteri='') {
         $baza = new Baza();
+        $veza = $baza->dohvatiVezu();
         $dionice = array();
-        $upit = "";
+        $args = array();
 
-        $upit = "SELECT D.*, O.Naziv AS Odredište, P.Naziv AS Polazište, K.Naziv_kategorije FROM Dionica D
+        $upitSql = "SELECT D.*, O.Naziv AS Odredište, P.Naziv AS Polazište, K.Naziv_kategorije FROM Dionica D
                  JOIN Grad O ON O.ID_grada = D.ID_grada_odredište
                  JOIN Grad P ON P.ID_grada = D.ID_grada_polazište
                  JOIN Kategorija K ON K.ID_kategorija = D.ID_kategorija";
 
         $upitFilteri = "";
+        $upitArgs = "";
         if(!empty($filteri['Polazište'])){
-            $polaziste = $filteri['Polazište'];
-            $upitFilteri .= " WHERE P.Naziv LIKE '%$polaziste%' ";
+            $polaziste = "%".$filteri['Polazište']."%";
+            $upitFilteri .= " WHERE P.Naziv LIKE ?";
+            
+            $args[] = $polaziste;
+            $upitArgs .= "s";
         }
 
         if(!empty($filteri['Odredište'])){
-            $odrediste = $filteri['Odredište'];
+            $odrediste = "%".$filteri['Odredište']."%";
 
             if(!empty($filteri['Polazište']))
-                $upitFilteri .= " AND O.Naziv LIKE '%$odrediste%'";
+                $upitFilteri .= " AND O.Naziv LIKE ?";
             else
-                $upitFilteri .= " WHERE O.Naziv LIKE '%$odrediste%'";
+                $upitFilteri .= " WHERE O.Naziv LIKE ?";
+
+            $args[] = $odrediste;
+            $upitArgs .= "s";
         }
 
-        $upit .= $upitFilteri;
+        $upitSql .= $upitFilteri;
 
         $ukupnoStranica = 1;
         if($sortStupac)
-            $upit .= ' ORDER BY '.$sortStupac;
+            $upitSql .= ' ORDER BY '.$sortStupac;
 
         if($paginacija){
-            $brRedova = $baza->dohvati("SELECT COUNT(*) FROM Dionica")->fetch_row();
+            $upitBroj = $veza->prepare("SELECT COUNT(D.ID_dionica) FROM Dionica D JOIN Grad O ON O.ID_grada = D.ID_grada_odredište JOIN Grad P ON P.ID_grada = D.ID_grada_polazište".$upitFilteri);
+            if($args) $upitBroj->bind_param($upitArgs, ...$args);
+            $upitBroj->execute();
+
+            $brRedova = $upitBroj->get_result()->fetch_row();
             $ukupnoStranica = ceil($brRedova[0]/$paginacija);
             $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
     
-            $upit .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
+            $upitSql .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
         }
+    
+        $upit = $veza->prepare($upitSql);
+        if(count($args)) $upit->bind_param($upitArgs, ...$args);
+        $upit->execute();
 
-        $rezultat = $baza->dohvati($upit);
+        $rezultat = $upit->get_result();
         while($red=$rezultat->fetch_assoc())
             $dionice[] = $red;
 

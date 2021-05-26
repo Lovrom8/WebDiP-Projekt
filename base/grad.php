@@ -4,9 +4,17 @@ require_once 'baza.php';
 class Grad {
     static function dodaj($naziv) {
         $baza = new Baza();
-        $upit = "INSERT INTO Grad (Naziv) VALUES ('$naziv')";
+        $veza = $baza->dohvatiVezu();
 
-        return $baza->provedi($upit);
+        $upit = $veza->prepare("INSERT INTO Grad (Naziv) VALUES (?)");
+        $upit->bind_param("s", $naziv);
+        $upit->execute();
+
+        $uspjesno = $upit->affected_rows == 1;
+
+        $upit->close();
+
+        return $uspjesno;
     }
 
     static function dohvatiSve() {
@@ -15,9 +23,9 @@ class Grad {
         $upit = "SELECT * FROM Grad";
         $rezultat = $baza->dohvati($upit);
 
-        while($red=$rezultat->fetch_assoc()){
+        while($red=$rezultat->fetch_assoc())
             $gradovi[] = $red;
-        }
+        
         return $gradovi;
     }
 

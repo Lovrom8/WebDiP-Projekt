@@ -62,8 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 Dnevnik::dodajZapis(Akcije::AzuriranjeDionice, $oznaka, Sesija::provjeriSesiju());
                 $poruke .= 'Uspješno ažuriranje dionice.';
 
-                header("refresh:5;index.php");
-                die();
+                header("refresh:3;dionice.php");
             }
         }
         else
@@ -73,8 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 Dnevnik::dodajZapis(Akcije::DodavanjeDionice, $oznaka, Sesija::provjeriSesiju());
                 $poruke .= 'Uspješno dodavanje nove dionice.';
 
-                header("refresh:5;index.php");
-                die();
+                header("refresh:5;dionice.php");
             }
         }
     }

@@ -26,42 +26,59 @@ class Dnevnik {
 
     static function dohvatiStatistikuKoristenja($sortStupac, $paginacija, $trenutnaStranica, $filteri) {
         $baza = new Baza();
+        $veza = $baza->dohvatiVezu();
         $zapisi = array();
-        $upit = "SELECT Opis, Datum_vrijeme, Korisnicko_ime FROM Dnevnik D
+        $upitSql = "SELECT Opis, Datum_vrijeme, Korisnicko_ime FROM Dnevnik D
                  JOIN Korisnik K ON K.ID_korisnik = D.ID_korisnik
                  WHERE ID_tip_akcije = ".Akcije::Posjeta;
+        $args = array();
+        $upitArgs = "";
 
         $upitFilteri = "";
         if(!empty($filteri['Korisnik'])){
-            $korisnik = $filteri['Korisnik'];
-            $upitFilteri .= " AND Korisnicko_ime LIKE '%$korisnik%' ";
+            $korisnik = "%".$filteri['Korisnik']."%";
+            $upitFilteri .= " AND Korisnicko_ime LIKE ?";
+            
+            $args[] = $korisnik;
+            $upitArgs .= "s";
         }
 
         if(!empty($filteri['Od'])) {
             $od = $filteri['Od'];
-            $upitFilteri .= " AND Datum_vrijeme >= '$od'";
+            $upitFilteri .= " AND Datum_vrijeme >= ?";
+
+            $args[] = $od;
+            $upitArgs .= "s";
         }
 
         if(!empty($filteri['Do'])) {
             $do = $filteri['Do'];
-            $upitFilteri .= " AND Datum_vrijeme <= '$do'";
+            $upitFilteri .= " AND Datum_vrijeme <= ?";
+
+            $args[] = $do;
+            $upitArgs .= "s";
         }
 
-        $upit .= $upitFilteri;
+        $upitSql .= $upitFilteri;
 
         $ukupnoStranica = 1;
         if($sortStupac)
-            $upit .= ' ORDER BY '.$sortStupac;
+            $upitSql .= ' ORDER BY '.$sortStupac;
 
         if($paginacija){
             $brRedova = $baza->dohvati("SELECT COUNT(*) FROM Dnevnik WHERE ID_tip_akcije = ".Akcije::Posjeta)->fetch_row();
             $ukupnoStranica = ceil($brRedova[0]/$paginacija);
             $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
 
-            $upit .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
+            $upitSql .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
         }
 
-        $rezultat = $baza->dohvati($upit);
+        $upit = $veza->prepare($upitSql);
+        if(count($args)) $upit->bind_param($upitArgs, ...$args);
+        $upit->execute();
+
+        $rezultat = $upit->get_result();
+
         while($red=$rezultat->fetch_assoc())
             $zapisi[] = $red;
         
