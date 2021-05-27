@@ -14,16 +14,15 @@
                 <th>Početna dionica</th>
                 <th>Završna dionica</th>
                 <th>Kategorija</th>
-                <th id="dok">Dokument</th>
-                <th id="obil">Obilazak</th>
+                <th>Uredi</th>
             </tr>
         </thead>
     </table>
 
     {if isset($smarty.session.tip) and ( $smarty.session.tip > 2)}
-        <a href="dioniceMod.php">
+        <a href="dionicaUredi.php">
             <button>
-                Uredi dionice
+                Nova dionica
             </button>
         </a>
     {/if}
@@ -31,6 +30,5 @@
 
 {block name=javascript}
     <script src="../../js/tablica.js"></script>
-    <script id="ajaxDionice" {if isset($smarty.session.tip) && ($smarty.session.tip >= 2)} sve="1" {else} sve="0" {/if}
-            src="../../js/ajax/dionice.js"></script>
+    <script src="../../js/ajax/dioniceMod.js"></script>
     {/block}

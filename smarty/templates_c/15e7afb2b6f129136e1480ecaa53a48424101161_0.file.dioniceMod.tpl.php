@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-05-27 20:25:56
-  from 'C:\Users\38598\Documents\FOI\WebDIP\WebDiP\ProjektActual\WebDiP-Projekt\smarty\templates\dionice.tpl' */
+/* Smarty version 3.1.39, created on 2021-05-27 20:30:14
+  from 'C:\Users\38598\Documents\FOI\WebDIP\WebDiP\ProjektActual\WebDiP-Projekt\smarty\templates\dioniceMod.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_60afe434cc9fe3_24028675',
+  'unifunc' => 'content_60afe536bf4816_69556850',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'f270745a9bb00c2793395d6d81b06768331aa9be' => 
+    '15e7afb2b6f129136e1480ecaa53a48424101161' => 
     array (
-      0 => 'C:\\Users\\38598\\Documents\\FOI\\WebDIP\\WebDiP\\ProjektActual\\WebDiP-Projekt\\smarty\\templates\\dionice.tpl',
-      1 => 1622139952,
+      0 => 'C:\\Users\\38598\\Documents\\FOI\\WebDIP\\WebDiP\\ProjektActual\\WebDiP-Projekt\\smarty\\templates\\dioniceMod.tpl',
+      1 => 1622140145,
       2 => 'file',
     ),
   ),
@@ -20,27 +20,27 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_60afe434cc9fe3_24028675 (Smarty_Internal_Template $_smarty_tpl) {
+function content_60afe536bf4816_69556850 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_91612569960afe434ca6868_25443539', 'sadrzaj');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_70162383960afe536bf0397_52823378', 'sadrzaj');
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_33245612960afe434cc75e5_05699610', 'javascript');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_15449511760afe536bf4337_27483663', 'javascript');
 $_smarty_tpl->inheritance->endChild($_smarty_tpl, "base.tpl");
 }
 /* {block 'sadrzaj'} */
-class Block_91612569960afe434ca6868_25443539 extends Smarty_Internal_Block
+class Block_70162383960afe536bf0397_52823378 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'sadrzaj' => 
   array (
-    0 => 'Block_91612569960afe434ca6868_25443539',
+    0 => 'Block_70162383960afe536bf0397_52823378',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -60,16 +60,15 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
                 <th>Početna dionica</th>
                 <th>Završna dionica</th>
                 <th>Kategorija</th>
-                <th id="dok">Dokument</th>
-                <th id="obil">Obilazak</th>
+                <th>Uredi</th>
             </tr>
         </thead>
     </table>
 
     <?php if ((isset($_SESSION['tip'])) && ($_SESSION['tip'] > 2)) {?>
-        <a href="dioniceMod.php">
+        <a href="dionicaUredi.php">
             <button>
-                Uredi dionice
+                Nova dionica
             </button>
         </a>
     <?php }
@@ -77,12 +76,12 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 }
 /* {/block 'sadrzaj'} */
 /* {block 'javascript'} */
-class Block_33245612960afe434cc75e5_05699610 extends Smarty_Internal_Block
+class Block_15449511760afe536bf4337_27483663 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'javascript' => 
   array (
-    0 => 'Block_33245612960afe434cc75e5_05699610',
+    0 => 'Block_15449511760afe536bf4337_27483663',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -92,8 +91,7 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
  src="../../js/tablica.js"><?php echo '</script'; ?>
 >
     <?php echo '<script'; ?>
- id="ajaxDionice" <?php if ((isset($_SESSION['tip'])) && ($_SESSION['tip'] >= 2)) {?> sve="1" <?php } else { ?> sve="0" <?php }?>
-            src="../../js/ajax/dionice.js"><?php echo '</script'; ?>
+ src="../../js/ajax/dioniceMod.js"><?php echo '</script'; ?>
 >
     <?php
 }

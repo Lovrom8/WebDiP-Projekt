@@ -131,6 +131,86 @@ class Dionica {
         return $ret;
     }
 
+    static function dohvatiSveMod($sortStupac='', $paginacija='', $trenutnaStranica='', $filteri='') {
+        $baza = new Baza();
+        $veza = $baza->dohvatiVezu();
+        $dionice = array();
+        $args = array();
+
+        $upitSql = "SELECT D.*, O.Naziv AS Odredište, P.Naziv AS Polazište, K.Naziv_kategorije FROM Dionica D
+                 JOIN Grad O ON O.ID_grada = D.ID_grada_odredište
+                 JOIN Grad P ON P.ID_grada = D.ID_grada_polazište
+                 JOIN Kategorija K ON K.ID_kategorija = D.ID_kategorija";
+    
+        $upitFilteri = "";
+        $upitArgs = "";
+
+        $idMod = -1;
+        if(Sesija::tipKorisnika() == Korisnici::Moderator) {
+            $idMod = Sesija::provjeriSesiju();
+
+            $upitArgs .= "i";
+            $upitFilteri .= " JOIN KategorijaModerator KM ON KM.ID_kategorija = K.ID_kategorija WHERE KM.ID_moderator = ?";
+            $args[] = $idMod;
+        }
+        
+        if(!empty($filteri['Polazište'])){
+            $polaziste = "%".$filteri['Polazište']."%";
+
+            if($idMod == -1)
+                $upitFilteri .= " WHERE P.Naziv LIKE ?";
+            else
+                $upitFilteri .= " AND P.Naziv LIKE ?";
+
+            $args[] = $polaziste;
+            $upitArgs .= "s";
+        }
+
+        if(!empty($filteri['Odredište'])){
+            $odrediste = "%".$filteri['Odredište']."%";
+
+            if(!empty($filteri['Polazište']) || $idMod != -1)
+                $upitFilteri .= " AND O.Naziv LIKE ?";
+            else
+                $upitFilteri .= " WHERE O.Naziv LIKE ?";
+
+            $args[] = $odrediste;
+            $upitArgs .= "s";
+        }
+
+        $upitSql .= $upitFilteri;
+        $ukupnoStranica = 1;
+        if($sortStupac)
+            $upitSql .= ' ORDER BY '.$sortStupac;
+
+        if($paginacija){
+            $upitBroj = $veza->prepare("SELECT COUNT(D.ID_dionica) FROM Dionica D JOIN Grad O ON O.ID_grada = D.ID_grada_odredište JOIN Grad P ON P.ID_grada = D.ID_grada_polazište JOIN Kategorija K ON K.ID_kategorija = D.ID_kategorija".$upitFilteri);
+            if($args) $upitBroj->bind_param($upitArgs, ...$args);
+            $upitBroj->execute();
+
+            $brRedova = $upitBroj->get_result()->fetch_row();
+            $ukupnoStranica = ceil($brRedova[0]/$paginacija);
+            $trenutnaPozicija = (($trenutnaStranica-1) * $paginacija);
+    
+            $upitSql .= ' LIMIT '.$trenutnaPozicija.', '.$paginacija;
+        }
+    
+        $upit = $veza->prepare($upitSql);
+        if(count($args)) $upit->bind_param($upitArgs, ...$args);
+        $upit->execute();
+
+        $rezultat = $upit->get_result();
+        while($red=$rezultat->fetch_assoc())
+            $dionice[] = $red;
+
+        $ret = array(
+            'podaci' => $dionice,
+            'brojStranica' => $ukupnoStranica
+        );
+    
+        return $ret;
+    }
+
     static function dohvatiZaId($idDionica) {
         $baza = new Baza();
         $veza = $baza->dohvatiVezu();

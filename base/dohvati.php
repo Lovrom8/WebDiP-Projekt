@@ -44,6 +44,8 @@ if (isset($_POST['podaci'])) {
         echo json_encode(Dnevnik::dohvatiStatistikuKoristenja($sortStupac, $paginacija, $trenutnaStranica, $filteri));
     elseif ($naziv === 'dionice')
         echo json_encode(Dionica::dohvatiSve($sortStupac, $paginacija, $trenutnaStranica, $filteri)); 
+    elseif ($naziv === 'dioniceMod')
+        echo json_encode(Dionica::dohvatiSveMod($sortStupac, $paginacija, $trenutnaStranica, $filteri)); 
     elseif ($naziv === 'moderatori_kategorije')
         echo json_encode(Kategorija::dohvatiSModeratorima($_POST['id'], $sortStupac, $paginacija, $trenutnaStranica, $filteri)); 
     elseif ($naziv === 'korisnici') {
