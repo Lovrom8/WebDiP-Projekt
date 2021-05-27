@@ -7,7 +7,7 @@
                 {if isset($smarty.get.id)}Uredi kategoriju{else}Nova kategorija{/if}
             </h2>
         </div>
-        <div class="form_greske">{$greske}</div>
+        <div class="form_greske">{$poruke}{$greske}</div>
         <div class="form_tijelo">
             <input type="text" id="id" name="id" value="{$idKat}" hidden><br>
             <label for="kategorija">Naziv kategorije:</label>

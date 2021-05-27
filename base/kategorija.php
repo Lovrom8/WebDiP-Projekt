@@ -9,12 +9,21 @@ class Kategorija
         $veza = $baza->dohvatiVezu();
 
         $kategorije = array();
-        $upit = "SELECT * FROM Kategorija";
+        $upit = "SELECT * FROM Kategorija K";
         $upitArgs = "";
         $args = array();
 
+        $idMod = -1;
         $upitFilteri = "";
-        if(!empty($filteri['Kategorija'])){
+
+        if(Sesija::tipKorisnika() == Korisnici::Moderator) {
+            $idMod = Sesija::provjeriSesiju();
+
+            $upitArgs .= "i";
+            $upitFilteri .= " JOIN KategorijaModerator KM ON KM.ID_kategorija = K.ID_kategorija WHERE KM.ID_moderator = ?";
+            $args[] = $idMod;
+        }
+        elseif(!empty($filteri['Kategorija'])){
             $kategorija = "%".$filteri['Kategorija']."%";
             $upitFilteri .= " WHERE Naziv_kategorije LIKE ? ";
 

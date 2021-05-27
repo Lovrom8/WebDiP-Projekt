@@ -36,5 +36,5 @@ $smarty->assign('greske', $greske);
 $smarty->assign('uspjeh', $uspjeh);
 $smarty->display('prazno.tpl');
 
-header('Refresh:3; Url=moderatoriKategorije.php?id='.$mod);
+header('Refresh:3; Url=moderatoriKategorije.php?id='.$kategorija);
 ?>
