@@ -48,7 +48,7 @@ function prikaziGraf(podaci) {
     });
 
     graf.nacrtaj();
-    graf.nacrtajLegendu();
+    graf.nacrtajLegendu(brojPosjeta);
 }
 
 $(document).ready(() => {
@@ -91,7 +91,6 @@ $(document).ready(() => {
     });
 
     $('#od').change(() => {
-        console.log($('#od').val());
         tablica.postaviFilter('Od', $('#od').val());
     });
 

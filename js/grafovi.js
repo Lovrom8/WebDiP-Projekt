@@ -38,15 +38,8 @@ var TortaGraf = function (postavke) {
         $.each(this.podaci, (index, vrijednost) => {
             var kutIsjecka = 2 * Math.PI * vrijednost / ukupno;
 
-            nacrtajPolukrug(
-                this.ctx,
-                this.centarX,
-                this.centarY,
-                Math.min(this.centarX, this.centarY),
-                pocetniKut,
-                pocetniKut + kutIsjecka,
-                this.boje[tren]
-            );
+            nacrtajPolukrug(this.ctx, this.centarX, this.centarY, Math.min(this.centarX, this.centarY)/2,
+                            pocetniKut, pocetniKut + kutIsjecka, this.boje[tren]);
 
             pocetniKut += kutIsjecka;
             tren++;
@@ -57,9 +50,9 @@ var TortaGraf = function (postavke) {
         let tren = 0;
         $.each(podaci, (index, vrijednost) => {
             this.ctx.fillStyle = this.boje[tren];
-            this.ctx.fillRect(0, 450 + 20 * tren, 20, 20);
-            this.ctx.font = '20px serif';
-            this.ctx.fillText(index, 25, 465 + 20 * tren);
+            this.ctx.fillRect(0, 20 + 20 * tren, 20, 20);
+            this.ctx.font = '15px serif';
+            this.ctx.fillText(index, 25, 35 + 20 * tren);
             tren++;
         });
     };
