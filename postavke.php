@@ -19,6 +19,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $settings->{'datumUvjeta'} = ocistiString($_POST["datumUvjeta"]);
     $settings->{'maxNeuspjesnihPrijava'} = ocistiString($_POST["maxNeuspjesnihPrijava"]);
     $settings->{'maxVelicinaDokumenta'} = ocistiString($_POST["maxVelicinaDokumenta"]);
+    $settings->{'istekSesije'} = ocistiString($_POST["istekSesije"]);
 
     file_put_contents('base/postavke.json', json_encode($settings) );
 } else {
@@ -31,6 +32,7 @@ $smarty->assign('pomakVremena', $settings->{'pomakVremena'});
 $smarty->assign('datumUvjeta', $settings->{'datumUvjeta'});
 $smarty->assign('maxNeuspjesnihPrijava', $settings->{'maxNeuspjesnihPrijava'});
 $smarty->assign('maxVelicinaDokumenta', $settings->{'maxVelicinaDokumenta'});
+$smarty->assign('istekSesije', $settings->{'istekSesije'});
 
 $smarty->display('postavke.tpl');
 ?>

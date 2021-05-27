@@ -1,5 +1,7 @@
 <?php
 
+require_once 'util.php';
+
 class Sesija {
     const ID = "ID";
     const SESSION_NAME = "prijava_sesija";
@@ -8,6 +10,7 @@ class Sesija {
     const IME = "ime";
     const PREZIME = "prezime";
     const E_MAIL = "email";
+    const POSLJEDNJA_AKTIVNOST = "posljednja_aktivnost";
 
     static function kreirajSesiju($id, $kor_ime, $ime, $prezime, $mail, $tip)
     {
@@ -23,6 +26,7 @@ class Sesija {
         $_SESSION[self::IME] = $ime;
         $_SESSION[self::PREZIME] = $prezime;
         $_SESSION[self::TIP] = $tip;
+        $_SESSION[self::POSLJEDNJA_AKTIVNOST] = dohvatiTrenutoVrijeme();
     }
 
     static function provjeriSesiju()
@@ -32,7 +36,13 @@ class Sesija {
             session_name(self::SESSION_NAME);
             session_start();
         }
+
+        if(isset($_SESSION[self::POSLJEDNJA_AKTIVNOST]) && (strtotime(dohvatiTrenutoVrijeme()) - strtotime($_SESSION[self::POSLJEDNJA_AKTIVNOST])) > 60*dohvatiIstekSesije()) {
+            self::zavrsiSesiju();
+            return null;
+        }
         
+        $_SESSION[self::POSLJEDNJA_AKTIVNOST] = dohvatiTrenutoVrijeme();
         if (isset($_SESSION[self::ID]))
             return $_SESSION[self::ID];
         else

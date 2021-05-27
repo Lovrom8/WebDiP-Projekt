@@ -13,10 +13,11 @@
             <label for="pomakVremena">Pomak vremena (u satima):</label><br>
             <input type="number" id="pomakVremena" name="pomakVremena" value="{$pomakVremena}"> <br>
             <label for="maxNeuspjesnihPrijava">Broj neuspješnih prijava prije zaključavanja:</label><br>
-            <input type="number" id="maxNeuspjesnihPrijava" name="maxNeuspjesnihPrijava" value="{$maxNeuspjesnihPrijava}">
-            <br>
+            <input type="number" id="maxNeuspjesnihPrijava" name="maxNeuspjesnihPrijava" value="{$maxNeuspjesnihPrijava}"><br>
             <label for="maxVelicinaDokumenta">Maksimalna veličina dokumenta (u MB):</label><br>
             <input type="number" id="maxVelicinaDokumenta" name="maxVelicinaDokumenta" value="{$maxVelicinaDokumenta}"> <br>
+            <label for="istekSesije">Istek sesije nakon neaktivnosti (u min):</label><br>
+            <input type="number" id="istekSesije" name="istekSesije" value="{$istekSesije}"> <br>
 
             <input type="text" id="datumUvjeta" name="datumUvjeta" value="{$datumUvjeta}" hidden> <br>
             <input type="submit" value="Spremi" name="spremi" />

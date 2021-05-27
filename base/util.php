@@ -21,7 +21,7 @@ function dohvatiSPomakom() {
 }
 
 function dohvatiTrenutoVrijeme() {
-  $postavke = json_decode( file_get_contents('base/postavke.json'));
+  $postavke = json_decode( file_get_contents($_SERVER['DOCUMENT_ROOT'].'/base/postavke.json'));
   $pomak = $postavke->{'pomakVremena'};
 
   $trenutnoVrijeme = new DateTime();
@@ -29,6 +29,11 @@ function dohvatiTrenutoVrijeme() {
   $vrijemeSPomakom = $trenutnoVrijeme->format('Y-m-d H:i:s');
 
   return $vrijemeSPomakom;
+}
+
+function dohvatiIstekSesije() {
+  $postavke = json_decode( file_get_contents($_SERVER['DOCUMENT_ROOT'].'/base/postavke.json'));
+  return intval($postavke->{'istekSesije'});
 }
 
 ?>
